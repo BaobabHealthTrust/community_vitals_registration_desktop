@@ -156,9 +156,20 @@ class GenericDispensationsController < ApplicationController
     
     #checks if the prescription is satisfied
     complete = dispensation_complete(@patient, @encounter, PatientService.current_treatment_encounter(@patient, session_date, user_person_id))
+    
+    encounter_ids = @patient.encounters.find_by_date(session_date).map(&:encounter_id)
+    observations = Observation.find(:all, 
+                      :conditions => ["encounter_id IN (?) AND voided = 0", encounter_ids])
+                      
+    @transfer_out_site = nil
+    
+    observations.each do |ob|  
+      @transfer_out_site = ob.to_s if ob.to_s.include?('Transfer out to')
+    end
+
     if complete
       unless params[:location]
-        if (CoreService.get_global_property_value('auto_set_appointment') rescue false)
+        if (CoreService.get_global_property_value('auto_set_appointment') rescue false) && (@transfer_out_site.blank?)
           start_date, end_date = DrugOrder.prescription_dates(@patient,session_date.to_date)
           redirect_to :controller => 'encounters',:action => 'new',
             :patient_id => @patient.id,:id =>"show",:encounter_type => "appointment" ,
@@ -242,7 +253,7 @@ HAVING count(x.drug_inventory_id) = c
 LIMIT 1)
 EOF
 
-			regimen_prescribed = regimen_drug_order.first['concept_id'].to_i rescue ConceptName.find_by_name('UNKNOWN ANTIRETROVIRAL DRUG').concept_id
+			regimen_prescribed = regimen_drug_order.first['concept_id'].to_i rescue ConceptName.find_by_name('Unknown antiretroviral drug').concept_id
 
 
 #			if (Observation.find(:first,:conditions => ["person_id = ? AND encounter_id = ? AND concept_id = ?",
@@ -258,20 +269,20 @@ EOF
 
 			selected_regimen = Regimen.find(regimen_drug_order.first['regimen_id'].to_i) rescue nil
 
-      regimen_category_id = ConceptName.find_by_name('REGIMEN CATEGORY').concept_id
+      regimen_category_id = ConceptName.find_by_name('Regimen Category').concept_id
       if encounter.observations.find_by_concept_id(regimen_category_id).blank?
 				obs = Observation.create(
-					:concept_name => "REGIMEN CATEGORY",
+					:concept_name => "Regimen Category",
 					:person_id => patient.id,
 					:encounter_id => encounter.id,
 					:value_text => selected_regimen.regimen_index,
 					:obs_datetime => encounter.encounter_datetime) if !selected_regimen.blank?
 			end
 			
-      regimens_received_id = ConceptName.find_by_name('ARV REGIMENS RECEIVED ABSTRACTED CONSTRUCT').concept_id
+      regimens_received_id = ConceptName.find_by_name('ARV regimens received abstracted construct').concept_id
       if encounter.observations.find_by_concept_id(regimens_received_id).blank?
 				obs = Observation.new(
-					:concept_name => "ARV REGIMENS RECEIVED ABSTRACTED CONSTRUCT",
+					:concept_name => "ARV regimens received abstracted construct",
 					:person_id => patient.id,
 					:encounter_id => encounter.id,
 					:value_coded => regimen_prescribed,
