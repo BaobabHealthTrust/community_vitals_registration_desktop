@@ -47,20 +47,20 @@ class DrugOrder < ActiveRecord::Base
   # Eventually it would be good for this to not be hard coded, and the data available in the concept table
   def self.doses_per_day(frequency)
 	frequency = frequency.squish
-    return 1 if frequency.upcase == "ONCE A DAY" || frequency.upcase == "OD"
-    return 2 if frequency.upcase == "TWICE A DAY" || frequency.upcase == "BD"
-    return 3 if frequency.upcase == "THREE A DAY" || frequency.upcase == "TDS"
-    return 4 if frequency.upcase == "FOUR TIMES A DAY" || frequency.upcase == "QID"
-    return 5 if frequency.upcase == "FIVE TIMES A DAY" || frequency.upcase == "5X/D" ||  frequency.upcase == "5XD"
-    return 6 if frequency.upcase == "SIX TIMES A DAY" || frequency.upcase == "Q4HRS"
-    return 1 if frequency.upcase == "IN THE MORNING" || frequency.upcase == "QAM"
-    return 1 if frequency.upcase == "ONCE A DAY AT NOON" || frequency.upcase == "QNOON"
-    return 1 if frequency.upcase == "IN THE EVENING" || frequency.upcase == "QPM"
-    return 1 if frequency.upcase == "ONCE A DAY AT NIGHT" || frequency.upcase == "NOCTE"  ||  frequency.upcase == "QHS"
-    return 0.5 if frequency.upcase == "EVERY OTHER DAY" || frequency.upcase == "QOD" 
-    return 1.to_f / 7.to_f if frequency.upcase == "ONCE A WEEK" || frequency.upcase == "QWK"
+    return 1 if frequency.upcase == "ONCE A DAY" || frequency.upcase == "OD" || frequency.upcase == "ONCE A DAY (OD)"
+    return 2 if frequency.upcase == "TWICE A DAY" || frequency.upcase == "BD" || frequency.upcase == "TWICE A DAY (BD)"
+    return 3 if frequency.upcase == "THREE A DAY" || frequency.upcase == "TDS" || frequency.upcase == "THREE A DAY (TDS)"
+    return 4 if frequency.upcase == "FOUR TIMES A DAY" || frequency.upcase == "QID" || frequency.upcase == "FOUR TIMES A DAY (QID)"
+    return 5 if frequency.upcase == "FIVE TIMES A DAY" || frequency.upcase == "5X/D" ||  frequency.upcase == "5XD" || frequency.upcase == "FIVE TIMES A DAY (5X/D)"
+    return 6 if frequency.upcase == "SIX TIMES A DAY" || frequency.upcase == "Q4HRS" || frequency.upcase == "SIX TIMES A DAY (Q4HRS)"
+    return 1 if frequency.upcase == "IN THE MORNING" || frequency.upcase == "QAM" || frequency.upcase == "IN THE MORNING (QAM)"
+    return 1 if frequency.upcase == "ONCE A DAY AT NOON" || frequency.upcase == "QNOON" || frequency.upcase == "ONCE A DAY AT NOON (QNOON)"
+    return 1 if frequency.upcase == "IN THE EVENING" || frequency.upcase == "QPM" || frequency.upcase == "IN THE EVENING (QPM)"
+    return 1 if frequency.upcase == "ONCE A DAY AT NIGHT" || frequency.upcase == "NOCTE"  ||  frequency.upcase == "QHS" || frequency.upcase == "ONCE A DAY AT NIGHT (QHS)"
+    return 0.5 if frequency.upcase == "EVERY OTHER DAY" || frequency.upcase == "QOD" || frequency.upcase == "EVERY OTHER DAY (QOD)" 
+    return 1.to_f / 7.to_f if frequency.upcase == "ONCE A WEEK" || frequency.upcase == "QWK" || frequency.upcase == "ONCE A WEEK (QWK)"
     return 1.to_f / 28.to_f if frequency.upcase == "ONCE A MONTH"
-    return 1.to_f / 14.to_f if frequency.upcase == "TWICE A MONTH"
+    return 1.to_f / 14.to_f if frequency.upcase == "TWICE A MONTH" 
     1
   end
   
@@ -73,7 +73,7 @@ class DrugOrder < ActiveRecord::Base
     duration = (auto_expire_date.to_date - start_date.to_date).to_i rescue nil
     equivalent_daily_dose = nil
     drug_order = nil       
-    if (frequency.upcase == "VARIABLE")
+    if (frequency == "VARIABLE")
       if instructions.blank?
         instructions = "#{drug.name}:"
         instructions += " IN THE MORNING (QAM):#{dose[0]} #{units}" unless dose[0].blank? || dose[0].to_f == 0
@@ -177,6 +177,29 @@ class DrugOrder < ActiveRecord::Base
       end                                                                       
     end                                                                         
     return [start_date,end_date]
+  end
+
+  def self.all_orders_complete(patient, encounter_date)                            
+    type = EncounterType.find_by_name('TREATMENT').id                         
+                                                                              
+    current_treatment_encounters = Encounter.find(:all,                       
+      :conditions =>["patient_id = ? AND encounter_datetime BETWEEN ? AND ?           
+      AND encounter_type = ?",patient.id ,                                    
+      encounter_date.to_date.strftime('%Y-%m-%d 00:00:00'),                   
+      encounter_date.to_date.strftime('%Y-%m-%d 23:59:59'),                   
+      type])                                                                  
+                                                                              
+    complete = true                                                           
+    (current_treatment_encounters || []).each do | encounter |                
+      encounter.drug_orders.each do | drug_order |                            
+        if drug_order.amount_needed > 0                                       
+          complete = false                                                    
+        end                                                                   
+        break if complete == false                                            
+      end                                                                     
+      break if complete == false                                              
+    end                                                                       
+    return complete                                                           
   end
 
 end
