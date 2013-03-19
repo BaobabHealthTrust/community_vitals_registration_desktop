@@ -18,26 +18,12 @@ class GenericUserController < ApplicationController
         session[:location_id] = location.id if location
         Location.current_location = location if location
 
-        show_activites_property = CoreService.get_global_property_value("show_activities_after_login") rescue "false"
-        if show_activites_property == "true"
-          redirect_to(:action => "programs") 
-        else                   
-          redirect_to("/")
-        end
+        redirect_to("/")
       else
         flash[:error] = "Invalid username or password"
       end      
     end
   end          
-
-  def programs
-    if request.post?
-      redirect_to(:action => "activities", 
-        :id => params[:user_id],:selected_program => params[:program]) 
-    else
-      @user_id = (params[:id])
-    end
-  end
 
   # List roles containing the string given in params[:value]
   def role
