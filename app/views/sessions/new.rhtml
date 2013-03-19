@@ -1,12 +1,6 @@
   <%= javascript_include_tag "barcode" %>
   <script>
-    <% 
-      nextpath = CoreService.get_global_property_value('portal_url')
-      if !nextpath.match(/^http\:\/\//i)
-        nextpath = "http://" + nextpath
-      end
-    %>
-    var tt_cancel_destination = "<%= (!nextpath.blank? ? "#{nextpath}/search" : "/logout") %>"
+    var tt_cancel_destination = "/logout"
     //barcodeFocusOnce = true;
     //barcodeScanAction = gotoNextPage;
 
