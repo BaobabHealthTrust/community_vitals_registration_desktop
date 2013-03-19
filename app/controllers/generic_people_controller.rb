@@ -222,47 +222,15 @@ class GenericPeopleController < ApplicationController
   end
    
 	def confirm
-		session_date = session[:datetime].blank? ? Date.today : session[:datetime].to_date
+    session_date = session[:datetime].to_date rescue Date.today
+    @patient_bean = PatientService.get_patient(Person.find(params[:patient_id] || params[:found_person_id]))
+    patient = Patient.find(params[:patient_id] || params[:found_person_id])
+    @task = main_next_task(Location.current_location, patient, session_date)
 
-		if request.post?
-			redirect_to search_complete_url(params[:found_person_id], params[:relation]) and return
-		end
-		@found_person_id = params[:found_person_id] 
-		@relation = params[:relation]
-		@person = Person.find(@found_person_id) rescue nil
-		@current_hiv_program_state = PatientProgram.find(:first, :joins => :location, :conditions => ["program_id = ? AND patient_id = ? AND location.location_id = ?", Program.find_by_concept_id(Concept.find_by_name('HIV PROGRAM').id).id,@person.patient, 				Location.current_health_center]).patient_states.last.program_workflow_state.concept.fullname rescue ''
-		@transferred_out = @current_hiv_program_state.upcase == "PATIENT TRANSFERRED OUT"? true : nil
-		defaulter = Patient.find_by_sql("SELECT current_defaulter(#{@person.patient.patient_id}, '#{session_date}') 
-                                     AS defaulter 
-                                     FROM patient_program LIMIT 1")[0].defaulter rescue 0
-		@defaulted = "#{defaulter}" == "0" ? nil : true
-		@task = main_next_task(Location.current_location, @person.patient, session_date)		
-		@arv_number = PatientService.get_patient_identifier(@person, 'ARV Number')
-		@patient_bean = PatientService.get_patient(@person)  
-		
-		
-		@art_start_date = PatientService.date_antiretrovirals_started(@person.patient) 
-		@duration_in_months = ((Time.now.to_date - @art_start_date.to_date).to_i/28) unless @art_start_date.blank?  
-        patient = @person.patient
-		@identifier_types = ["Legacy Pediatric id","National id","Legacy National id"]
-			identifier_types = PatientIdentifierType.find(:all,                         
-			  :conditions=>["name IN (?)",@identifier_types]                              
-			).collect{| type |type.id }                                                 
-                                                                            
-		@patient_identifiers = PatientIdentifier.find(:all,                                                
-		  :conditions=>["patient_id=? AND identifier_type IN (?)",                  
-			patient.id,identifier_types]).collect{| i | i.identifier }
-			
-        @results = Lab.latest_result_by_test_type(@person.patient, 'HIV_viral_load', @patient_identifiers) rescue nil
-       	@results.to_yaml
-        @latest_date = @results[0].sub("::HIV_RNA_PCR",'').to_date rescue nil
-        @latest_result = @results[1]["TestValue"] rescue nil
-        @modifier = @results[1]["Range"] rescue nil
-        @reason_for_art = PatientService.reason_for_art_eligibility(patient)
+    @encounters = {}
+    @encounter_dates = []
 
-		@outcome = patient.patient_programs.last.patient_states.last.program_workflow_state.concept.fullname rescue nil
-		                                                         
-		render :layout => false
+    render :layout => "menu"  
 	end
 
 	def tranfer_patient_in
