@@ -450,7 +450,7 @@ function generateDashboard(){
     if(__$('patient_id')){
         var patientid = document.createElement("div");
         patientid.id = "id";
-        patientid.innerHTML = "Patient ID"
+        patientid.innerHTML = "Person ID"
 
         nameRow.appendChild(patientid);
 
