@@ -378,7 +378,7 @@ end -%>
             <%=h patient.name -%> (<%= patient.sex %>)
             <% unless patient.birth_date.blank? %> <%=h patient.birth_date -%><% end %>,
             <% unless patient.current_residence.blank? %> <%=h patient.current_residence -%> <% end %>,
-            <% unless patient.guardian.blank? %> Guardian: <%=h patient.guardian -%> <% end %>
+            <% unless patient.guardian.blank? %> Relative: <%=h patient.guardian -%> <% end %>
           </option>
         <% end -%>
       </select>
