@@ -1,5 +1,8 @@
 class GenericClinicController < ApplicationController
   def index
+    session[:home_district] = params["person_address"]["address2"] rescue nil
+    session[:county_district] = params["person_address"]["addresses"]["county_district"] rescue nil
+    session[:home_village] = params["person_address"]["neighborhood_cell"] rescue nil
   	session[:cohort] = nil
     @facility = Location.current_health_center.name rescue ''
 
