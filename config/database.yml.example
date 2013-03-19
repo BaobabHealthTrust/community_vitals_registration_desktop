@@ -1,31 +1,23 @@
-# production:
-#   adapter: mysql
-#   database: openmrs
-#   username: root
-#   password:
-#   host: localhost
+production:
+   adapter: mysql2
+   database: openmrs_vitals_d
+   username: root
+   password: password
+   host: localhost
 
 development:
-  adapter: mysql
-  database: bart2_development
+  adapter: mysql2
+  database: openmrs_vitals_d
   username: root
   password: password
   host: localhost
 
 test: &TEST
   adapter: mysql
-  database: bart2_test
-  username: root
-  password: password
+  database: openmrs15
+  username: yamiko
+  password: bart
   host: localhost
 
 cucumber:
   <<: *TEST
-
-migration:
-  adapter: mysql
-  database: test
-  username: root
-  password: password
-  host: localhost
-

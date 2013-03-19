@@ -322,4 +322,50 @@ module ApplicationHelper
     end                                                                         
   end
 
+  def what_app?                                                                 
+    if current_user.activities.include?('Manage Lab Orders') or current_user.activities.include?('Manage Lab Results') or
+       current_user.activities.include?('Manage Sputum Submissions') or current_user.activities.include?('Manage TB Clinic Visits') or
+       current_user.activities.include?('Manage TB Reception Visits') or current_user.activities.include?('Manage TB Registration Visits') or
+       current_user.activities.include?('Manage HIV Status Visits')             
+      'TB-ART'                                                                  
+    else                                                                        
+      'BART'                                                                    
+    end                                                                         
+  end 
+
+  def require_viral_load_check(patient)
+
+		session_date = Date.today
+		arv_start_date = PatientService.patient_art_start_date(patient).to_date rescue nil
+    return false if arv_start_date.blank?
+		duration = (session_date.to_date - arv_start_date.to_date).to_i/28 
+		if (duration >= 6)
+      obs = Observation.find(:all, :conditions => ["person_id = ? and concept_id = ?",
+          patient.patient_id, Concept.find_by_name("Viral load").concept_id])
+      return true if obs == []
+      if !(obs.empty?)
+        viral_loads = obs.map(&:obs_datetime)
+        if (viral_loads.length == 1)
+          viral_load_date = viral_loads.first.to_date
+          duration = (Date.today - viral_load_date).to_i/28
+          if (duration/24 >= 1)
+            return true
+          else
+            return false
+          end
+        end
+
+        if (viral_loads.length > 1)
+          viral_load_date = viral_loads.last.to_date
+          duration = (Date.today - viral_load_date).to_i/28
+          if (duration/24 >= 1)
+            return true
+          else
+            return false
+          end
+        end
+      end
+    end
+	end
+
 end
