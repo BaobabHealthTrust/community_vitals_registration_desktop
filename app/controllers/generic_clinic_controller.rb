@@ -119,7 +119,7 @@ class GenericClinicController < ApplicationController
 
   def reports_tab
     @reports = [
-      ["Total Registered Report","#"],
+      ["Total Registered","#"],
     ]
     render :layout => false
   end
