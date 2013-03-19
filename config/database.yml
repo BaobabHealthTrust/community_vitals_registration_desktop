@@ -1,0 +1,14 @@
+production:
+  adapter: mysql
+  database: community_vitals_registration_desktop
+  username: root
+  password: letusout!
+  host: localhost
+
+development:
+  adapter: mysql
+  database: community_vitals_registration_desktop
+  username: root
+  password: letusout!
+  host: localhost
+
