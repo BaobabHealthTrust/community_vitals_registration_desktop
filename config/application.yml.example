@@ -1,0 +1,18 @@
+production:
+ create_from_remote: no
+ use.user.selected.activities: yes
+ portal_url: 192.100.100.200:80
+
+development:
+ create_from_remote: no
+ use.user.selected.activities: yes
+ show.patient.confirmation: true
+ portal_url: 192.100.100.200:80
+
+test: &TEST
+ create_from_remote: no
+ use.user.selected.activities: yes
+ auto_set_appointment: true
+
+cucumber:
+  <<: *TEST
