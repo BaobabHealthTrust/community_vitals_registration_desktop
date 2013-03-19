@@ -45,18 +45,13 @@ class GenericSessionsController < ApplicationController
 
 		unless location and valid_location
 			flash[:error] = "Invalid workstation location"
-
-			@login_wards = (CoreService.get_global_property_value('facility.login_wards')).split(',') rescue []
-			if (CoreService.get_global_property_value('select_login_location').to_s == "true" rescue false)
-				render :template => 'sessions/select_location'
-			else
-				render :action => 'location'
-			end
+      render :action => 'location'
 			return    
 		end
-		
-		self.current_location = location
-	  redirect_to '/clinic'
+		  
+    self.current_location = location  
+		redirect_to '/clinic'
+
 	end
 
 	def destroy
