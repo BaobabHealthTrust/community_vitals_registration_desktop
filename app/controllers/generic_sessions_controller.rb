@@ -48,9 +48,10 @@ class GenericSessionsController < ApplicationController
       render :action => 'location'
 			return    
 		end
-  
+		  
     self.current_location = location  
 		redirect_to '/clinic'
+
 	end
 
 	def destroy
