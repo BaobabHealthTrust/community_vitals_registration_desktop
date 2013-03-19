@@ -167,31 +167,8 @@ class GenericPatientsController < ApplicationController
     @links = []
     patient = Patient.find(params[:id])
 
-    @links << ["Demographics (Print)","/patients/print_demographics/#{patient.id}"]
-    @links << ["Visit Summary (Print)","/patients/dashboard_print_visit/#{patient.id}"]
     @links << ["National ID (Print)","/patients/dashboard_print_national_id/#{patient.id}"]
     @links << ["Demographics (Edit)","/people/demographics/#{patient.id}"]
-		@links << ["Lab Results","/encounters/lab_results_print/#{patient.id}"]
-
-    if use_filing_number and not PatientService.get_patient_identifier(patient, 'Filing Number').blank?
-      @links << ["Filing Number (Print)","/patients/print_filing_number/#{patient.id}"]
-    end 
-
-    if use_filing_number and PatientService.get_patient_identifier(patient, 'Filing Number').blank?
-      @links << ["Filing Number (Create)","/patients/set_filing_number/#{patient.id}"]
-    end 
-
-    if use_user_selected_activities
-      @links << ["Change User Activities","/user/activities/#{current_user.id}?patient_id=#{patient.id}"]
-    end
-      
-    if show_lab_results
-      @links << ["Lab trail", "/lab/results/#{patient.id}"]
-    end
-
-    @links << ["Recent Lab Orders Label","/patients/recent_lab_orders?patient_id=#{patient.id}"]
-    @links << ["Transfer out label (Print)","/patients/print_transfer_out_label/#{patient.id}"]
-		 @links << ["TB Transfer out label (Print)","/patients/print_transfer_out_tb/#{patient.id}"]
 
     render :template => 'dashboards/personal_tab', :layout => false
   end
