@@ -1,41 +1,116 @@
-<%= javascript_include_tag "barcode" %>
 <script>
-<% 
-if params[:from] == 'clinic'%>
+  <% if params[:relation] %>
+  var tt_cancel_destination = "/patients/relationships?patient_id=<%=h params[:relation] -%>"
+  <% else %>
   var tt_cancel_destination = "/clinic"
-<%else%>
-  var tt_cancel_destination = "/logout"
-<%end%>
-barcodeId = 'touchscreenInput0';
-barcodeFocusOnce = true;
-// barcodeScanAction = gotoNextPage;
+  <% end %>
 
-setTimeout("setupBarcode()", 300);
+  var dob_year = null ; var dob_month = null ; dob_day = null;
+  var set_dob = null;
 
-function setupBarcode(){
-  barcodeScanAction = gotoNextPage;
-  loadBarcodePage();
-}
+  var skipped = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-function inform() {
-  $('infoBar'+tstCurrentPage).innerHTML = "<%= welcome_message %>";  
-}           
+  function seen(page) {
+    for (var i = page; i >= 0; i--) {
+      skipped[i] = 1;
+    }
+  }
+
+  function setDOB() {
+    try {
+      dob_year = document.getElementById('tt_page_year_of_birth').getElementsByTagName("input")[0].value
+    }catch(e){ dob_year = dob_year }
+    try {
+      dob_month = document.getElementById('tt_page_month_of_birth').getElementsByTagName("input")[0].getAttribute('tstvalue')
+      if (dob_month.length == 1)
+        dob_month = 0 + dob_month
+    }catch(e){ dob_month = dob_month }
+    try {
+      dob_day = document.getElementById('tt_page_birth_day').getElementsByTagName("input")[0].value
+      if (dob_day.length == 1)
+        dob_day = 0 + dob_day
+    }catch(e){ dob_day = dob_day }
+
+    set_dob = (dob_year + '-' + dob_month + '-' + dob_day)
+    return true
+  }
+
+  function validateDOB() {
+    setDOB();
+    curr_date = new Date();
+
+    if (dateCreate(set_dob) == 'Invalid Date') {
+      if (set_dob.split('-')[1] == 'Unknown')
+        return true
+
+      if (curr_date.getFullYear() == parseInt(dob_year)) {
+        if ((curr_date.getMonth() + 1) < parseInt(dob_month)){
+          if (document.getElementById('tt_page_month_of_birth') != null)
+            return true
+
+          return false
+        }
+      }
+
+      if (dob_month == 'Unknown'){
+        if (curr_date.getFullYear() == parseInt(dob_year)) {
+          if ((curr_date.getMonth() + 1) < parseInt(dob_month))
+            return false
+        }
+      }
+    }else{
+      if (document.getElementById('tt_page_month_of_birth') != null)
+        return true
+
+      if (curr_date < dateCreate(set_dob))
+        return false
+    }
+    return true
+  }
+
+  function dateCreate(date_str){
+    intyear = 0 ; intmonth = 0 ; intday = 0;
+    intyear = parseInt(date_str.substring(0,4))
+    intmonth = (parseInt(date_str.substring(5,7)) - 1)
+    intday = (parseInt(date_str.substring(8,10)))
+
+    if (intmonth == -1)
+      intmonth = (parseInt(date_str.substring(5,7).substring(1,2)) - 1)
+
+    if (intday == 0)
+      intday = parseInt(date_str.substring(8,10).substring(1,2))
+
+    return new Date(intyear,intmonth,intday);
+  }
+
+  function set_ajaxURL_for_suggestions(url, filter_value) {
+    $('touchscreenInput'+tstCurrentPage).setAttribute('ajaxURL', url + filter_value + "&search_string=");
+    listSuggestions(tstCurrentPage);
+  }
+
 </script>
 
-<style>
+<% form_tag clinic_path, :method => :post do -%>
+  <p><label for="region_region_name">Region of Origin</label></br>
+  <%= text_field "region" , 'region_name', :xhelpText => 'Region',:tt_requireNextClick => false, :ajaxURL => '/people/region/Region?field=role&value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%></p>
 
-  .tt_controls_workstation_location .keyboard {
-    display: none;
-  }
+  <%= text_field_tag "person_address[address2]", nil, {:id => 'address2',:tt_requireNextClick => false, :ajaxURL => '', :field_type => 'alpha', :helpText => 'Home District', :allowFreeText => false, :tt_onLoad => "seen(tstCurrentPage); set_ajaxURL_for_suggestions('/people/district/District?filter_value=' ,document.getElementById('region_region_name').value);$('nextButton').style.display = 'none';" }%>
 
-  #tt_page_workstation_location .options {
-    display: none;
-  }
-</style>
+  <%= text_field_tag "p['address2_a']" , nil, {id => 'address2_a', :tt_onUnLoad => '$("address2").value = $("address2_a").value', :condition => '$("address2").value == "Other"', :id => 'address2_a',:tt_requireNextClick => true, :ajaxURL => '/person_addresses/address2?search_string=', :allowFreeText => true, :field_type => 'alpha', :helpText => 'Specify Home District', :tt_onLoad => "$('nextButton').style.display = 'block';" } %>
 
-<% form_tag session_path, :method => :put do -%>
-  <label for="location">Location</label>
-  <%= select_tag("location", options_for_select(@login_wards), {:helpText => 'Station Location', :tt_requireNextClick => 'true'})%> <br>
-  <br>    
+  <%= text_field "person[addresses]" , 'county_district', :condition => '$("address2").value != "Other"', :helpText => 'Ancestral Traditional Authority (T/A) or area of residence',:tt_requireNextClick => false, :ajaxURL => '', :tt_pageStyleClass => "azButton", :tt_onLoad => "set_ajaxURL_for_suggestions('/people/traditional_authority/TraditionalAuthority?filter_value=' ,document.getElementById('address2').value);$('nextButton').style.display = 'none';" %></p>
+
+  <%= text_field "p[addresses]" , 'county_district_a', :tt_onUnLoad => '$("person_addresses_county_district").value = $("p_addresses_county_district_a").value', :condition => '$("address2").value == "Other"', :ajaxURL => '/person_addresses/traditional_authority?search_string=' , :helpText => 'Specify Ancestral Traditional Authority (T/A) or area of residence' , :tt_pageStyleClass => "azButton", :allowFreeText => true, :tt_onLoad => "$('nextButton').style.display = 'block';"  %></p>
+
+<%= text_field_tag "person_address[neighborhood_cell]", nil,
+    {
+    :field_type => 'alpha',
+    :helpText => "Home Village",
+    :tt_requireNextClick => false,
+    :tt_pageStyleClass => "azButton",
+    :ajaxURL => '/people/village?search_string=',
+    :allowFreeText => false ,
+    :tt_onLoad => "set_ajaxURL_for_suggestions('/people/village/Village?filter_value=' ,document.getElementById('person_addresses_county_district').value);$('nextButton').style.display = 'none';"}%>
+
   <%= submit_tag :value => "Submit" %>
 <% end %>
