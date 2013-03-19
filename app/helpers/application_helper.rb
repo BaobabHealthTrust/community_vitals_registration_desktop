@@ -121,7 +121,7 @@ module ApplicationHelper
 
   def version
     style = "style='background-color:red;'" unless session[:datetime].blank?
-    "VR Version: #{VR_VERSION} - <span #{style}>#{(session[:datetime].to_date rescue Date.today).strftime('%A, %d-%b-%Y')}</span>"
+    "CVR Version: #{CVR_VERSION} - <span #{style}>#{(session[:datetime].to_date rescue Date.today).strftime('%A, %d-%b-%Y')}</span>"
   end
   
   def welcome_message
