@@ -1,18 +1,24 @@
 production:
- create_from_remote: no
+ create.from.remote: false
+ create.from.dde.server: false
  use.user.selected.activities: yes
- portal_url: 192.100.100.200:80
+ filing.number.prefix: FN101,FN102
+ auto_set_appointment: true
+ records_per_page: 15
+ debugger_sorting_attribute: arv_number
 
 development:
- create_from_remote: no
+ create.from.remote: false
  use.user.selected.activities: yes
- show.patient.confirmation: true
- portal_url: 192.100.100.200:80
+ filing.number.prefix: FN101,FN102
+ auto_set_appointment: true
+ show.patient.confirmation: false
+ records_per_page: 15
+ debugger_sorting_attribute: arv_number
 
 test: &TEST
  create_from_remote: no
  use.user.selected.activities: yes
- auto_set_appointment: true
 
 cucumber:
   <<: *TEST
