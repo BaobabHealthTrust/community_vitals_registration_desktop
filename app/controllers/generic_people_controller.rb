@@ -372,28 +372,7 @@ class GenericPeopleController < ApplicationController
       unless (params[:relation].blank?)
         redirect_to search_complete_url(person.id, params[:relation]) and return
       else
-
-       tb_session = false
-       if current_user.activities.include?('Manage Lab Orders') or current_user.activities.include?('Manage Lab Results') or
-        current_user.activities.include?('Manage Sputum Submissions') or current_user.activities.include?('Manage TB Clinic Visits') or
-         current_user.activities.include?('Manage TB Reception Visits') or current_user.activities.include?('Manage TB Registration Visits') or
-          current_user.activities.include?('Manage HIV Status Visits')
-         tb_session = true
-       end
-
-        #raise use_filing_number.to_yaml
-        if use_filing_number and not tb_session
-          PatientService.set_patient_filing_number(person.patient)
-          archived_patient = PatientService.patient_to_be_archived(person.patient)
-          message = PatientService.patient_printing_message(person.patient,archived_patient,creating_new_patient = true)
-          unless message.blank?
-            print_and_redirect("/patients/filing_number_and_national_id?patient_id=#{person.id}" , next_task(person.patient),message,true,person.id)
-          else
-            print_and_redirect("/patients/filing_number_and_national_id?patient_id=#{person.id}", next_task(person.patient))
-          end
-        else
-          print_and_redirect("/patients/national_id_label?patient_id=#{person.id}", next_task(person.patient))
-        end
+        print_and_redirect("/patients/national_id_label?patient_id=#{person.id}", next_task(person.patient))
       end
     else
       # Does this ever get hit?
