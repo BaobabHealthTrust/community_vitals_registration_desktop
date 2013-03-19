@@ -1,23 +1,14 @@
 production:
-   adapter: mysql2
-   database: openmrs_vitals_d
-   username: root
-   password: password
-   host: localhost
+  adapter: mysql
+  database: community_vitals_registration_desktop
+  username: root
+  password: letusout!
+  host: localhost
 
 development:
-  adapter: mysql2
-  database: openmrs_vitals_d
-  username: root
-  password: password
-  host: localhost
-
-test: &TEST
   adapter: mysql
-  database: openmrs15
-  username: yamiko
-  password: bart
+  database: community_vitals_registration_desktop
+  username: root
+  password: letusout!
   host: localhost
 
-cucumber:
-  <<: *TEST
