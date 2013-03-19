@@ -119,34 +119,11 @@ class GenericClinicController < ApplicationController
 
   def reports_tab
     @reports = [
-      ["Cohort","/cohort_tool/cohort_menu"],
-      ["Supervision","/clinic/supervision_tab"],
-      ["Data Cleaning Tools", "/clinic/data_cleaning_tab"],
-      ["View appointments","/report/select_date"]
-      #["View appointments","/properties/select_date"]
+      ["Total Registered","#"],
     ]
-
-
-    
-  	if what_app? == 'TB-ART'
-  		@reports <<  ["Case Findings", "/cohort_tool/case_findings_quarter"] << ["TB Register","/cohort_tool/report_duration?report_name=tb_register"] #<< ["Laboratory Register","/cohort_tool/report_duration?report_name=lab_register"]
-  		
-  	end
-    @reports = [
-      ["Diagnosis","/drug/date_select?goto=/report/age_group_select?type=diagnosis"],
-     # ["Patient Level Data","/drug/date_select?goto=/report/age_group_select?type=patient_level_data"],
-      ["Disaggregated Diagnosis","/drug/date_select?goto=/report/age_group_select?type=disaggregated_diagnosis"],
-      ["Referrals","/drug/date_select?goto=/report/opd?type=referrals"],
-      #["Total Visits","/drug/date_select?goto=/report/age_group_select?type=total_visits"],
-      #["User Stats","/drug/date_select?goto=/report/age_group_select?type=user_stats"],
-      ["User Stats","/"],
-     # ["Total registered","/drug/date_select?goto=/report/age_group_select?type=total_registered"],
-      ["Diagnosis (By address)","/drug/date_select?goto=/report/age_group_select?type=diagnosis_by_address"],
-      ["Diagnosis + demographics","/drug/date_select?goto=/report/age_group_select?type=diagnosis_by_demographics"]
-    ] if Location.current_location.name.match(/Outpatient/i)
     render :layout => false
   end
-
+  
   def data_cleaning_tab
     @reports = [
                  ['Missing Prescriptions' , '/cohort_tool/select?report_type=dispensations_without_prescriptions'],
@@ -181,17 +158,9 @@ class GenericClinicController < ApplicationController
 
   def administration_tab
     @reports =  [
-                  ['/clinic/users_tab','User Accounts/Settings'],
-                  ['/clinic/location_management_tab','Location Management'],
-                  ['/people/tranfer_patient_in','Transfer Patient in'],
-                  ['/patients/patient_merge','Merge Patients'],
-                  ['/patients/duplicate_menu','Possible patient duplicates']
+                  ['/clinic/users_tab','User Accounts/Settings']
 
                 ]
-    if current_user.admin?
-      @reports << ['/clinic/management_tab','Drug Management']
-    end
-    @landing_dashboard = 'clinic_administration'
     render :layout => false
   end
 
@@ -207,6 +176,13 @@ class GenericClinicController < ApplicationController
   end
 
   def users_tab
+    @reports = []
+    @reports << ['Change password',"/user/change_password/#{current_user.id}"]
+    @reports << ['Edit name',"/user/edit/#{current_user.id}"]
+    @reports << ['Preffered keyboard',"/user/properties/#{current_user.id}"]
+    @reports << ['Create user',"/user/new"]
+    @reports << ['Edit user',"/user/select_user"]
+    @reports << ['Set user roles',"/user/users"]
     render :layout => false
   end
 
