@@ -1,15 +1,15 @@
 production:
-   adapter: mysql
-   database: openmrs17
+   adapter: mysql2
+   database: openmrs_vitals_d
    username: root
-   password: yammyuk
+   password: password
    host: localhost
 
 development:
-  adapter: mysql
-  database: openmrs17
+  adapter: mysql2
+  database: openmrs_vitals_d
   username: root
-  password: yammyuk
+  password: password
   host: localhost
 
 test: &TEST
