@@ -1,135 +1,130 @@
-<html>
-	<head>
-		<title>Patient Treatment Dashboard</title>
-		<script type="text/javascript" language="javascript"
-			src="/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer  ></script>
-		<meta http-equiv='content-type' content='text/html;charset=UTF-8' />
-		<%= javascript_include_tag "jquery" %>
-		<%= javascript_include_tag "jquery.flot" %>
-		<%= javascript_include_tag "prototype" %>
+<style>
+div {
+  -moz-user-select: none;
+}
 
-		<% if Location.current_location.name.match(/HIV|ART/i) %>
-			<style>
-				#tab2 {
-					background-color: white;
-					border: 0 none;
-					color: black;
-					font-weight: bold;
-				}
-			</style>
-		<% else %>
-			<style>
-				#tab1 {
-					background-color: white;
-					border: 0 none;
-					color: black;
-					font-weight: bold;
-				}
-			</style>
-		<% end %>             
+.main-container {
+  border-style: solid;
+  border-width: 0px 0px 0px 0px;
+  border-width-color: black;
+  height: 626px;
+  margin: 5px;
+}
 
-		<script>
 
-			tt_cancel_destination = "/clinic";
-			<%if !@patient_bean.archived_filing_number.blank? %>
-				tt_cancel_show = "javascript:confirmAction(0)";  
-				<% elsif @transferred_out  %>
-				tt_cancel_show = "javascript:confirmAction(1)";  
-				<% elsif @defaulted  %>
-				tt_cancel_show = "javascript:confirmAction(2)";
-			<% else %>  
-				tt_cancel_show = "/encounters/new?patient_id=<%=@person.patient.id %>";
-			<% end %>
+.right-container {
+  width: 99%;
+  padding: 5px;
+  /*float: right;*/
+  background-color: lightgrey;
+  height: 625px;
+}
 
-			function changeAttributes(){
-				document.getElementById("btnNext").innerHTML = "<span>Continue</span>" 
-			}
+.demographics {
+}
 
-			function confirmAction(status){
-				if(status == 0) {
-					confirmOperation("Patient files in archive cabinets.Move to active cabinets?",
-					"/patients/set_new_filing_number/<%=@person.patient.id %>");
-				} else if(status == 1) {
-					confirmOperation("Patient was transferred out. Do you wish to continue?",
-					"/patients/show/<%=@person.patient.id %>");
-				} else if(status == 2) {
-					confirmOperation("Patient is a defaulter. Do you wish to continue?",
-					"/patients/show/<%=@person.patient.id %>");
-				}
+.data {
+  -moz-border-radius: 15px;
+  border-radius: 5px;
+  width: 98%;
+  border-style: solid;
+  border-width: 1px;
+  padding-left: 5px;
+  background-color: white;
+}
 
-				return;
-			}
+.data-main {
+  height: 460px;
+  overflow: auto;
+  padding: 5px 0px 5px 0px;
+  border-style: solid;
+  border-width: 1px 0px 1px 0px;
+}
 
-			function reSize(){
-				__$("buttonlinks").style.display = "none";
-				__$("patient-dashboard-main").style.width = "100%";
-			}
+.main-caption {
+  text-align: center;
+  background-color: black;
+  color: white;
+}
 
-			setTimeout('reSize()',500);
+.time {
+  float: right;
+  padding-right: 15px;
+}
 
-		</script>
-	</head>
-	<body onload = "setTimeout('changeAttributes()',500);">
-		<% 	task = @task
-			task_name = (task.encounter_type || 'NONE').upcase rescue 'NONE' %>
+.gender {
+  position: relative;
+  top: 4px;
+}
 
-		<form id = 'dashboard' action='/clinic'>
-			<div id='project_name'>
-				OPD
-			</div>
+.btn-date {
+  background-color: #669999;
+  border-bottom: 1px outset black;
+  border-radius: 7px 7px 7px 7px;
+  border-style: outset;
+  border-top: 1px outset black;
+  color: white;
+  display: block;
+  padding: 10px 16px 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  height: 15px;
+  width: 93px;
+}
+</style>
 
-			<span id='patient_name'><%= @patient_bean.name rescue "" %></span>
-			<span id='patient_id'><%= @patient_bean.national_id_with_dashes rescue "" %></span>
-			<span id='patient_residence'><%= @patient_bean.current_residence rescue "" %></span>
+<script>
+   tt_cancel_destination = "/clinic"; 
 
-			<% if @patient_bean.age > 0 %>
-				<span id='patient_age'><%= @patient_bean.age rescue "" %></span>
-			<% else %>
-				<span id='patient_age'><%= "#{@patient_bean.age_in_months} Months" rescue "" %></span>
-			<% end %>
+   function changeAttributes(){                                              
+     finishButton = document.getElementById("finishButton");
+     finishButton.innerHTML = "<span>Continue</span>"; 
+     finishButton.setAttribute("onclick","javascript:location='<%=@task.url%>'")
 
-			<span id='patient_guardian'><%= @patient_bean.guardian rescue "" %></span>
-			<span id='patient_gender'><%= @patient_bean.sex rescue "" %></span>
+     btnDIV = document.getElementById('buttons');
+     btnDIV.innerHTML+="<button id='btnCancel' class='red left' value='Cancel' onclick='if (tt_cancel_destination) window.location = tt_cancel_destination;'><span>Cancel</span></button>";
+   } 
 
-			<div id="patient_card">
-				<% if Location.current_location.name.match(/HIV|ART/i) %>
-					<%if(@patient_bean.guardian != nil) %>
-						<span value="<%= @patient_bean.guardian rescue '' %>">Guardian</span>
-					<% end %>
+</script>
 
-					<% if (@reason_for_art_eligibility rescue nil) != nil && (@reason_for_art_eligibility) != "" %>
-						<span value="<%= @reason_for_art_eligibility rescue "" %>">Reason for Starting</span>
-					<% end %>
+<body onload = "setTimeout('changeAttributes()',500);">
 
-					<% if (@arv_number rescue nil) != nil && (@arv_number) != " " %>
-						<span value="<%= @arv_number rescue '' %>">ARV Number</span>
-					<% end %>
+<div class="main-caption" id = "caption">
+  <%=@encounter_dates.first.strftime('%A %d %B %Y') rescue nil%>
+</div>
 
-					<% if (@patient_bean.filing_number rescue nil) != nil && (@patient_bean.filing_number) != " " %>
-						<span value="<%= @patient_bean.filing_number rescue "" %>">Filing Number</span>
-					<% end %>
+<div class="main-container">
 
-					<% if (@patient_bean.eid_number rescue nil) != nil && (@patient_bean.eid_number) != " " %>
-						<span value="<%= @patient_bean.eid_number rescue "" %>">EID Number</span>
-					<% end %>
+  <div class="right-container">
+    <div class="demographics data">
+      <b>Name:&nbsp;</b><%=@patient_bean.name%>&nbsp;
+      <%= image_tag("#{@patient_bean.sex.downcase}.gif", :class => 'gender') %><br />
+      <b>Birthdate:</b>&nbsp;<%=@patient_bean.birth_date%>&nbsp;
+      <b>Age:</b>&nbsp;<%=@patient_bean.age%><br />
+      <b>National ID:</b>&nbsp;<%=@patient_bean.national_id_with_dashes%><br />
+      <b>Address</b>&nbsp;Area 47<br /><hr />
+      <b>Next task:</b>&nbsp;<%=@task.encounter_type%>
+    </div><p />
 
-					<% if (@patient_bean.pre_art_number rescue nil) != nil && (@patient_bean.pre_art_number) != " " %>
-						<span value="<%= @patient_bean.pre_art_number rescue "" %>">Pre-ART Number</span>
-					<% end %>
-				<% end %>
-			</div>
+    <div class="data-main" id="records">
+ 
+    <div class="data">
+      <b>Demographics ....</b><br />
+      <b>Age in months:</b>&nbsp;<%=@patient_bean.age_in_months%><br />
+      <b>Guardian:&nbsp;</b><%=@patient_bean.guardian%><br />
+      <b>Home district:&nbsp;</b><%=@patient_bean.home_district%><br />
+      <b>Traditional authority:</b>&nbsp;<%=@patient_bean.traditional_authority%><br />
+      <b>Cell phone number:&nbsp;</b><%=@patient_bean.cell_phone_number%><br />
+      <b>Home phone number:&nbsp;</b><%=@patient_bean.home_phone_number%><br />
+      <b>Office phone number:&nbsp;</b><%=@patient_bean.office_phone_number%><br />
+      <b>Occupation:&nbsp;</b><%=@patient_bean.occupation%><br />
+    </div>
 
-			<select id="tabs">
-				<% if Location.current_location.name.match(/HIV|ART/i) %>
-					<option value='/patients/overview?patient_id=<%= @person.patient.id %>'>Overview</option>
-				<% end %>             
-				<option value='/patients/next_task_description?task_id=<%= task.id -%>'>
-					NEXT TASK: <%= task_name.gsub('_',' ') %>
-				</option>
-			</select>
+    </div>
 
-			<input type='submit' value='Finish' />
-		</form>
-	</body>
-</html>
+  </div>
+
+</div>
+
+</body>
 
