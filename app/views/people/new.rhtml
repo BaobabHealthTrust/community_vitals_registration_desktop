@@ -187,9 +187,9 @@
       :tt_onLoad => 'seen(tstCurrentPage);',
       :ttMatchFromBeginning => "true")%>
 
-  <%= hidden_field_tag "relation", params[:relation] %>
+<%= hidden_field_tag "relation", params[:relation] %>
 
-  <%= hidden_field_tag :identifier, params[:identifier] %>
+<%= hidden_field_tag :identifier, params[:identifier] %>
 
 <%= hidden_field_tag "person[addresses][address2]", session[:home_district]  %>
 <%= hidden_field_tag "person[addresses][county_district]", session[:county_district]  %>
@@ -197,7 +197,6 @@
 
 <%= hidden_field_tag "person[patient]","" %>
 <%= hidden_field_tag :identifier, "" %>
-  
-  <%= submit_tag "Create person" %>
+<%= submit_tag "Create person" %>
 
 <% end %>
