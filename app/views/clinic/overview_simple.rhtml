@@ -1,7 +1,7 @@
 <style type="text/css">
   body {
     -moz-user-select:none;
-	font-family: Arial,sans-serif;
+    font-family: Arial,sans-serif;
   }
 
   #stats {
@@ -13,76 +13,83 @@
     position: absolute;
     left: 0em;
   }
-  #stats td, #stats th {
-    text-align:center;
-  }
-  .odd {
-    background-color: #eee;
+  #summary table{
+    left: 35%;
+    position: absolute;
+    width: 617px;
+    top: 84px;
+    height: 231px;
   }
 
-  #table_div {
-    overflow:auto;
-    height: 340px;
-    background-color: white;
-    border: none;
-    border-width: 1px;
-    overflow: hidden;
-  }
-  .header{
-    background-color: #669999;
-    border-bottom: 1px outset black;
-    border-top: 1px outset black;
+  #village{
+    left: 8%;
+    position: absolute;
+    top: 117px;
+    transform: scale(2, 2);
 }
-h2{
-  position: absolute;
-  top: -1em;
-  left: 14em;
+
+#header{
+  text-align: center;
+  font-weight: bold;
+}
+
+#people{
+font-weight: bold;
+}
+#number{
+  background-color: #669999;
+  border-bottom: 1px outset black;
+
+  color: white;
+  padding: 10px 16px 10px 10px;
+  text-align: center;
+  text-decoration: none;
 }
 </style>
 <div id="tab" style="margin-top:24px">
-  <h2>Current patient statistics</h2>
-    <div id="table_div">
-
-    <table id="stats" cellpadding="14">
+  <%= image_tag"village.jpeg", :id=>"village" %>
+  <div id="summary">
+    <table>
+      <tr style="background-color:#ffcc00">
+        <td colspan="5" style="text-align:center;">REGISTRATION STATISTICS</td>
+      </tr>
       <tr>
-        <th >&nbsp;</th>
-         <th class="header" colspan="2"  style="color: #fff"><%= @user rescue 'Me'%></th>
-         <th class="header" colspan="2"  style="color: #fff">Today</th>
+        <td>&nbsp;</td>
+        <td id="header"><span>Today</span></td>
+        <td id="header"><span>This week</span></td>
+        <td id="header"><span>This Month</span></td>
+        <td id="header"><span>This year</span></td>
       </tr>
-      <tr  " style="color: #fff; background-color: #666;">
-        <th class="header" style="text-align:left;">Task Type</th>
-        <!--<th><%= @user rescue 'Me'%></th>-->
-         <th class="header">14 and below</th>
-         <th class="header">Above 14</th>
-         <th class="header">14 and below</th>
-         <th class="header">Above 14</th>
-        <!--<th>Today</th>-->
-       <!-- <th>This Year</th>
-        <th>Total to Date</th> -->
+      <tr>
+        <td id="people" width="60">Men</td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
       </tr>
-      <tr  class="<%= cycle('even', 'odd') %>">
-          <td style="text-align:left;">New registration </td>
-          <td><%= @me_reg_below_14 %></td>
-          <td><%=@me_reg_above_14 %></td>
-          <td><%=@today_reg_below_14 %></td>
-          <td><%=@today_reg_above_14 %></td>
+      <tr>
+        <td id="people" >Women</td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
       </tr>
-      <tr  class="<%= cycle('even', 'odd') %>">
-          <td style="text-align:left;">Returning patients </td>
-          <td><%= @me_ret_pt_below_14 %></td>
-          <td><%= @me_ret_pt_above_14 %></td>
-          <td><%= @ret_pt_below_14 %></td>
-          <td><%= @ret_pt_above_14  %></td>
+      <tr>
+        <td id="people" >Boys</td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
       </tr>
-      <% @types.each do |type| %>
-        <tr class="<%= cycle('even', 'odd') %>">
-          <td style="text-align:left;"><%= type.capitalize.humanize.gsub('hiv','HIV').gsub('Hiv','HIV').gsub('art','ART').gsub('Art','ART') %></td>
-          <td><%= @me_below_14[type].to_i %></td>
-          <td><%= @me_above_14[type].to_i %></td>
-          <td><%= @today_below_14[type].to_i %></td>
-          <td><%= @today_above_14[type].to_i %></td>
-        </tr>
-      <% end %>
+      <tr>
+        <td id="people" >Girls</td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
+        <td id="number"><span>0</span></td>
+      </tr>
     </table>
+
+
   </div>
 </div>
