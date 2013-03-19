@@ -54,8 +54,8 @@ class GenericSessionsController < ApplicationController
 			end
 			return    
 		end
-		
-    redirect_to '/clinic'
+
+		redirect_to '/'
 	end
 
 	def destroy
