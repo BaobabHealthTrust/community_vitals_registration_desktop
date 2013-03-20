@@ -285,6 +285,15 @@
       </span>
 
   </div>
-
+     <script>
+        function showBack(){
+        buttonsDiv = document.getElementsByClassName("buttonsDiv")[0]
+        back = document.createElement('button')
+        back.innerHTML="<span>Back</span>"
+        back.setAttribute("class","blue left")
+        back.setAttribute("onclick","window.history.back()")
+        buttonsDiv.appendChild(back)}
+        setTimeout("showBack()",200)
+     </script>
 </body>
 </html>
