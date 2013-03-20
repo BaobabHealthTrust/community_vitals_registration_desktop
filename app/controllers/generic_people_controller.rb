@@ -327,12 +327,12 @@ class GenericPeopleController < ApplicationController
         person = Person.find(params[:person][:id])
         #...............................                                        
         # Program handling                                                      
-        if person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).blank?
-          person.patient.patient_programs.create(:program_id => Program.find_by_name("VHW PROGRAM").id,
+        if person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("CIVIL REGISTRATION PROGRAM")).blank?
+          person.patient.patient_programs.create(:program_id => Program.find_by_name("CIVIL REGISTRATION PROGRAM").id,
             :date_enrolled => Time.now())                                       
                                                                                 
-          person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).transition(
-             :state => "Active phase",:start_date => Time.now())                
+          person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("CIVIL REGISTRATION PROGRAM")).transition(
+             :state => "MBADWA YA M'MUDZI",:start_date => Time.now())                
         end                                                                     
         #...............................
         patient = DDEService::Patient.new(person.patient)
@@ -400,11 +400,11 @@ class GenericPeopleController < ApplicationController
 
         # ......................................
         # Program handling                                                          
-        person.patient.patient_programs.create(:program_id => Program.find_by_name("VHW PROGRAM").id,
+        person.patient.patient_programs.create(:program_id => Program.find_by_name("CIVIL REGISTRATION PROGRAM").id,
           :date_enrolled => Time.now())
                                               
-        person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).transition(
-           :state => "Active phase",:start_date => Time.now()) 
+        person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("CIVIL REGISTRATION PROGRAM")).transition(
+           :state => "MBADWA YA M'MUDZI",:start_date => Time.now()) 
         # ......................................
 
         print_and_redirect("/patients/national_id_label?patient_id=#{person.id}", next_task(person.patient))

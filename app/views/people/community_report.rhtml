@@ -223,7 +223,7 @@
       #report{
         left: 2%;
         position: absolute;
-        width: 953px;
+        width: 1504px;
       }
 
       #number{
@@ -307,6 +307,13 @@
       </span>
 
   </div>
-
+<script>
+  function setPosition(){
+    finish = document.getElementById('finishButton')
+    finish.style.position = 'absolute'
+    finish.style.left = '1400px'
+  }
+  setTimeout("setPosition()",10);
+</script>
 </body>
 </html>

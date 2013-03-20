@@ -91,15 +91,15 @@
 </script>
 
 <% form_tag clinic_path, :method => :post do -%>
-  <p><label for="region_region_name">Region of Origin</label></p></br>
-  <%= text_field "region" , 'region_name', :xhelpText => 'Region',:tt_requireNextClick => false, :ajaxURL => '/people/region/Region?field=role&value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%></p>
+  <p><label for="region_region_name">Chigawo chimene mumachokela</label></p></br>
+  <%= text_field "region" , 'region_name', :xhelpText => 'Chigawo chimene kuli mudzi wanu',:tt_requireNextClick => false, :ajaxURL => '/people/region/Region?field=role&value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%></p>
 
   <%= text_field_tag "person_address[address2]", nil,
     {:id => 'address2',
     :tt_requireNextClick => false,
     :ajaxURL => '',
     :field_type => 'alpha',
-    :helpText => 'Home District',
+    :helpText => 'Boma limene mukuchokela',
     :allowFreeText => false,
     :tt_onLoad => "seen(tstCurrentPage); set_ajaxURL_for_suggestions('/people/district/District?filter_value=' ,document.getElementById('region_region_name').value);$('nextButton').style.display = 'none';" }%>
 
@@ -107,8 +107,8 @@
   <%= text_field "person_address[county_district]", nil,
     {:id => "county_district",
     :condition => '$("address2").value != "Other"',
-    :helpText => 'Ancestral Traditional Authority (T/A) or area of residence',
-    :tt_requireNextClick => false,
+    :helpText => 'Mfumu yayikulu (T/A) kapena kumene mumakhala',
+    :tt_requireNextClick => true,
     :ajaxURL => '',
     :field_type => 'alpha',
     :tt_pageStyleClass => "azButton",
@@ -118,8 +118,8 @@
 <%= text_field_tag "person_address[neighborhood_cell]", nil,
     {:id => "neighborhood_cell",
     :field_type => 'alpha',
-    :helpText => "Home Village",
-    :tt_requireNextClick => false,
+    :helpText => "Mudzi wakwanu",
+    :tt_requireNextClick => true,
     :tt_pageStyleClass => "azButton",
     :ajaxURL => '/people/village?search_string=',
     :allowFreeText => false ,

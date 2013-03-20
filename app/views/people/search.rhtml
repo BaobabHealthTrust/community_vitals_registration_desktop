@@ -18,9 +18,9 @@ pos = 1
 
     people.push({});
 
-    people[<%= pos %>]["Name"] = "<%= person.name %>";
+    people[<%= pos %>]["Dzina"] = "<%= person.name %>";
 
-    people[<%= pos %>]["Gender"] = "<%= person.sex %>";
+    people[<%= pos %>]["Mwamuna/Mkazi"] = "<%= person.sex == 'Female' ? 'Mkazi' : 'Mwamuna' %>";
 
   <% if person.dead == 1 %>
       people[<%= pos %>]["Status"] = "<%=h 'Died' if person.dead == 1 rescue '' -%>";
@@ -33,26 +33,26 @@ pos = 1
     }
 
     try {
-      people[<%= pos %>]["Age"] = "<%= person.age rescue "" %>";
+      people[<%= pos %>]["Zaka"] = "<%= person.age rescue "" %>";
     }catch(e){
-      people[<%= pos %>]["Age"] = null;
+      people[<%= pos %>]["Zaka"] = null;
     }
 
     try {
-      people[<%= pos %>]["Home District"] = "<%=h person.home_district.squish rescue nil-%>";
+      people[<%= pos %>]["Boma"] = "<%=h person.home_district.squish rescue nil-%>";
     }catch(e){
-      people[<%= pos %>]["Home District"] = null;
+      people[<%= pos %>]["Boma"] = null;
     }
 
     try {
-      people[<%= pos %>]["Ancestral Traditional Authority(T/A)"] = "<%=h person.traditional_authority -%>";
+      people[<%= pos %>]["Mfumu Yaikulu(T/A)"] = "<%=h person.traditional_authority -%>";
     }catch(e){
-      people[<%= pos %>]["Ancestral Traditional Authority(T/A)"] = null;
+      people[<%= pos %>]["Mfumu Yaikulu(T/A)"] = null;
     }
     try {
-      people[<%= pos %>]["Current Residence"] = "<%=h person.current_residence -%>";
+      people[<%= pos %>]["Kumene amakhala"] = "<%=h person.current_residence -%>";
     }catch(e){
-      people[<%= pos %>]["Current Residence"] = null;
+      people[<%= pos %>]["Kumene amakhala"] = null;
     }
 
   <% if !person.mothers_surname.blank? %>
@@ -64,7 +64,7 @@ pos = 1
   <% end %>
 
   <% if !person.national_id.blank? %>
-      people[<%= pos %>]["Patient National ID"] = "<%=h person.national_id rescue "" -%>";
+      people[<%= pos %>]["Nambala yachiphaso"] = "<%=h person.national_id rescue "" -%>";
   <% end %>
 
   <% if !person.eid_number.blank? %>
@@ -134,10 +134,10 @@ end -%>
       createControlAndAssignValue("remote", "remote", "true");
 
       if (selected_person){
-        createControlAndAssignValue("gender", "person[gender]",selected_person[pos+1]["Gender"]);
-        createControlAndAssignValue("given_name", "person[names][given_name]",selected_person[pos+1]["Name"].split(' ')[0]);
-        createControlAndAssignValue("family_name", "person[names][family_name]",selected_person[pos+1]["Name"].split(' ')[1])
-        createControlAndAssignValue("address2", "person[addresses][city_village]",selected_person[pos+1]["Current Residence"])
+        createControlAndAssignValue("gender", "person[gender]",selected_person[pos+1]["Mwamuna/Mkazi"]);
+        createControlAndAssignValue("given_name", "person[names][given_name]",selected_person[pos+1]["Dzina"].split(' ')[0]);
+        createControlAndAssignValue("family_name", "person[names][family_name]",selected_person[pos+1]["Dzina"].split(' ')[1])
+        createControlAndAssignValue("address2", "person[addresses][city_village]",selected_person[pos+1]["Kumene amakhala"])
         createControlAndAssignValue("person_birth_year", "person[birth_year]",selected_person[pos+1]["Year"])
         try{
           createControlAndAssignValue("person_birth_month", "person[birth_month]",months.indexOf(selected_person[pos+1]["Month"]) + 1 );
@@ -147,10 +147,10 @@ end -%>
         }
         createControlAndAssignValue("person_birth_day", "person[birth_day]",selected_person[pos+1]["Day"])
         createControlAndAssignValue("birthdate_estimated", "person[birthdate_estimated]", selected_person[pos+1]["Birthdate Estimated"]);
-        createControlAndAssignValue("home_district", "person[addresses][address2]",selected_person[pos+1]["Home District"])
-        createControlAndAssignValue("county_district", "person[addresses][county_district]",selected_person[pos+1]["Ancestral Traditional Authority(T/A)"])
+        createControlAndAssignValue("home_district", "person[addresses][address2]",selected_person[pos+1]["Boma"])
+        createControlAndAssignValue("county_district", "person[addresses][county_district]",selected_person[pos+1]["Mfumu Yaikulu(T/A)"])
         createControlAndAssignValue("occupation", "person[occupation]",selected_person[pos+1]["Occupation"])
-        createControlAndAssignValue("national_id", "person[patient][identifiers][National id]",selected_person[pos+1]["Patient National ID"]);
+        createControlAndAssignValue("national_id", "person[patient][identifiers][National id]",selected_person[pos+1]["Nambala yachiphaso"]);
        }
 
     } else {
@@ -163,7 +163,7 @@ end -%>
       addFields();
       try{
         pos = parseInt(pos) + 1;
-        $('identifier').value = people[pos]['Patient National ID'];
+        $('identifier').value = people[pos]['Nambala yachiphaso'];
       }catch(e){
         if(!pos && text.match(/New Patient/)){
           $('identifier').value = "<%=params[:identifier]%>";
@@ -251,9 +251,9 @@ end -%>
 
       people.push({});
 
-      people[pos]["Name"] = "<%=data.name.squish rescue nil%>"
+      people[pos]["Dzina"] = "<%=data.name.squish rescue nil%>"
 
-      people[pos]["Gender"] = "<%=data.sex.squish rescue nil%>"
+      people[pos]["Mwamuna/Mkazi"] = "<%= (data.sex.squish == 'Female' ? 'Mkazi' : 'Mwamuna') rescue nil%>"
 
       people[pos]["Birthdate"] = "<%=data.birth_date.squish rescue nil%>"
 
@@ -272,29 +272,29 @@ end -%>
         people[pos]["Day"] =  people[pos]["Birthdate"].split('/')[0].replace("??","");
       }
 
-      people[pos]["Age"] = "<%=data.age.squish rescue nil%>";
+      people[pos]["Zake"] = "<%=data.age.squish rescue nil%>";
 
       people[pos]["Occupation"] = "<%=data.occupation.squish rescue nil%>";
 
       people[pos]["Birthdate Estimated"] = "<%=data.birthdate_estimated.squish rescue nil%>";
 
-      people[pos]["Home District"] = "<%=data.home_district.squish rescue nil-%>"
+      people[pos]["Boma"] = "<%=data.home_district.squish rescue nil-%>"
 
-      people[pos]["Ancestral Traditional Authority(T/A)"] = "<%=data.traditional_authority.squish rescue nil%>"
+      people[pos]["Mfumu Yaikulu(T/A)"] = "<%=data.traditional_authority.squish rescue nil%>"
 
-      people[pos]["Current Residence"] = "<%=data.current_residence.squish rescue nil%>";
+      people[pos]["Kumene amakhala"] = "<%=data.current_residence.squish rescue nil%>";
 
-      people[pos]["Patient National ID"] = "<%=data.national_id.squish rescue nil%>";
+      people[pos]["Nambala yachiphaso"] = "<%=data.national_id.squish rescue nil%>";
 
       var li = document.createElement("li");
       li.id = i + 1;
       li.className = ((i + 1)/2 > 0 ? "odd" : "even");
       li.setAttribute("tstvalue", <%=data.person_id%>);
       li.setAttribute("pos", i);
-      if(people[pos]["Home District"]){
-        li.innerHTML = people[pos]["Name"] + " (" + people[pos]["Gender"] + ") " +people[pos]["Birthdate"] + ", " + people[pos]["Home District"];
+      if(people[pos]["Boma"]){
+        li.innerHTML = people[pos]["Dzina"] + " (" + people[pos]["Mwamuna/Mkazi"] + ") " +people[pos]["Birthdate"] + ", " + people[pos]["Boma"];
       }else{
-        li.innerHTML = people[pos]["Name"] + " (" + people[pos]["Gender"] + ") " + people[pos]["Birthdate"];
+        li.innerHTML = people[pos]["Dzina"] + " (" + people[pos]["Mwamuna/Mkazi"] + ") " + people[pos]["Birthdate"];
       }
       li.setAttribute("tag", ((i + 1)/2 > 0 ? "odd" : "even"));
       li.onmousedown = function(){
@@ -329,7 +329,7 @@ end -%>
     <% form_tag "search", :method => :get do %>
       <%= text_field_tag :given_name, params[:given_name], {:field_type => 'alpha', :helpText => 'Dzina loyamba', :ajaxURL => '/person_names/given_names?search_string=', :allowFreeText => true }%>
       <%= text_field_tag :family_name, params[:family_name], {:field_type => 'alpha', :helpText => 'Dzina la abambo anu', :ajaxURL => '/person_names/family_names?search_string=', :allowFreeText => true }%>
-      Gender: <%= select_tag :gender, options_for_select({"" => "", "Male" => "M", "Female" => "F"}), {:helpText => "Mamuna/Mkazi"} %>
+      Mwamuna/Mkazi: <%= select_tag :gender, options_for_select({"" => "", "Mwamuna" => "M", "Mkazi" => "F"}), {:helpText => "Mwamuna/Mkazi"} %>
       <%= hidden_field_tag :create_patient, params[:create_patient] %>
       <%= hidden_field_tag :relation, params[:relation] %>
       <%= submit_tag "Find person" %>
@@ -375,7 +375,7 @@ end -%>
 				<% else %>
 					<option value="<%= patient.person_id %>" onmousedown="changeNextButtonText('Select Guardian')">
 				<% end %>
-            <%=h patient.name -%> (<%= patient.sex %>)
+            <%=h patient.name -%> (<%= patient.sex == 'Female' ? 'Mkazi' : 'Mwamuna' %>)
             <% unless patient.birth_date.blank? %> <%=h patient.birth_date -%><% end %>,
             <% unless patient.current_residence.blank? %> <%=h patient.current_residence -%> <% end %>,
             <% unless patient.guardian.blank? %> Relative: <%=h patient.guardian -%> <% end %>
