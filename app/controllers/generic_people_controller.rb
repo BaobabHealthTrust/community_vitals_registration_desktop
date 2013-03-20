@@ -138,6 +138,19 @@ class GenericPeopleController < ApplicationController
           end
         end
 
+
+        #...............................
+        # Program handling 
+        if found_person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).blank?
+          found_person.patient.patient_programs.create(:program_id => Program.find_by_name("VHW PROGRAM").id,
+            :date_enrolled => Time.now())
+                                                
+          found_person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).transition(
+             :state => "Active phase",:start_date => Time.now()) 
+        end
+        #...............................
+
+
         if params[:relation]
           redirect_to search_complete_url(found_person.id, params[:relation]) and return
         elsif national_id_replaced.to_s == "true"
