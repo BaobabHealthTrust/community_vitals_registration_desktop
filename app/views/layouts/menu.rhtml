@@ -65,7 +65,8 @@
         <div id="footer">
           <div id="buttons" class="buttonsDiv" style="top:0px">
             <button id="finishButton" class="button navButton green" onclick="if (tt_cancel_destination) window.location = tt_cancel_destination;"><span>Finish</span></button>
-                  <% if 'mastercard' == params[:action].to_s %>
+            <button id="backButton" class="blue left" onclick="window.history.back()"><span>Back</span></button>
+                <% if 'mastercard' == params[:action].to_s %>
                     <% if session[:mastercard_ids].length.to_i != 0 %>
                         <script>
                                 tt_cancel_destination = "/clinic/reports";

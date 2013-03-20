@@ -1,56 +1,99 @@
 <style type="text/css">
   body {
     -moz-user-select:none;
-	font-family: Arial,sans-serif;
+    font-family: Arial,sans-serif;
   }
 
   #stats {
     width:98%;
-    border:1px solid #eee;
+    border:none;
     margin:10px;
     background:white;
+    top:2em;
+    position: absolute;
+    left: 0em;
   }
-  #stats td, #stats th {
-    text-align:center;
-  }
-  .odd {
-    background-color: #eee;
-  }
-
-  #table_div {
-    overflow:auto;
-    height: 320px;
-    background-color: white;
-    border: solid 1px #eee;
-    border-width: 1px;
-    overflow: hidden;
+  #summary table{
+    left: 35%;
+    position: absolute;
+    width: 617px;
+    top: 84px;
+    height: 231px;
   }
 
-  #tab {
+  #village{
+    left: 8%;
+    position: absolute;
+    top: 117px;
+    transform: scale(2, 2);
+}
+
+#header{
+  text-align: center;
+  font-weight: bold;
+}
+
+#people{
+font-weight: bold;
+}
+#number{
+  background-color: #669999;
+  border-bottom: 1px outset black;
+
+  color: white;
+  padding: 10px 16px 10px 10px;
+  text-align: center;
+  text-decoration: none;
+}
+div{
     -moz-user-select:none;
+    -moz-user-select: -moz-none;
   }
 </style>
-<div id="tab" style="">
-  <h2>Current patient statistics</h2>
-    <div id="table_div">
-
-    <table id="stats" cellpadding="14">
-      <tr style="color: #fff; background-color: #666;">
-        <th style="text-align:left;">Task Type</th>
-        <th><%= @user %></th>
-        <th>Today</th>
-        <th>This Year</th>
-        <th>Total to Date</th>
+<div id="tab" style="margin-top:24px">
+  <%= image_tag"village.jpeg", :id=>"village" %>
+  <div id="summary">
+    <table>
+      <tr style="background-color:#ffcc00">
+        <td colspan="5" style="text-align:center;">REGISTRATION STATISTICS</td>
       </tr>
-      <% @types.each do |type| %>
-        <tr class="<%= cycle('even', 'odd') %>">
-          <td style="text-align:left;"><%= type.capitalize.humanize.gsub('hiv','HIV').gsub('Hiv','HIV').gsub('art','ART').gsub('Art','ART') %></td>
-          <td><%= @me[type].to_i %></td>
-          <td><%= @today[type].to_i %></td>
-          <td><%= @year[type].to_i %></td>
-          <td><%= @ever[type].to_i %></td>
-        </tr>
-      <% end %>
+      <tr>
+        <td>&nbsp;</td>
+        <td id="header"><span>Lero</span></td>
+        <td id="header"><span>Tsabata ino</span></td>
+        <td id="header"><span>Mwezi uno</span></td>
+        <td id="header"><span>Chaka chino</span></td>
+      </tr>
+      <tr>
+        <td id="people" width="60">Abambo</td>
+        <td id="number"><span><%= @men_today.count %></span></td>
+        <td id="number"><span><%= @men_this_week.count %></span></td>
+        <td id="number"><span><%= @men_this_month.count %></span></td>
+        <td id="number"><span><%= @men_this_year.count %></span></td>
+      </tr>
+      <tr>
+        <td id="people" >Amayi</td>
+        <td id="number"><span><%= @women_today.count %></span></td>
+        <td id="number"><span><%= @women_this_week.count %></span></td>
+        <td id="number"><span><%= @women_this_month.count %></span></td>
+        <td id="number"><span><%= @women_this_year.count %></span></td>
+      </tr>
+      <tr>
+        <td id="people" >Anyamata</td>
+        <td id="number"><span><%= @boys_today.count %></span></td>
+        <td id="number"><span><%= @boys_this_week.count %></span></td>
+        <td id="number"><span><%= @boys_this_month.count %></span></td>
+        <td id="number"><span><%= @boys_this_year.count %></span></td>
+      </tr>
+      <tr>
+        <td id="people" >Atsikana</td>
+        <td id="number"><span><%= @girls_today.count %></span></td>
+        <td id="number"><span><%= @girls_this_week.count %></span></td>
+        <td id="number"><span><%= @girls_this_month.count %></span></td>
+        <td id="number"><span><%= @girls_this_year.count %></span></td>
+      </tr>
     </table>
+
+
   </div>
 </div>
