@@ -372,6 +372,8 @@ module DDEService
 		  #patient.patient_identifiers.create("identifier" => patient_params["identifier"], "identifier_type" => PatientIdentifierType.find_by_name("Unknown id")) unless params["identifier"].blank?
 		end
 
+    person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).transition(
+                          :state => "Active phase",:start_date => Time.now())
 		return person
 	end
 
