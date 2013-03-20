@@ -60,5 +60,44 @@ class PeopleController < GenericPeopleController
     end
     render:layout => "menu"
   end
+
+  def demographics
+    person = Patient.find(params[:patient_id]  || params[:id] || session[:patient_id]).person rescue nil
+    @patient = person.patient
+    @patient_bean = PatientService.get_patient(person)
+    
+    @national_id = @patient_bean.national_id_with_dashes rescue nil
+
+    @first_name = @patient_bean.first_name rescue nil
+    @last_name = @patient_bean.last_name rescue nil
+    @birthdate = @patient_bean.birth_date rescue nil
+
+    @gender = @patient_bean.sex rescue ''
+
+    @current_village = @patient_bean.home_village rescue ''
+    @current_ta = @patient_bean.traditional_authority rescue ''
+    @current_district = @patient_bean.current_district rescue ''
+    @home_district = @patient_bean.home_district rescue ''
+    @landmark = @patient_bean.landmark rescue ''
+    @primary_phone = @patient_bean.cell_phone_number rescue ''
+    @secondary_phone = @patient_bean.home_phone_number rescue ''
+
+    @occupation = @patient_bean.occupation rescue ''
+    render :template => 'people/demographics', :layout => 'menu'
+
+  end
+
+  def edit_demographics
+    @patient = Patient.find(params[:patient_id]  || params[:id] || session[:patient_id]) rescue nil
+    @field = params[:field]
+    render :partial => "edit_demographics", :field =>@field, :layout => true and return
+  end
+
+  def update_demographics
+    PatientService.update_demographics(params)
+    redirect_to :action => 'demographics', :patient_id => params['person_id'] and return
+  end
+
+
 end
  

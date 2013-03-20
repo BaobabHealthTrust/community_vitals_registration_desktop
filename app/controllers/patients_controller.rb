@@ -225,4 +225,6 @@ class PatientsController < GenericPatientsController
     label.print(2)
   end
 
+  
+
 end

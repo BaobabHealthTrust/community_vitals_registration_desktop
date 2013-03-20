@@ -1,133 +1,180 @@
-<style>
-  #table_one {
-    border-style: solid;
-    border-width: 1px 0px 1px 0px;
-    width: 100%;
-  }
+<style type="text/css">
 
-  #table_one td {
-    background-color: #CCCCCC;
-    padding-left: 10px;
-    border: medium none;
-    color: #000000;
-    font-family: Arial,sans-serif;
-    font-size: 13px;
-    padding-right: 2px;
-    text-align: left;
-    -moz-user-select: none;
+  table {
+    vertical-align:center;
+    width: 97%;
     height: auto;
+    -moz-user-select:none;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
   }
 
-  .color_white {width:15%;}
+  .title {
+    font-size: 25px;
+    text-align: left;
+    border-style: solid;
+    border-width: 1px 1px 0px 0px;
+  }
+  .title-top {
+    font-size: 25px;
+    text-align: left;
+    border-style: solid;
+    border-width: 0px 1px 0px 0px;
+  }
+ .data {
+    font-size: 25px;
+    text-align: left;
+    border-style: solid;
+    border-width: 1px 1px 0px 0px;
 
-  .color_blue {
-    width: 15%;
-    background-color: #E6E6FF;
+  }
+  .data-top {
+    font-size: 25px;
+    text-align: left;
+    border-style: solid;
+    border-width: 0px 1px 0px 0px;
+
+  }
+  a {
+    background: url('/images/btn_blue.png');
+    background-repeat: repeat-x;
+    color: white;
+    display: block;
+    padding: 0px;
+    min-height: 50px;
+    min-width: 90px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    font-size: 25px;
+    border-radius: 10px;
   }
 
-  #table_one_header td{
-    background-color:lightgrey;
+  .container {
+    height: 92%;
+    background-color: white;
+    margin: 20px 20px 20px 20px;
+    overflow: auto;
+    -moz-border-radius: 10px;
   }
+
 </style>
 
-<base target="_parent">
+<script type="text/javascript">
+  tt_cancel_destination = "/patients/show?patient_id=<%= @patient.patient_id%>";
+</script>
 
-<div id='demographic'>
-<h2>OPD CARD</h2>
-<table id='table_one'>
-  <tr>
-   <td><b>National ID</b></td>
-   <td><%= link_to "Name:", "/patients/mastercard_modify?field=name&id=#{@patient.id}&source=opd" -%></td>
-   <td><b>Birthdate</b></td>
-   <td><%= link_to "Age:", "/patients/mastercard_modify?field=age&id=#{@patient.id}&source=opd" -%></td>
-   <td><%= link_to "Sex:", "/patients/mastercard_modify?field=sex&id=#{@patient.id}&source=opd" -%></td>
-   <td><%= link_to "TA:", "/patients/mastercard_modify?field=ta&id=#{@patient.id}&source=opd" -%></td>
-  </tr>
-  <tr class="master_data">
-   <td class='demo_data'><%= @patient_bean.national_id_with_dashes rescue nil-%></td>
-   <td class='demo_data'><%= @patient_bean.name rescue nil-%></td>
-   <td class='demo_data'><%= @patient_bean.birth_date rescue nil-%></td>
-   <td class='demo_data'><%= @patient_bean.age rescue nil-%></td>
-   <td class='demo_data'><%= @patient_bean.sex rescue nil-%></td>
-   <td class='demo_data' colspan="10"><%= @patient_bean.traditional_authority -%></td>
-  </tr>
-  <tr>
-   <td><%= link_to "Location:", "/patients/mastercard_modify?field=location&id=#{@patient.id}&source=opd" -%></td>
-   <td colspan="3"><%= link_to "Landmark / Address (Physical / PO Box):", "/patients/mastercard_modify?field=address&id=#{@patient.id}&source=opd" -%></td>
-   <td colspan="5"><%= link_to "Occupation:", "/patients/mastercard_modify?field=occupation&id=#{@patient.id}&source=opd" -%></td>
-  </tr>
-  <tr class="master_data">
-   <td class='demo_data'><%= @patient_bean.current_residence rescue nil-%></td>
-   <td class='demo_data' colspan="3"><%= @patient_bean.home_district -%></td>
-   <td class='demo_data' colspan="5"><%= @patient_bean.occupation -%></td>
-  </tr>
-</table>
-</div>
-<div id='visits'>
-<% @visits = Outpatient.visits(@patient) rescue []
-  if @visits.blank? %>
-  <table id="table_two"><tr><td style="text-align:center;">No visits</td></tr></table>
-<% else %><br />
-  <table cellspacing="0" cellpadding="0" border="0" width="100%">
-  <tr>
-    <td>
-       <table cellspacing="0" cellpadding="1" border="0" width="100%" id="table_one_header">
+<div class="container">
+  <div id="details" style="max-height:650px;overflow:auto;display:block">
+    <!--form>
+    <%= hidden_field_tag("observations[][patient_id]", @patient.id) %>
+    <%= hidden_field_tag("patient_id", @patient.id) %>
+    <%= hidden_field_tag("cat", params[:cat]) %>
+    </form-->
+
+    <div>
+
+     <table>
+        <tr>
+          <td class='title-top'>
+              First Name
+          </td>
+          <td class='data-top'><%= @first_name %></td>
+		  <td><a href="edit_demographics?patient_id=<%=@patient.id%>&field=first_name&person_id=<%=
+               @patient.id %>&cat=<%= (params["cat"] rescue "") %>&given_name=<%= @first_name %>">Edit</a></td>
+        </tr>
+        <tr>
+          <td class='title'>Last Name</td>
+          <td class='data'><%=@last_name%></td>
+          <td><a href="edit_demographics?patient_id=<%=@patient.id%>&field=last_name&person_id=<%=
+                               @patient.id %>&cat=<%= (params["cat"] rescue "") %>&family_name=<%= @last_name %>">Edit</a></td>
+        </tr>
+
+        <tr>
+          <td class='title'>Birthdate</td>
+          <td class='data'><%=@birthdate%></td>
+          <td><a href="edit_demographics?patient_id=<%=@patient.id%>&field=birthdate&person_id=<%=
+                               @patient.id %>&cat=<%= (params["cat"] rescue "") %>">Edit</a></td>
+        </tr>
+        <tr>
+          <td class='title'>Gender</td>
+          <td class='data'><%=@gender%></td>
+          <td><a href="edit_demographics?patient_id=<%=@patient.id%>&field=gender&person_id=<%=
+                               @patient.id %>&cat=<%= (params["cat"] rescue "") %>&gender=<%= (@gender == "Male" ? "M" : "F") %>">Edit</a></td>
+        </tr>
+
+        <tr>
+            <td class='title'>Nationality</td>
+            <td class ='data'> <%= @anc_patient.nationality %></td>
+			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
+                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=citizenship">Edit</a></td>
+          </tr>
+					<tr>
+            <td class='title'>Home District</td>
+            <td class='data'> <%= @anc_patient.home_district %></td>
+			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
+                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=home_district">Edit</a></td>
+          </tr>
+					<tr>
+            <td class='title'>Home Traditional Authority</td>
+            <td class='data'><%= @anc_patient.home_ta %></td>
+			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
+                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=home_district">Edit</a></td>
+          </tr>
+					<tr>
+            <td class='title'>Home Village</td>
+            <td class='data'> <%= @anc_patient.home_village %></td>
+ 			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
+                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=home_village">Edit</a></td>
+          </tr>
+					<tr>
+            <td class='title'>Current District</td>
+            <td class='data'> <%= @anc_patient.current_district %></td>
+			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
+                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=current_district"> Edit</a></td>
          <tr>
-            <td width="15%" style="text-align:left;">Visit date</td>
-            <td width="15%" style="text-align:left;">Patient present</td>
-            <td width="15%" style="text-align:left;">Diagnosis</td>
-            <td width="15%" style="text-align:left;">Treatment</td>
-            <td width="15%" style="text-align:left;">Referal</td>
-         </tr>
-       </table>
-    </td>
-  </tr>
-  <tr>
-    <td>
-       <div style="width:100%; height:349px; overflow:auto;">
-         <table cellspacing="0" cellpadding="1" border="0" width="100%" >
-         <%total = 0  
-           color = 'blue'
-           @visits.sort.each{|date,value|
-             if color == 'blue'
-               color = 'white'
-             else
-               color='blue'
-             end  
-           %>
-           <tr>
-              <td class='color_<%=color%>' style="text-align:left;"><%= date.strftime('%d/%m/%Y') %></td>
-              <td class='color_<%=color%>'><%= value.patient_present || '&nbsp;' %></td>
-              <td class='color_<%=color%>'>
-                <%
-                  visit_value = nil    
-                  (value.primary_diagnosis || []).map do | val | 
-                    if visit_value.blank?
-                      visit_value = val
-                    else visit_value+="<br />#{val}" end
-                  end
-                %>
-                <%= visit_value || '&nbsp;' %>
-              </td>
-              <td class='color_<%=color%>'>
-                <%
-                  visit_value = nil    
-                  (value.treatment || []).map do | val | 
-                    if visit_value.blank?
-                      visit_value = val
-                    else visit_value+="<br />#{val}" end
-                  end
-                %>
-                <%= visit_value || '&nbsp;' %>
-              </td>
-              <td class='color_<%=color%>'><%= value.referal_destination || '&nbsp;' %></td>
-           </tr>
-         <%}%>
-         </table><hr /> 
-       </div>
-    </td>
-  </tr>
-</table>
+            <td class='title'>Current Residence</td>
+            <td class='data'> <%= @anc_patient.current_address2 %></td>
+			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
+                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=city_village"> Edit</a></td>
+          </tr>
 
-<% end %>
+          <tr>
+            <td class='title'>Plot / Landmark</td>
+            <td class='data'> <%= @anc_patient.current_address1 %></td>
+			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
+                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=landmark"> Edit</a></td>
+          </tr>
+
+
+          <!--tr>
+            <td class='title'> Primary Phone</td
+            <td class='data'><%=@primary_phone%></td>
+			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
+          @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=primary_phone">Edit</a></td>
+          </tr>
+          <tr>
+            <td class='title'>Occupation</td>
+            <td class='data'><%=@occupation%><br/> </td>
+			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
+          @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=occupation">Edit</a></td>
+          </tr-->
+
+      </table>
+
+    </div>
+  </div>
 </div>
+
+<div id="footer">
+
+  <div id="buttons" class="buttonsDiv">
+    <button id="finishButton" class="button navButton green"
+            onclick="if (tt_cancel_destination) window.location = tt_cancel_destination;">
+      <span>Finish</span>
+    </button>
+  </div>
+  <div id="tt_extraButtons"/>
+</div>
+
