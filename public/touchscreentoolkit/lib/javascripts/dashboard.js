@@ -122,19 +122,19 @@ function generateHomepage(){
         var location = __$("location").innerHTML.trim().replace(/\(/g, "").replace(/\)/g, "");
 
         if(location.trim().length > 0){
-            if(location.trim().length > 20) {
+            if(location.trim().length > 30) {
                 var s = location.trim().split(" ");
 
                 if(s.length > 0){
                     for(var i = 0; i < s.length; i++){
-                        if(s[0].trim().length < 15 && i == 0){
+                        if(s[0].trim().length < 25 && i == 0){
                             loc += s[i].trim() + " ";
                         } else {
                             loc += s[i].substr(0,1).toUpperCase() + ".";
                         }
                     }
                 } else {
-                    loc = location.trim().substr(0, 18) + " ...";
+                    loc = location.trim().substr(0, 28) + " ...";
                 }
             } else {
                 loc = location.trim();
