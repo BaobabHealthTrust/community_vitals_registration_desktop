@@ -90,6 +90,15 @@
 
 </script>
 
+<style>
+  .tt_controls_chigawo_chimene_mumachokela .keyboard {
+    display: none !important;
+  }
+
+</style>
+
+
+
 <% form_tag clinic_path, :method => :post do -%>
   <p><label for="region_region_name">Chigawo chimene mumachokela</label></p></br>
   <%= text_field "region" , 'region_name', :xhelpText => 'Chigawo chimene kuli mudzi wanu',:tt_requireNextClick => false, :ajaxURL => '/people/region/Region?field=role&value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%></p>
