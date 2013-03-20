@@ -127,6 +127,7 @@ class GenericPeopleController < ApplicationController
           found_person = PatientService.create_from_form(found_person_data['person']) unless found_person_data.blank?
         end
       end
+
       if found_person
         if params[:identifier].length != 6 and create_from_dde_server
           patient = DDEService::Patient.new(found_person.patient)
@@ -137,6 +138,19 @@ class GenericPeopleController < ApplicationController
           end
         end
 
+
+        #...............................
+        # Program handling 
+        if found_person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).blank?
+          found_person.patient.patient_programs.create(:program_id => Program.find_by_name("VHW PROGRAM").id,
+            :date_enrolled => Time.now())
+                                                
+          found_person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).transition(
+             :state => "Active phase",:start_date => Time.now()) 
+        end
+        #...............................
+
+
         if params[:relation]
           redirect_to search_complete_url(found_person.id, params[:relation]) and return
         elsif national_id_replaced.to_s == "true"
@@ -146,6 +160,7 @@ class GenericPeopleController < ApplicationController
           redirect_to :action => 'confirm',:found_person_id => found_person.id, :relation => params[:relation] and return
         end
       end
+
     end
 
     @relation = params[:relation]
@@ -372,6 +387,16 @@ class GenericPeopleController < ApplicationController
       unless (params[:relation].blank?)
         redirect_to search_complete_url(person.id, params[:relation]) and return
       else
+
+        # ......................................
+        # Program handling                                                          
+        person.patient.patient_programs.create(:program_id => Program.find_by_name("VHW PROGRAM").id,
+          :date_enrolled => Time.now())
+                                              
+        person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).transition(
+           :state => "Active phase",:start_date => Time.now()) 
+        # ......................................
+
         print_and_redirect("/patients/national_id_label?patient_id=#{person.id}", next_task(person.patient))
       end
     else
