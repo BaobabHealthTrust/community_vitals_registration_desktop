@@ -1,3 +1,4 @@
+
 <style type="text/css">
 
   table {
@@ -8,6 +9,10 @@
     border-style: solid;
     border-width: 1px;
     border-radius: 10px;
+  }
+  .setfinish {
+    position: absolute ;
+    left: 1400px;
   }
 
   .title {
@@ -57,6 +62,7 @@
     margin: 20px 20px 20px 20px;
     overflow: auto;
     -moz-border-radius: 10px;
+    padding-top: 2%;
   }
 
 </style>
@@ -119,7 +125,7 @@
             <td class='title'>Home Village</td>
             <td class='data'> <%= @current_village %></td>
  			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
-                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=home_village">Edit</a></td>
+                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=home_district">Edit</a></td>
           </tr>
 					<tr>
             <td class='title'>Current District</td>
@@ -130,7 +136,7 @@
             <td class='title'>Current Residence</td>
             <td class='data'> <%= @current_district %></td>
 			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
-                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=city_village"> Edit</a></td>
+                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=current_district"> Edit</a></td>
           </tr>
 
           <tr>
@@ -139,20 +145,6 @@
 			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
                                  @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=landmark"> Edit</a></td>
           </tr>
-
-
-          <!--tr>
-            <td class='title'> Primary Phone</td
-            <td class='data'><%=@primary_phone%></td>
-			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
-          @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=primary_phone">Edit</a></td>
-          </tr>
-          <tr>
-            <td class='title'>Occupation</td>
-            <td class='data'><%=@occupation%><br/> </td>
-			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
-          @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=occupation">Edit</a></td>
-          </tr-->
 
       </table>
 
@@ -163,11 +155,20 @@
 <div id="footer">
 
   <div id="buttons" class="buttonsDiv">
-    <button id="finishButton" class="button navButton green"
+    <button id="finishButton" class="button navButton green setfinish"
             onclick="if (tt_cancel_destination) window.location = tt_cancel_destination;">
       <span>Finish</span>
     </button>
   </div>
   <div id="tt_extraButtons"/>
 </div>
+
+<script>
+  function setPosition(){
+    finish = document.getElementById('finishButton')
+    finish.style.position = 'absolute'
+    finish.style.left = '1400px'
+  }
+  setTimeout("setPosition()",10);
+</script>
 
