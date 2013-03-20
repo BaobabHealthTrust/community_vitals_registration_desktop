@@ -1,4 +1,5 @@
-
+<html>
+  <head>
 <style type="text/css">
 
   table {
@@ -10,10 +11,7 @@
     border-width: 1px;
     border-radius: 10px;
   }
-  .setfinish {
-    position: absolute ;
-    left: 1400px;
-  }
+  
 
   .title {
     font-size: 25px;
@@ -70,7 +68,8 @@
 <script type="text/javascript">
   tt_cancel_destination = "/patients/show?patient_id=<%= @patient.patient_id%>";
 </script>
-
+  </head>
+  <body>
 <div class="container">
   <div id="details" style="max-height:650px;overflow:auto;display:block">
     <!--form>
@@ -154,22 +153,19 @@
 
 <div id="footer">
 
-  <div id="buttons" class="buttonsDiv">
-    <button id="finishButton" class="button navButton green setfinish"
-            onclick="if (tt_cancel_destination) window.location = tt_cancel_destination;">
-      <span>Finish</span>
-    </button>
-  </div>
-  <div id="tt_extraButtons"/>
 </div>
 
 <script>
   function setPosition(){
     finish = document.getElementById('finishButton')
     finish.style.position = 'absolute'
-    finish.style.left = '1400px'
+    finish.style.left = '0px'
   }
   setTimeout("setPosition()",10);
 </script>
+</body>
+</html>
+
+
 
   
