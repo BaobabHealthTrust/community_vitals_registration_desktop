@@ -208,15 +208,6 @@
     }
   </script>
 
-	<%= touch_select_tag "Reason for exiting care", @patient, concept_set_options("Place of Death"),
-		{
-			:id => "place_of_death",
-			:multiple => false,
-    	:condition => "(selectedValue('initial_state').toUpperCase() == 'PATIENT DIED')",
-    	:tt_onLoad => "changeNextButtonCaption();setFinishButtonToSubmitExitFromCareForm()",
-			:helpText => 'Place where death occured'
-		} %>
-
   <%= select_tag 'transfer_out_location_id', nil,
       {:id => 'transfer_out_location_id',
        :field_type => 'alpha',
