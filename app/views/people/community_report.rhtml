@@ -18,7 +18,7 @@
             "bInfo": true,
             "bPaginate": false
           });
-    search_box = $('#table_id').dataTable()
+    search_box = $('#report').dataTable()
     search = document.getElementsByTagName("input")[0];
     search.setAttribute("id","search");
     document.getElementById('search').setAttribute("onclick","showKeyboard();");
@@ -259,7 +259,7 @@
      <b style="position:relative; top:0px;margin-left:75px">Kuchokera pa: <%=@start_date.strftime("%d-%m-%Y")%> </b><br />
      <b style="position:relative; top:0px;margin-left:75px">Kuthera pa: <%=@end_date.strftime("%d-%m-%Y")%></b><br />
 <%#= raise (@end_date ).inspect %><br /><br />
-     <table id="report" >
+     <table id="report" style="width: 90%;">
        <tr>
          <td style="background-color: #9ACD32; font-size: 14pt;">Anthu onse</td>
          <td id="number"><%= link_to((@total_registered.count), {:action=>"decompose_report",:ids =>@total_registered.map(&:id)}) %></td>
@@ -311,7 +311,7 @@
   function setPosition(){
     finish = document.getElementById('finishButton')
     finish.style.position = 'absolute'
-    finish.style.left = '1400px'
+    finish.style.left = '0px'
   }
   setTimeout("setPosition()",10);
 </script>
