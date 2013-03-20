@@ -1309,17 +1309,10 @@ EOF
         identifier_type = PatientIdentifierType.find_by_name(identifier_type_name) || PatientIdentifierType.find_by_name("Unknown id")
         patient.patient_identifiers.create("identifier" => identifier, "identifier_type" => identifier_type.patient_identifier_type_id)
 		  } if params["identifiers"]
-=begin
-		  patient_params["identifiers"].each{|identifier_type_name, identifier|
-        next if identifier.blank?
-        identifier_type = PatientIdentifierType.find_by_name(identifier_type_name) || PatientIdentifierType.find_by_name("Unknown id")
-        patient.patient_identifiers.create("identifier" => identifier, "identifier_type" => identifier_type.patient_identifier_type_id)
-		  } if patient_params["identifiers"]
-=end
-		  # This might actually be a national id, but currently we wouldn't know
-		  #patient.patient_identifiers.create("identifier" => patient_params["identifier"], "identifier_type" => PatientIdentifierType.find_by_name("Unknown id")) unless params["identifier"].blank?
 		end
 
+    person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).transition(
+                          :state => "Active phase",:start_date => Time.now())
 		return person
 	end
 
