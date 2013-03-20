@@ -694,6 +694,7 @@ module PatientService
     elsif patient_bean.state_province.blank? and !patient_bean.current_residence.blank?
       address = patient_bean.current_residence
     end
+    address = patient_bean.home_village if address.blank?
     label = ZebraPrinter::StandardLabel.new
     label.font_size = 2
     label.font_horizontal_multiplier = 2

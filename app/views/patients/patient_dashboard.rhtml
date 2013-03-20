@@ -178,7 +178,7 @@ div {
       <b>Birthdate:</b>&nbsp;<%=@patient_bean.birth_date%>&nbsp;
       <b>Age:</b>&nbsp;<%=@patient_bean.age%><br />
       <b>National ID:</b>&nbsp;<%=@patient_bean.national_id_with_dashes%><br />
-      <b>Address</b>&nbsp;Area 47<br /><hr />
+      <b>Address</b>&nbsp;<%=  "#{@patient_bean.home_village}, #{@patient_bean.traditional_authority}, #{@patient_bean.home_district}" %><br /><hr />
       <b>Next task:</b>&nbsp;<%=@task.encounter_type%>
     </div><p />
 
@@ -204,7 +204,6 @@ div {
       <div class="data">
         <b>Demographics ....</b><br />
         <b>Age in months:</b>&nbsp;<%=@patient_bean.age_in_months%><br />
-        <b>Guardian:&nbsp;</b><%=@patient_bean.guardian%><br />
         <b>Home district:&nbsp;</b><%=@patient_bean.home_district%><br />
         <b>Traditional authority:</b>&nbsp;<%=@patient_bean.traditional_authority%><br />
         <b>Cell phone number:&nbsp;</b><%=@patient_bean.cell_phone_number%><br />
