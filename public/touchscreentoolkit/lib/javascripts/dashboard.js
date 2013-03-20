@@ -111,30 +111,30 @@ function generateHomepage(){
         }
     }
 
-    sitecol1.innerHTML = "<b>Mudzi:</b> " + (__$("facility") ? site : "&nbsp;");
+    sitecol1.innerHTML = "<b>Facility:</b> " + (__$("facility") ? site : "&nbsp;");
 
     siterow.appendChild(sitecol1);
 
-    //var sitecol2 = document.createElement("div");
-    //sitecol2.id = "sitecol2";
+    var sitecol2 = document.createElement("div");
+    sitecol2.id = "sitecol2";
 
     if(__$("location")) {
         var location = __$("location").innerHTML.trim().replace(/\(/g, "").replace(/\)/g, "");
 
         if(location.trim().length > 0){
-            if(location.trim().length > 30) {
+            if(location.trim().length > 20) {
                 var s = location.trim().split(" ");
 
                 if(s.length > 0){
                     for(var i = 0; i < s.length; i++){
-                        if(s[0].trim().length < 25 && i == 0){
+                        if(s[0].trim().length < 15 && i == 0){
                             loc += s[i].trim() + " ";
                         } else {
                             loc += s[i].substr(0,1).toUpperCase() + ".";
                         }
                     }
                 } else {
-                    loc = location.trim().substr(0, 28) + " ...";
+                    loc = location.trim().substr(0, 18) + " ...";
                 }
             } else {
                 loc = location.trim();
@@ -142,9 +142,9 @@ function generateHomepage(){
         }
     }
 
-    //sitecol2.innerHTML = "<b>Location:</b> " + (__$("location") ? loc : "&nbsp;");
+    sitecol2.innerHTML = "<b>Location:</b> " + (__$("location") ? loc : "&nbsp;");
 
-    //siterow.appendChild(sitecol2);
+    siterow.appendChild(sitecol2);
 
     var logininfo = document.createElement("div");
     logininfo.id = "logininfo";
@@ -223,7 +223,7 @@ function generateHomepage(){
 
     var scanlabel = document.createElement("div");
     scanlabel.id = "scanlabel";
-    scanlabel.innerHTML = "Scan Person Barcode :";
+    scanlabel.innerHTML = "Scan Patient Barcode :";
 
     bannerrow.appendChild(scanlabel);
 
@@ -247,7 +247,8 @@ function generateHomepage(){
         return;
         if(event.keyCode == 52){
             if(tt_cancel_show){
-                window.location = tt_cancel_show + '?identifier=' + this.value;
+                window.location = tt_cancel_show + (tt_cancel_show.trim().match(/\?/) != null ? "&" : "?") +
+                    'identifier=' + this.value;
             } else {
                 window.location = '/people/search?identifier=' + this.value;
             }
@@ -419,7 +420,7 @@ function generateDashboard(){
     gender.id = "gendercell";
     if(__$('patient_gender')){
         gender.innerHTML = "<div id='gender' style='padding-left: 3px; padding-top: 2px; " + 
-            "height: 25px; width: 25px;' class='" +
+        "height: 25px; width: 25px;' class='" +
         (__$('patient_gender').innerHTML.toLowerCase().trim() == "female" ? "female" : "male") +
         "' /></div>";
     }
@@ -450,7 +451,7 @@ function generateDashboard(){
     if(__$('patient_id')){
         var patientid = document.createElement("div");
         patientid.id = "id";
-        patientid.innerHTML = "Person ID"
+        patientid.innerHTML = "Patient ID"
 
         nameRow.appendChild(patientid);
 
@@ -1005,6 +1006,12 @@ function checkForBarcode(validAction){
     if (!barcode_element)
         return
 
+    barcode_element.onkeydown = function(event){
+        if(event.keyCode == 13){
+            this.value += '$'
+        }
+    }
+
     // Look for anything with a dollar sign at the end
     if (barcode_element.value.match(/.+\$$/i) != null || barcode_element.value.match(/.+\$$/i) != null){
         barcode_element.value = barcode_element.value.substring(0,barcode_element.value.length-1)
@@ -1012,7 +1019,9 @@ function checkForBarcode(validAction){
             barcodeScanAction();
         } else {
             if(tt_cancel_show){
-                window.location = tt_cancel_show + '?identifier=' + barcode_element.value;
+                window.location = tt_cancel_show + (tt_cancel_show.trim().match(/\?/) != null ? "&" : "?") +
+                    'identifier=' + barcode_element.value;
+                // window.location = tt_cancel_show + '?identifier=' + barcode_element.value;
             } else {
                 window.location = '/people/search?identifier=' + barcode_element.value;
             }
