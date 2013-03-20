@@ -78,48 +78,77 @@ class GenericClinicController < ApplicationController
   end
 
   def overview_tab
-    simple_overview_property = CoreService.get_global_property_value("simple_application_dashboard") rescue nil
+    @men_today = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
+    AND gender =? AND Date(date_created) =?", 18,'m',Date.today])
 
-    simple_overview = false
-    if simple_overview_property != nil
-      if simple_overview_property == 'true'
-        simple_overview = true
-      end
-    end
+    @men_this_week = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
+        Date.today.beginning_of_week - 1, Date.today.end_of_week - 1])
 
-    @types = CoreService.get_global_property_value("statistics.show_encounter_types") rescue EncounterType.all.map(&:name).join(",")
-    @types = @types.split(/,/)
+    @men_this_month = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
+        Date.today.beginning_of_month, Date.today.end_of_month])
 
-    @me = Encounter.statistics(@types,
-      :conditions => ['encounter_datetime BETWEEN ? AND ? AND encounter.creator = ?',
-                      Date.today.strftime('%Y-%m-%d 00:00:00'),
-                      Date.today.strftime('%Y-%m-%d 23:59:59'),
-                      current_user.user_id])
-    @today = Encounter.statistics(@types,
-      :conditions => ['encounter_datetime BETWEEN ? AND ?',
-                      Date.today.strftime('%Y-%m-%d 00:00:00'),
-                      Date.today.strftime('%Y-%m-%d 23:59:59')])
+    @men_this_year = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
+        Date.today.beginning_of_year, Date.today.end_of_year])
+    
+    #==========================================================================
+    @women_today = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
+    AND gender =? AND Date(date_created) =?", 18,'f',Date.today])
 
-    if !simple_overview
-      @year = Encounter.statistics(@types,
-        :conditions => ['encounter_datetime BETWEEN ? AND ?',
-                        Date.today.strftime('%Y-01-01 00:00:00'),
-                        Date.today.strftime('%Y-12-31 23:59:59')])
-      @ever = Encounter.statistics(@types)
-    end
+    @women_this_week = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
+        Date.today.beginning_of_week - 1, Date.today.end_of_week - 1])
 
-    @user = User.find(current_user.user_id).person.name rescue ""
+    @women_this_month = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
+        Date.today.beginning_of_month, Date.today.end_of_month])
 
-    if simple_overview
-        render :template => 'clinic/overview_simple.rhtml' , :layout => false
-        return
-    end
+    @women_this_year = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
+        Date.today.beginning_of_year, Date.today.end_of_year])
+
+    #============================================================================
+
+    @boys_today = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
+    AND gender =? AND Date(date_created) =?", 18,'m',Date.today])
+
+    @boys_this_week = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
+        Date.today.beginning_of_week - 1, Date.today.end_of_week - 1])
+
+    @boys_this_month = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
+        Date.today.beginning_of_month, Date.today.end_of_month])
+
+    @boys_this_year = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
+        Date.today.beginning_of_year, Date.today.end_of_year])
+
+    #============================================================================
+
+    @girls_today = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
+    AND gender =? AND Date(date_created) =?", 18,'f',Date.today])
+
+    @girls_this_week = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
+        Date.today.beginning_of_week - 1, Date.today.end_of_week - 1])
+
+    @girls_this_month = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
+        Date.today.beginning_of_month, Date.today.end_of_month])
+
+    @girls_this_year = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
+        Date.today.beginning_of_year, Date.today.end_of_year])
+  #==============================================================================
     render :layout => false
   end
 
   def reports_tab
     @reports = [
-      ["Total Registered","#"],
+      ["Total Registered","/people/report_menu"],
     ]
     render :layout => false
   end
