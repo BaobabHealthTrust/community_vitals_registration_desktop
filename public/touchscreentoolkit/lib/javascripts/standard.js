@@ -228,7 +228,7 @@ function createButtons() {
 
     // create clear button or new patient button if on search page
     if (!tstSearchPage) {
-        buttonsDiv.innerHTML += "<button id='clearButton' class='button blue navButton' onMouseDown='clearInput()'><span>Clear</span></button>";
+        buttonsDiv.innerHTML += "<button id='clearButton' class='button blue navButton' onMouseDown='clearInput()'><span>Fafaniza</span></button>";
     } else {
         var buttonLabel = "New Patient";
         if (tstSearchMode && (tstSearchMode == "guardian")) {
@@ -242,7 +242,7 @@ function createButtons() {
     buttonsDiv.innerHTML += "<div id='tt_extraButtons'></div>";
 
     // create cancel button
-    buttonsDiv.innerHTML += "<button class='button navButton red' id='cancelButton' onMouseDown='confirmCancelEntry(" + (typeof(save_state) != "undefined"?"true":"") + ");'><span>Cancel</span></button>";
+    buttonsDiv.innerHTML += "<button class='button navButton red' id='cancelButton' onMouseDown='confirmCancelEntry(" + (typeof(save_state) != "undefined"?"true":"") + ");'><span>Leka</span></button>";
 
     return buttonsDiv
 }
@@ -1450,9 +1450,9 @@ function navigateToPage(destPage, validate, navback){
 
         var nextButton = tstNextButton;
         if (destPage+1 == tstPages.length) {
-            nextButton.innerHTML = "<span>Finish</span>";
+            nextButton.innerHTML = "<span>Maliza</span>";
         } else {
-            nextButton.innerHTML = "<span>Next</span>";
+            nextButton.innerHTML = "<span>Patsogolo</span>";
         }
         showBestKeyboard(destPage);
 
@@ -1522,7 +1522,7 @@ function inputIsValid() {
             ". Are you sure about this value?</p><div style='display: block;'>" +
             "<button class='button' style='float: none;' onclick='this.offsetParent.style.display=\"none\"; " +
             "gotoPage(tstCurrentPage+1, false);' onmousedown='this.offsetParent.style.display=\"none\"; " +
-            "gotoPage(tstCurrentPage+1, false);'><span>Yes</span></button><button class='button' " +
+            "gotoPage(tstCurrentPage+1, false);'><span>Eya</span></button><button class='button' " +
             "style='float: none; right: 3px;' onmousedown='this.offsetParent.style.display=\"none\"; '>" +
             "<span>No</span></button>";
 
@@ -1549,7 +1549,7 @@ function confirmValue() {
 
     confirmationBar.innerHTML += "<div style='display: block; margin-top: 15px;'><input type='submit'" +
     " value='OK' class='btn' style='float: left;' onclick='validateConfirmUsername()'" + 
-    " onmousedown='validateConfirmUsername()'/><input type='submit' value='Cancel' " + 
+    " onmousedown='validateConfirmUsername()'/><input type='submit' value='Leka' " + 
     " class='btn' style='float: right; right: 3px;' onmousedown='cancelConfirmValue()' />";
 
     confirmationBar.style.display = "block";
@@ -1642,7 +1642,7 @@ function showMessage(aMessage, withCancel, timed) {
     messageBar.innerHTML = aMessage +
     "<br />" + (typeof(withCancel) != "undefined" ? (withCancel == true ?
         "<button onmousedown='tstMessageBar.style.display = \"none\"; " +
-        "clearTimeout(tstTimerHandle);'><span>Cancel</span></button>" : "") : "") +
+        "clearTimeout(tstTimerHandle);'><span>Leka</span></button>" : "") : "") +
     "<button style='width: 200px;' onmousedown='tstMessageBar.style.display = \"none\"; " +
     "clearTimeout(tstTimerHandle); eval(tstTimerFunctionCall);'><span>OK</span></button>";
     if (aMessage.length > 0) {
@@ -1672,12 +1672,12 @@ function disableTouchscreenInterface(){
 function confirmCancelEntry(save) {     // If you want to save state set save =
     // true
     if (tstConfirmCancel) {
-        tstMessageBar.innerHTML = "Are you sure you want to Cancel?<br/>" +
-        "<button onmousedown='hideMessage(); cancelEntry();'><span>Yes</span></button>" +
+        tstMessageBar.innerHTML = "Mwatsimikiza mukufuna kuleka?<br/>" +
+        "<button onmousedown='hideMessage(); cancelEntry();'><span>Eya</span></button>" +
         (save?"<button onmousedown='var completeField = document.createElement(\"input\"); \n\
 				completeField.type = \"hidden\"; completeField.value = \"false\"; completeField.name = \"complete\"; \n\
 				document.forms[0].appendChild(completeField); document.forms[0].submit(); hideMessage();'><span>Save</span></button>":"") +
-        "<button onmousedown='hideMessage();'><span>No</span></button>";
+        "<button onmousedown='hideMessage();'><span>Ayi</span></button>";
         tstMessageBar.style.display = "block";
     } else {
         cancelEntry();
@@ -3052,23 +3052,23 @@ function dispatchMessage(message, messageBoxType) {
 
         case tstMessageBoxType.OKCancel:
             buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> OK </span> </button>" +
-            "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Cancel </span> </button>"
+            "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Leka </span> </button>"
             break;
 
         case tstMessageBoxType.YesNo:
-            buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> Yes </span> </button>" +
-            "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span>No</span> </button>"
+            buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> Eya </span> </button>" +
+            "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span>Ayi</span> </button>"
             break;
 
         case tstMessageBoxType.YesNoCancel:
             buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> Yes </span> </button>" +
-            "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> No </span> </button>" +
-            "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Cancel </span> </button>"
+            "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Ayi </span> </button>" +
+            "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Leka </span> </button>"
             break;
 
         default:
             buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> OK </span> </button>" +
-            "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Cancel </span> </button>"
+            "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Leka </span> </button>"
             break;
 
     }
@@ -3099,7 +3099,7 @@ function confirmRecordDeletion(message, form) {
         tstMessageBar.className = "messageBar";
 
         tstMessageBar.innerHTML = message + "<br/>" + "<button onmousedown=\"document.getElementById('content').removeChild(document.getElementById('messageBar')); if(document.getElementById('" + form + "')) document.getElementById('"
-        + form + "').submit();\"><span>Yes</span></button><button onmousedown=\"document.getElementById('content').removeChild(document.getElementById('messageBar'));\"><span>No</span></button>";
+        + form + "').submit();\"><span>Eya</span></button><button onmousedown=\"document.getElementById('content').removeChild(document.getElementById('messageBar'));\"><span>Ayi</span></button>";
 
         tstMessageBar.style.display = "block";
         document.getElementById("content").appendChild(tstMessageBar);

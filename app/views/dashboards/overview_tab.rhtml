@@ -4,33 +4,21 @@
   }
 </style>
 <div>
-  <table width="1530px" height="300px">
-    <tr>
-      <td colspan="2" style="text-align: center; font-size: 14pt; background-color: #F5F5F5; font-weight: bold">Person Overview</td>
-    </tr>
-    <tr style="background-color: #F5F5F5">
-      <td style="font-weight: bold">First Name</td>
-      <td style="text-decoration: underline; font-weight: bold"><%= @patient.person.names[0].given_name.capitalize %></td>
+  <table style="width: 99%; height: auto;">
+
+     <tr style="background-color: lightblue;">
+      <td style="font-weight: normal">Tsiku lolembetsedwa</td>
+      <td style="font-weight: normal;"><%= @patient.date_created.strftime("%d-%m-%Y")%></td>
      </tr>
 
-     <tr style="background-color: #F5F5F5">
-      <td style="font-weight: bold">Last Name</td>
-      <td style="text-decoration: underline; font-weight: bold"><%= @patient.person.names[0].family_name.capitalize %></td>
+     <tr style="background-color: white">
+      <td style="font-weight: normal;">Mudzi</td>
+      <td style="font-weight: normal;"><%= @patient.person.addresses[0].neighborhood_cell %></td>
      </tr>
 
-     <tr style="background-color: #F5F5F5">
-      <td style="font-weight: bold">Date Registered</td>
-      <td style="text-decoration: underline; font-weight: bold"><%= @patient.date_created.strftime("%d-%m-%Y")%></td>
-     </tr>
-
-     <tr style="background-color: #F5F5F5">
-      <td style="font-weight: bold">Village</td>
-      <td style="text-decoration: underline; font-weight: bold"><%= @patient.person.addresses[0].neighborhood_cell %></td>
-     </tr>
-
-     <tr style="background-color: #F5F5F5">
-      <td style="font-weight: bold">Outcome</td>
-      <td style="text-decoration: underline; font-weight: bold"><%= @patient.patient_programs.last.patient_states.last.program_workflow_state.concept.fullname rescue nil %></td>
+     <tr style="background-color: lightblue;">
+      <td style="font-weight:normal;">Zotsatira</td>
+      <td style="font-weight:normal;"><%= @patient.patient_programs.last.patient_states.last.program_workflow_state.concept.fullname rescue nil %></td>
      </tr>
   </table>
 </div>
