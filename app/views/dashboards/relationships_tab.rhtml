@@ -19,7 +19,7 @@
     $('#relationships li.data div.void').click(function() { voiding($(this)); return false; });
   })
 </script>
-<h2>Relationship(s)</h2>
+<h2>Abale</h2>
 <ul id="relationships" class="list" style="height:80%;width:99%;">
   <% for rel in @relationships do %>
       <li class="data <%= cycle('even', 'odd') %>" relationship="<%= rel.id %>">
@@ -28,7 +28,7 @@
       </li>
     <% end %>
     <% if @relationships.blank? %>
-      <li class="data">No guardians have been created for this patient</li>
+      <li class="data">Palibe ubale</li>
     <% end %>
   </ul>
 
