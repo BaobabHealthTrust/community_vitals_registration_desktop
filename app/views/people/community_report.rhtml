@@ -254,8 +254,8 @@
   </head>
   <body >
     <%= image_tag('mw.gif', :class => "logo")%>
-    <br /><b style="margin-left:75px">Village Name</b><br />
-     <b style="position:relative; top:0px;margin-left:75px">Total Registered Report</b><br />
+    <br /><b style="margin-left:75px"><%= session[:home_village] + ' ' + 'village' %></b><br />
+     <b style="position:relative; top:0px;margin-left:75px">Muonkhetso wa anthu onse</b><br />
      <b style="position:relative; top:0px;margin-left:75px">Kuchokera pa: <%=@start_date.strftime("%d-%m-%Y")%> </b><br />
      <b style="position:relative; top:0px;margin-left:75px">Kuthera pa: <%=@end_date.strftime("%d-%m-%Y")%></b><br />
 <%#= raise (@end_date ).inspect %><br /><br />
@@ -265,7 +265,7 @@
          <td id="number"><%= link_to((@total_registered.count), {:action=>"decompose_report",:ids =>@total_registered.map(&:id)}) %></td>
        </tr>
        <tr style="background-color: gray">
-         <td id="gender_distribution" colspan="2" style="line-height: 46px" ><span>Kuwerenga amuna ndi azimayi</span></td>
+         <td id="gender_distribution" colspan="2" style="line-height: 46px; color: white; font-weight: bold" ><span>Kuwerenga amuna ndi azimayi</span></td>
        </tr>
        <tr>
          <td style="background-color: #F5F5F5; font-size: 14pt;">Abambo</td>
@@ -276,7 +276,7 @@
          <td id="number"><%=link_to((@total_women_registered.count), {:action=>"decompose_report",:ids =>@total_women_registered.map(&:id)}) %></td>
        </tr>
        <tr style="background-color: gray">
-         <td id="age_groups" colspan="2" style="line-height: 46px">Magulu azaka</td>
+         <td id="age_groups" colspan="2" style="line-height: 46px; color: white; font-weight: bold">Magulu azaka</td>
        </tr>
        <tr>
          <td  style="background-color: #F5F5F5; font-size: 14pt;">Ana(0 mpaka 9)</td>
