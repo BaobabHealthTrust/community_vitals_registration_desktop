@@ -224,7 +224,7 @@ function createButtons() {
     buttonsDiv.innerHTML += "<button id='nextButton' class='button green navButton' onMouseDown='gotoNextPage()'><span>Next</span></button>";
 
     // create back button
-    buttonsDiv.innerHTML += "<button id='backButton' class='button blue navButton'><span>Back</span></button>";
+    buttonsDiv.innerHTML += "<button id='backButton' class='button blue navButton'><span>Bwelera</span></button>";
 
     // create clear button or new patient button if on search page
     if (!tstSearchPage) {

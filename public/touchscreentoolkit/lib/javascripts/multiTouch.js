@@ -1958,7 +1958,7 @@ function generatePage(action, method, section){
 
     var btnBack = document.createElement("button");
     btnBack.id = "btnBack";
-    btnBack.innerHTML = "<span>Back</span>";
+    btnBack.innerHTML = "<span>Bwelera</span>";
     btnBack.style.cssFloat = "right";
     btnBack.className = "blue navButton";
     btnBack.style.display = (tstCurrentPage > 0 ? "block" : "none");
@@ -2502,7 +2502,7 @@ function showSummary(){
 
     var btnBack = document.createElement("button");
     btnBack.id = "btnBack";
-    btnBack.innerHTML = "<span>Back</span>";
+    btnBack.innerHTML = "<span>Bwelera</span>";
     btnBack.style.cssFloat = "right";
     btnBack.className = "blue navButton";
     btnBack.style.display = (tstCurrentPage > 0 ? "block" : "none");
