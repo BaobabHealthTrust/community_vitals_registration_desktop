@@ -67,7 +67,8 @@ class GenericUserController < ApplicationController
  end
   
   def logout
-   #if time is 4 o'oclock then send report on logout. 
+   #if time is 4 o'oclock then send report on logout.
+    clear_location_details
     reset_session
     redirect_to(:action => "login")
   end

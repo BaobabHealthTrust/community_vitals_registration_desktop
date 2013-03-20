@@ -308,7 +308,6 @@ class GenericPeopleController < ApplicationController
     elsif params[:person][:id] != '0' && Person.find(params[:person][:id]).dead == 1
       redirect_to :controller => :patients, :action => :show, :id => params[:person][:id]
     else
-			#raise params.to_yaml
       if params[:person][:id] != '0'
         person = Person.find(params[:person][:id])
         patient = DDEService::Patient.new(person.patient)
@@ -328,34 +327,27 @@ class GenericPeopleController < ApplicationController
     end
 	end
 
- def create 
-    
-   hiv_session = false
-   if current_program_location == "HIV program"
-     hiv_session = true
-   end
-   success = false
+ def create
+    success = false
+    Person.session_datetime = session[:datetime].to_date rescue Date.today
+    identifier = params[:identifier] rescue nil
+    if identifier.blank?
+      identifier = params[:person][:patient][:identifiers]['National id']
+    end rescue nil
 
-   Person.session_datetime = session[:datetime].to_date rescue Date.today
-   identifier = params[:identifier] rescue nil
-
-   if identifier.blank?
-    identifier = params[:person][:patient][:identifiers]['National id']
-   end rescue nil
-
-   if create_from_dde_server
-     unless identifier.blank?
-       params[:person].merge!({"identifiers" => {"National id" => identifier}})
-       success = true
-       person = PatientService.create_from_form(params[:person])
-         if identifier.length != 6
+    if create_from_dde_server
+      unless identifier.blank?
+        params[:person].merge!({"identifiers" => {"National id" => identifier}})
+        success = true
+        person = PatientService.create_from_form(params[:person])
+        if identifier.length != 6
            patient = DDEService::Patient.new(person.patient)
            national_id_replaced = patient.check_old_national_id(identifier)
-         end
-     else
-       person = PatientService.create_patient_from_dde(params)
-       success = true
-     end
+        end
+      else
+        person = PatientService.create_patient_from_dde(params)
+        success = true
+      end
 
     #for now BART2 will use BART1 for patient/person creation until we upgrade BART1 to 2
     #if GlobalProperty.find_by_property('create.from.remote') and property_value == 'yes'
@@ -366,6 +358,7 @@ class GenericPeopleController < ApplicationController
 
       if !person.blank?
         success = true
+        #person.patient.remote_national_id
         PatientService.get_remote_national_id(person.patient)
       end
     else
@@ -379,26 +372,13 @@ class GenericPeopleController < ApplicationController
       unless (params[:relation].blank?)
         redirect_to search_complete_url(person.id, params[:relation]) and return
       else
-
-        #raise use_filing_number.to_yaml
-        if use_filing_number and hiv_session
-          PatientService.set_patient_filing_number(person.patient)
-          archived_patient = PatientService.patient_to_be_archived(person.patient)
-          message = PatientService.patient_printing_message(person.patient,archived_patient,creating_new_patient = true)
-          unless message.blank?
-            print_and_redirect("/patients/filing_number_and_national_id?patient_id=#{person.id}" , next_task(person.patient),message,true,person.id)
-          else
-            print_and_redirect("/patients/filing_number_and_national_id?patient_id=#{person.id}", next_task(person.patient))
-          end
-        else
-          print_and_redirect("/patients/national_id_label?patient_id=#{person.id}", next_task(person.patient))
-        end
+        print_and_redirect("/patients/national_id_label?patient_id=#{person.id}", next_task(person.patient))
       end
     else
       # Does this ever get hit?
       redirect_to :action => "index"
     end
-  end 
+  end
 
   def set_datetime
     if request.post?

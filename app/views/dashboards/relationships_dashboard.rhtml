@@ -21,7 +21,7 @@
             <tr>
               <td>
                 <h1 id='project_name'>
-                  BART
+                  CVR
                 </h1>
             <span id='patient_name'><%= @patient_bean.name rescue "" %></span>
             <span id='patient_id'><%= @patient_bean.national_id_with_dashes rescue "" %></span>
@@ -57,10 +57,10 @@
                <% end %>
                 </div>
                 <select id="tabs">
-                  <option value='/patients/guardians?patient_id=<%= @patient.id %>'>Guardians</option>
+                  <option value='/patients/guardians?patient_id=<%= @patient.id %>'>Relationships</option>
                 </select>
                 <select id="links">
-                  <option value='/relationships/search?patient_id=<%= @patient.id -%>'>New Guardian</option>
+                  <option value='/relationships/search?patient_id=<%= @patient.id -%>'>New relationship</option>
                 </select>
               </td>
             </tr>

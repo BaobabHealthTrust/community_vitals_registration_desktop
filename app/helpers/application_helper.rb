@@ -367,4 +367,16 @@ module ApplicationHelper
     end
 	end
 
+  def location_details(params)
+    session[:home_district] = params["person_address"]["address2"]
+    session[:county_district] = params["person_address"]["addresses"]["county_district"]
+    session[:home_village] = params["person_address"]["neighborhood_cell"]
+  end
+
+  def clear_location_details
+    session[:home_district] = nil
+    session[:county_district] = nil
+    session[:home_village] = nil
+  end
+
 end

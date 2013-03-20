@@ -50,9 +50,15 @@ class GenericSessionsController < ApplicationController
 		end
 		  
     self.current_location = location  
-		redirect_to '/clinic'
+		#redirect_to '/clinic'
+    
+    redirect_to '/select_location'
 
 	end
+
+  def select_location
+    
+  end
 
 	def destroy
 		sign_out(current_user) if !current_user.blank?
