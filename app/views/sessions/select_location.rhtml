@@ -2,7 +2,17 @@
   #cancelButton{
     display: none;
   }
+
+  #nextButton {
+    display: none;
+  }
+
+  .tt_controls_chigawo_chimene_mumachokela .keyboard {
+    display: none !important;
+  }
+
 </style>
+
 <script>
   <% if params[:relation] %>
   var tt_cancel_destination = "/patients/relationships?patient_id=<%=h params[:relation] -%>"
@@ -94,14 +104,6 @@
   }
 
 </script>
-
-<style>
-  .tt_controls_chigawo_chimene_mumachokela .keyboard {
-    display: none !important;
-  }
-
-</style>
-
 
 
 <% form_tag clinic_path, :method => :post do -%>
