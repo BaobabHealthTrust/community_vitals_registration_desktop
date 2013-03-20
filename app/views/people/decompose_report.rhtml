@@ -9,6 +9,7 @@
     <%=javascript_include_tag "jquery.table2CSV.min" %>
     <script type="text/javascript" charset="utf8" src="/javascripts/jquery.dataTables.min.js"></script>
     <script>
+      var tt_cancel_destination = "/clinic"
       jQuery(document).ready(function($) {
           $('#table_id').dataTable({
             "bAutoWidth": true,
