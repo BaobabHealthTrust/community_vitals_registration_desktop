@@ -164,24 +164,24 @@
   	 {:id => 'middle_name',
       :optional => true,
   	 	:field_type => 'alpha',
-  	 	:helpText => 'Middle name',
+  	 	:helpText => 'Dzina lina',
   	 	:ajaxURL => '/person_names/middle_name?search_string=',
   	 	:allowFreeText => true,
   	 	:condition => '$("middle_name").value == "" || skipped[tstCurrentPage] == 1',
   	 	:tt_pageStyleClass => "azButton",
   	 	:tt_onLoad => 'seen(tstCurrentPage);' } %>
 
-  <%= text_field_tag "person[birth_year]", nil, {:helpText => 'Year of Birth', :field_type => 'number', :absoluteMin => "1890", :min => "1940", :absoluteMax => Date.today.year, :tt_pageStyleClass => "Numeric NumbersOnly", :tt_onLoad => 'seen(tstCurrentPage);',:validationJS => "setDOB();" }  %>
+  <%= text_field_tag "person[birth_year]", nil, {:helpText => 'Chaka chanu chobadwa', :field_type => 'number', :absoluteMin => "1890", :min => "1940", :absoluteMax => Date.today.year, :tt_pageStyleClass => "Numeric NumbersOnly", :tt_onLoad => 'seen(tstCurrentPage);',:validationJS => "setDOB();" }  %>
 
-  <%= select_tag "person[birth_month]", month_name_options, {:helpText => 'Month of Birth', :condition => '$("person_birth_year").value.toLowerCase() != "unknown"',:validationJS => "validateDOB();",:validationMessage => 'Please enter a valid date'}%>
+  <%= select_tag "person[birth_month]", month_name_options, {:helpText => 'Mwezi wanu wakubadwa', :condition => '$("person_birth_year").value.toLowerCase() != "unknown"',:validationJS => "validateDOB();",:validationMessage => 'Please enter a valid date'}%>
 
-  <%= text_field_tag "person[age_estimate]", nil, {:helpText => 'Age Estimate', :absoluteMin => 1, :absoluteMax => age_limit, :field_type => 'number', :condition => '$("person_birth_year").value == "Unknown"', :tt_onLoad => "$('nextButton').style.display = 'block';", :tt_pageStyleClass => "Numeric NumbersOnly"} %>
+  <%= text_field_tag "person[age_estimate]", nil, {:helpText => 'Zaka zanu', :absoluteMin => 1, :absoluteMax => age_limit, :field_type => 'number', :condition => '$("person_birth_year").value == "Unknown"', :tt_onLoad => "$('nextButton').style.display = 'block';", :tt_pageStyleClass => "Numeric NumbersOnly"} %>
 
-  <%= text_field_tag "person[birth_day]",  nil, :field_type => 'number', :helpText => 'Birth Day', :condition => '($("person_birth_year").value != "Unknown") && ($("person_birth_month").value != "Unknown")', :tt_onLoad => "getDayOfMonthPicker($('person_birth_year').value, $('person_birth_month').value);$('nextButton').style.display = 'block';" ,:validationJS => "validateDOB()",:validationMessage => 'Please enter a valid date'%>
+  <%= text_field_tag "person[birth_day]",  nil, :field_type => 'number', :helpText => 'Tsiku lanu lakubadwa', :condition => '($("person_birth_year").value != "Unknown") && ($("person_birth_month").value != "Unknown")', :tt_onLoad => "getDayOfMonthPicker($('person_birth_year').value, $('person_birth_month').value);$('nextButton').style.display = 'block';" ,:validationJS => "validateDOB()",:validationMessage => 'Please enter a valid date'%>
 
   
   <%= select_tag("person[occupation]", options_for_select(@occupations ,params[:occupation]),
-      :helpText =>"Occupation",
+      :helpText =>"Ntchito imene mumagwira",
       :id => "occupation",
       :allowFreeText => false,
       :tt_onLoad => 'seen(tstCurrentPage);',
