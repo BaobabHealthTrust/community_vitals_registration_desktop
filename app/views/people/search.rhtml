@@ -33,9 +33,9 @@ pos = 1
     }
 
     try {
-      people[<%= pos %>]["Dzaka"] = "<%= person.age rescue "" %>";
+      people[<%= pos %>]["Zaka"] = "<%= person.age rescue "" %>";
     }catch(e){
-      people[<%= pos %>]["Dzaka"] = null;
+      people[<%= pos %>]["Zaka"] = null;
     }
 
     try {
@@ -272,7 +272,7 @@ end -%>
         people[pos]["Day"] =  people[pos]["Birthdate"].split('/')[0].replace("??","");
       }
 
-      people[pos]["Dzake"] = "<%=data.age.squish rescue nil%>";
+      people[pos]["Zake"] = "<%=data.age.squish rescue nil%>";
 
       people[pos]["Occupation"] = "<%=data.occupation.squish rescue nil%>";
 

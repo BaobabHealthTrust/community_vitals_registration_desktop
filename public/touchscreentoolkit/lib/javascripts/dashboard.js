@@ -451,7 +451,7 @@ function generateDashboard(){
     if(__$('patient_id')){
         var patientid = document.createElement("div");
         patientid.id = "id";
-        patientid.innerHTML = "Patient ID"
+        patientid.innerHTML = "Nambala yachiphaso"
 
         nameRow.appendChild(patientid);
 
@@ -470,7 +470,7 @@ function generateDashboard(){
 
         var residence = document.createElement("div");
         residence.id = "residence";
-        residence.innerHTML = "Residence"
+        residence.innerHTML = "Mudzi"
 
         residenceRow.appendChild(residence);
 
@@ -490,7 +490,7 @@ function generateDashboard(){
 
         var age = document.createElement("div");
         age.id = "age";
-        age.innerHTML = "Age";
+        age.innerHTML = "Zaka";
         age.className = "patientLabel";
 
         ageRow.appendChild(age);
