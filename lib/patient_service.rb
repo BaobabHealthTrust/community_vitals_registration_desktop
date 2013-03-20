@@ -1311,8 +1311,6 @@ EOF
 		  } if params["identifiers"]
 		end
 
-    person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).transition(
-                          :state => "Active phase",:start_date => Time.now())
 		return person
 	end
 
