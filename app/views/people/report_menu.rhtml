@@ -24,7 +24,7 @@
  
 
 	<%= text_field_tag "start_year", nil,
-          {:helpText => 'Start Year',
+          {:helpText => 'Chaka Choyambira',
           :field_type => 'number',
           :absoluteMin => "1890",
           :min => "1940",
@@ -33,18 +33,18 @@
          }  %>
   
 	<%= select_tag "start_month", month_names,
-          {:helpText => 'Start Month',
+          {:helpText => 'Mwenzi Woyambira',
           :validationMessage => 'Please enter a valid date'}%>
 
 	<%= text_field_tag "start_day",  nil, {:field_type => 'number',
-          :helpText => "Start Day" ,
+          :helpText => "Tsiku Loyambira" ,
           :validationJS => "validateDOB()",
           :tt_pageStyleClass => "Numeric NumbersOnly",
           :validationMessage => 'Please enter a valid date'}%>
 
 
         <%= text_field_tag "end_year", nil,
-          {:helpText => 'End Year',
+          {:helpText => 'Chaka Chomalizira',
           :field_type => 'number',
           :absoluteMin => "1890",
           :min => "1940",
@@ -53,11 +53,11 @@
          }  %>
 
 	<%= select_tag "end_month", month_names,
-          {:helpText => 'End Month',
+          {:helpText => 'Mwezi Womalizira',
           :validationMessage => 'Please enter a valid date'}%>
 
 	<%= text_field_tag "end_day",  nil, {:field_type => 'number',
-          :helpText => "End Day" ,
+          :helpText => "Tsiku Lomalizira" ,
           :validationJS => "validateDOB()",
           :tt_pageStyleClass => "Numeric NumbersOnly",
           :validationMessage => 'Please enter a valid date'}%>
