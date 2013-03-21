@@ -88,7 +88,7 @@ end -%>
   function changeNextButtonText(text, pos , person_id, selected_person){
     __$('nextButton').innerHTML = "<span>" + text + "</span>";
 
-    if (text.match(/New Patient/)){
+    if (text.match(/Munthu watsopano/)){
       //clearFields
         var fields = [
         "identifier",
@@ -120,7 +120,7 @@ end -%>
        createControlAndAssignValue("gender", "person[gender]", "<%=  params[:gender]%>");
     }
 
-    if(pos && (person_id == 0) && !text.match(/New Patient/)){
+    if(pos && (person_id == 0) && !text.match(/Munthu watsopano/)){
       document.forms[0].action = "select";
       __$('nextButton').onmousedown = function(){
         document.forms[0].submit();
@@ -165,7 +165,7 @@ end -%>
         pos = parseInt(pos) + 1;
         $('identifier').value = people[pos]['Nambala yachiphaso'];
       }catch(e){
-        if(!pos && text.match(/New Patient/)){
+        if(!pos && text.match(/Munthu watsopano/)){
           $('identifier').value = "<%=params[:identifier]%>";
         }else{
           $('identifier').value = null;
@@ -298,12 +298,12 @@ end -%>
       }
       li.setAttribute("tag", ((i + 1)/2 > 0 ? "odd" : "even"));
       li.onmousedown = function(){
-        changeNextButtonText('Select Patient', this.getAttribute("pos"), <%=data.person_id%>, people);
+        changeNextButtonText('Sankhani  munthu', this.getAttribute("pos"), <%=data.person_id%>, people);
         updateTouchscreenInputForSelect(this);
         changeSummary(this.id);
       }
       li.onclick = function(){
-        changeNextButtonText('Select Patient', this.getAttribute("pos"), <%=data.person_id%>,  people);
+        changeNextButtonText('Sankhani  munthu', this.getAttribute("pos"), <%=data.person_id%>,  people);
         updateTouchscreenInputForSelect(this);
         changeSummary(this.id);
       }
@@ -327,9 +327,22 @@ end -%>
   <% if (params[:gender].blank? || params[:given_name].blank? || params[:family_name].blank?) && (params[:identifier].blank?) %>
 
     <% form_tag "search", :method => :get do %>
-      <%= text_field_tag :given_name, params[:given_name], {:field_type => 'alpha', :helpText => 'Dzina loyamba', :ajaxURL => '/person_names/given_names?search_string=', :allowFreeText => true }%>
-      <%= text_field_tag :family_name, params[:family_name], {:field_type => 'alpha', :helpText => 'Dzina la abambo anu', :ajaxURL => '/person_names/family_names?search_string=', :allowFreeText => true }%>
-      Mwamuna/Mkazi: <%= select_tag :gender, options_for_select({"" => "", "Mwamuna" => "M", "Mkazi" => "F"}), {:helpText => "Mwamuna/Mkazi"} %>
+      <%= text_field_tag :given_name, params[:given_name],
+        {:field_type => 'alpha',
+        :helpText => 'Dzina loyamba',
+        :ajaxURL => '/person_names/given_names?search_string=',
+        :tt_onLoad => "changeKeyboardButtonText()",
+        :allowFreeText => true }%>
+
+      <%= text_field_tag :family_name, params[:family_name], 
+        {:field_type => 'alpha',
+        :helpText => 'Dzina la abambo anu',
+        :ajaxURL => '/person_names/family_names?search_string=',
+        :tt_onLoad => "changeKeyboardButtonText()",
+        :allowFreeText => true }%>
+
+      Mwamuna/Mkazi: <%= select_tag :gender, options_for_select({"" => "", "Mwamuna" => "M", "Mkazi" => "F"}),
+      {:helpText => "Mwamuna/Mkazi"} %>
       <%= hidden_field_tag :create_patient, params[:create_patient] %>
       <%= hidden_field_tag :relation, params[:relation] %>
       <%= submit_tag "Find person" %>
@@ -355,15 +368,15 @@ end -%>
 
 			<% if @relation.blank? %>
 					<% if params[:identifier] %>
-						<option value="0" onmousedown="changeNextButtonText('New Patient')">Lowetsani munthu ndi chiphaso cha chinsisi ichi <%=h params[:identifier] -%></option>
+						<option value="0" onmousedown="changeNextButtonText('Munthu watsopano')">Lowetsani munthu ndi chiphaso cha chinsisi ichi <%=h params[:identifier] -%></option>
 					<% else %>
-						<option value="0" onmousedown="changeNextButtonText('New Patient')">Lowetsani munthu watsopano ndi dzina la <%=h params[:given_name] -%> <%=h params[:family_name] -%></option>
+						<option value="0" onmousedown="changeNextButtonText('Munthu watsopano')">Lowetsani munthu watsopano ndi dzina la <%=h params[:given_name] -%> <%=h params[:family_name] -%></option>
 					<% end %>
 			 <% else %>
 					<% if params[:identifier] %>
-						<option value="0" onmousedown="changeNextButtonText('New Guardian')">Lowetsani munthu watsopano ndi chiphaso cha chinsisi ichi <%=h params[:identifier] -%></option>
+						<option value="0" onmousedown="changeNextButtonText('M\'bale watsopano')">Lowetsani munthu watsopano ndi chiphaso cha chinsisi ichi <%=h params[:identifier] -%></option>
 					<% else %>
-						<option value="0" onmousedown="changeNextButtonText('New Guardian')">Lowetsani munthu watsopano ndi dzina la <%=h params[:given_name] -%> <%=h params[:family_name] -%></option>
+						<option value="0" onmousedown="changeNextButtonText('M\'bale watsopano')">Lowetsani munthu watsopano ndi dzina la <%=h params[:given_name] -%> <%=h params[:family_name] -%></option>
 					<% end %>
 			 <% end %>
 
@@ -371,14 +384,14 @@ end -%>
           next if patient.blank?
           -%>
 				<% if @relation.blank? %>
-					<option value="<%= patient.person_id %>" onmousedown="changeNextButtonText('Select Patient')">
+					<option value="<%= patient.person_id %>" onmousedown="changeNextButtonText('Sankhani  munthu')">
 				<% else %>
-					<option value="<%= patient.person_id %>" onmousedown="changeNextButtonText('Select Guardian')">
+					<option value="<%= patient.person_id %>" onmousedown="changeNextButtonText('Sankhani  m\'bale')">
 				<% end %>
             <%=h patient.name -%> (<%= patient.sex == 'Female' ? 'Mkazi' : 'Mwamuna' %>)
             <% unless patient.birth_date.blank? %> <%=h patient.birth_date -%><% end %>,
             <% unless patient.current_residence.blank? %> <%=h patient.current_residence -%> <% end %>,
-            <% unless patient.guardian.blank? %> Relative: <%=h patient.guardian -%> <% end %>
+            <% unless patient.guardian.blank? %> Abale: <%=h patient.guardian -%> <% end %>
           </option>
         <% end -%>
       </select>
@@ -413,5 +426,6 @@ end -%>
     <%unless @search_results.blank? -%>
       setTimeout("loadPatient()", 500);
     <%end%>
+
   </script>
 </body>
