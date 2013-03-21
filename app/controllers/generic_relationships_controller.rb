@@ -72,8 +72,8 @@ class GenericRelationshipsController < ApplicationController
     @relationship = Relationship.find(params[:id])
     @relationship_a = Relationship.find_by_person_a_and_person_b(@relationship.person_a,@relationship.person_b)
     @relationship_b = Relationship.find_by_person_b_and_person_a(@relationship.person_a,@relationship.person_b)
-    @relationship_a.void
-    @relationship_b.void
+    @relationship_a.void unless @relationship_a.blank?
+    @relationship_b.void unless @relationship_b.blank?
     head :ok
   end  
 end
