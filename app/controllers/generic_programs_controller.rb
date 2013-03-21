@@ -102,7 +102,19 @@ class GenericProgramsController < ApplicationController
     @names = @states.map{|state|
       name = state.concept.concept_names.typed("SHORT").first.name rescue state.concept.fullname
       next if name.blank? 
-      "<li value='#{state.id}'>#{name}</li>" unless name == params[:current_state]
+      case name
+        when (/Munthu/i)
+          presenting_state = 'Wasowa'
+        when (/died/i)
+          presenting_state = 'Wamwalira'
+        when (/Tx/i)
+          presenting_state = 'Wapita kumudzi wina'
+        when (/Transfer/i)
+          presenting_state = 'Wapita kumudzi wina'
+        else
+          presenting_state = name
+      end
+      "<li value='#{state.id}'>#{presenting_state}</li>" unless name == params[:current_state]
     }
     render :text => @names.join('')  
   end
