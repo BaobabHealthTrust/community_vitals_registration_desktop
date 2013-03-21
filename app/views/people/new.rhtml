@@ -260,6 +260,7 @@
 
 <%= hidden_field_tag :identifier, params[:identifier] %>
 <%= hidden_field_tag "person[patient]","" %>
+<%= hidden_field_tag "relation", params[:relation] %>
 <%= submit_tag "Create person" %>
 
 <% end %>
