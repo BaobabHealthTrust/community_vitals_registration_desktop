@@ -11,8 +11,8 @@ function confirmYesNo(message, yes, no) {
   }
   confirmation.innerHTML = ''+
   '<div class="confirmation">'+ message+ '<div>'+
-  '<button id="yes"><span>Yes</span></button>'+
-  '<button id="no"><span>No</span></button></div>'+
+  '<button id="yes"><span>Eya</span></button>'+
+  '<button id="no"><span>Ayi</span></button></div>'+
   '</div>';
   $("#yes").mousedown(yes);
   $("#no").mousedown(no);

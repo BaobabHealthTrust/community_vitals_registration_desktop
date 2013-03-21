@@ -1892,7 +1892,7 @@ function getQwertyKeyboard(){
     "<span class='qwertyKeyboard'>" +
     "<span class='buttonLine'>" +
     getButtons("QWERTYUIOP") +
-    getButtonString('backspace','Delete') +
+    getButtonString('backspace','fufuta') +
     // getButtonString('date','Date') +
     "</span><span style='padding-left:0px' class='buttonLine'>" +
     getButtons("ASDFGHJKL") +
@@ -1907,7 +1907,7 @@ function getQwertyKeyboard(){
     keyboard = keyboard +
     "</span><span style='padding-left:0px' class='buttonLine'>" +
     getButtons("ZXCVBNM,.") + (tstFormElements[tstCurrentPage].tagName == "TEXTAREA" ? "" :
-        getButtonString('whitespace','Space', 'width: 85px;')) +
+        getButtonString('whitespace','mpata', 'width: 85px;')) +
     getButtonString('abc','A-Z') +
     getButtonString('SHIFT','aA') +
     "</span>";
@@ -1915,7 +1915,7 @@ function getQwertyKeyboard(){
     if(tstFormElements[tstCurrentPage].tagName == "TEXTAREA") {
         keyboard = keyboard +
         "</span><span style='padding-left:0px' class='buttonLine'>" +
-        getButtonString('whitespace','Space', 'width: 520px;') +
+        getButtonString('whitespace','mpata', 'width: 520px;') +
         getButtonString('return',"ENTER", 'width: 120px;') +
         "</span>";
     }
@@ -1932,7 +1932,7 @@ function getABCKeyboard(){
     "<span class='buttonLine'>" +
     getButtons("ABCDEFGH") +
     getButtonString('apostrophe',"'") +
-    getButtonString('backspace','Delete') +
+    getButtonString('backspace','fufuta') +
     getButtonString('num','0-9') +
     "</span><span class='buttonLine'>" +
     getButtons("IJKLMNOP") +
@@ -1945,17 +1945,17 @@ function getABCKeyboard(){
     // }
 
     keyboard = keyboard +
-    getButtonString('Unknown','Unknown') +
+    getButtonString('Kaya','Kaya') +
     getButtonString('na','N/A') +
     "</span><span class='buttonLine'>" +
     getButtons("QRSTUVWXYZ") + (tstFormElements[tstCurrentPage].tagName == "TEXTAREA" ? "" : 
-        getButtonString('whitespace','Space', 'width: 85px;')) +
+        getButtonString('whitespace','mpata', 'width: 85px;')) +
     "</span>";
 
     if(tstFormElements[tstCurrentPage].tagName == "TEXTAREA") {
         keyboard = keyboard +
         "</span><span style='padding-left:0px' class='buttonLine'>" +
-        getButtonString('whitespace','Space', 'width: 520px;') +
+        getButtonString('whitespace','mpata', 'width: 520px;') +
         getButtonString('return',"ENTER", 'width: 120px;') +
         "</span>";
     }
@@ -1989,8 +1989,8 @@ function getNumericKeyboard(){
     // getCharButtonSetID("0","zero") +
     getCharButtonSetID(".","decimal") +
     getCharButtonSetID(",","comma") +
-    getButtonString('backspace','Delete') +
-    getButtonString('Unknown','Unknown') +
+    getButtonString('backspace','fufuta') +
+    getButtonString('Kaya','Kaya') +
     getButtonString('SHIFT','aA') +
     "</span>" +
     "</span><span id='buttonLine3' class='buttonLine'>" +
@@ -2125,7 +2125,7 @@ function getDayOfMonthPicker(aYear, aMonth) {
         /* break on the seventh button, implying the end of the week */
         if(i%7 == 0) keyboard.innerHTML +="<span><br/></span>";
     }
-    keyboard.innerHTML += getButtonString("Unknown","Unknown")
+    keyboard.innerHTML += getButtonString("Kaya","Kaya")
 
     if (tstInputTarget.value > numberOfDays) {
         tstInputTarget.value = numberOfDays;
@@ -2199,7 +2199,7 @@ function press(pressedChar){
             case 'done':
                 touchScreenEditFinish(inputTarget);
                 break;
-            case 'space':
+            case 'mpata':
                 inputTarget.value += ' ';
                 break;
             case 'whitespace':
@@ -2243,7 +2243,7 @@ function press(pressedChar){
             case 'SHIFT':
                 toggleShift();
                 break;
-            case 'Unknown':
+            case 'Kaya':
                 inputTarget.value = "Unknown";
                 break;
 
@@ -2503,7 +2503,7 @@ TTInput.prototype = {
         // check for existence
         this.value = this.element.value
         if (this.value.length<1 && this.element.getAttribute("optional") == null) {
-            return "You must enter a value to continue";
+            return "Choonde sankhanipo chimodzi pa zimene mwapatsidwa kuti mupitilire";
         }
         return "";
     },
@@ -3047,11 +3047,11 @@ function dispatchMessage(message, messageBoxType) {
 
     switch(messageBoxType){
         case tstMessageBoxType.OKOnly:
-            buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> OK </span> </button>"
+            buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> Eya </span> </button>"
             break;
 
         case tstMessageBoxType.OKCancel:
-            buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> OK </span> </button>" +
+            buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> Eya </span> </button>" +
             "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Leka </span> </button>"
             break;
 
@@ -3061,13 +3061,13 @@ function dispatchMessage(message, messageBoxType) {
             break;
 
         case tstMessageBoxType.YesNoCancel:
-            buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> Yes </span> </button>" +
+            buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> Eya </span> </button>" +
             "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Ayi </span> </button>" +
             "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Leka </span> </button>"
             break;
 
         default:
-            buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> OK </span> </button>" +
+            buttons = "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\"; gotoPage(tstCurrentPage+1, false);'> <span> Eya </span> </button>" +
             "<button class = 'button' onclick = 'this.offsetParent.style.display=\"none\";'> <span> Leka </span> </button>"
             break;
 
@@ -3218,7 +3218,7 @@ DateSelector.prototype = {
             'class="blue" ' : 'class="red" ') : 'class="blue" ') + 
         ' onmousedown="setToday()" style="width: 150px;"><span>Today</span></button> \
 			<!--button id="num" onmousedown="updateKeyColor(this);press(this.id);" style="width: 150px;"><span>Num</span></button--> \
-			<button id="Unknown" onmousedown="updateKeyColor(this);press(this.id);" style="width: 150px;"><span>Unknown</span></button> \
+			<button id="Unknown" onmousedown="updateKeyColor(this);press(this.id);" style="width: 150px;"><span>Kaya</span></button> \
 			</tr></table> \
 			</div> \
 		';
@@ -3522,7 +3522,7 @@ TimeSelector.prototype = {
 				<button id="timeselector_preSecond" onmousedown="ds.decrementSecond();"><span>-</span></button> \
 			</div--> \
 			</td><td> \
-			<!--button id="Unknown" onmousedown="updateKeyColor(this);press(this.id);" style=""><span>Unknown</span></button--> \
+			<!--button id="Unknown" onmousedown="updateKeyColor(this);press(this.id);" style=""><span>Kaya</span></button--> \
 			</tr></table> \
 			</div> \
 		';
@@ -3671,7 +3671,7 @@ function showKeyboard(full_keyboard, qwerty){
     var row1 = (qwerty ? ["q","w","e","r","t","y","u","i","o","p"] : ["a","b","c","d","e","f","g","h","i","j"]);
     var row2 = (qwerty ? ["a","s","d","f","g","h","j","k","l",":"] : ["k","l","m","n","o","p","q","r","s",":"]);
     var row3 = (qwerty ? ["z","x","c","v","b","n","m",",",".","?"] : ["t","u","v","w","x","y","z",",",".","?"]);
-    var row4 = ["CAP","space","delete"];
+    var row4 = ["CAP","mpata","fufuta"];
     var row5 = ["1","2","3","4","5","6","7","8","9","0"];
     var row6 = ["_","-","@","(",")","+",";","=","\\","/"];
 
@@ -3836,10 +3836,10 @@ function showKeyboard(full_keyboard, qwerty){
             case "cap":
                 td4.colSpan = 2;
                 break;
-            case "space":
+            case "mpata":
                 td4.colSpan = 6;
                 break;
-            case "delete":
+            case "fufuta":
                 td4.colSpan = 2;
                 break;
             default:
@@ -3851,7 +3851,7 @@ function showKeyboard(full_keyboard, qwerty){
         var btn = document.createElement("button");
         btn.innerHTML = (row4[i].trim().length > 0 ? "<span>" + row4[i] + "</span>" : "");
         
-        if(row4[i] == "space"){
+        if(row4[i] == "mpata"){
             btn.style.width = "80%";
         }
         
@@ -3865,7 +3865,7 @@ function showKeyboard(full_keyboard, qwerty){
                     for(var c = 0; c < cells.length; c++){
                         if(cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "cap"
                             && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "clear"
-                            && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "space"
+                            && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "mpata"
                             && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "full"
                             && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "basic" ){
 
@@ -3881,8 +3881,8 @@ function showKeyboard(full_keyboard, qwerty){
 
                     for(var c = 0; c < cells.length; c++){
                         if(cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "cap"
-                            && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "delete"
-                            && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "space"
+                            && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "fufuta"
+                            && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "mpata"
                             && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "full"
                             && cells[c].innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() != "basic" ){
 
@@ -3896,11 +3896,11 @@ function showKeyboard(full_keyboard, qwerty){
                 if(!this.innerHTML.match(/^$/)){
                     $(global_control).value += "\n";
                 }
-            } else if(this.innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() == "space"){
+            } else if(this.innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() == "mpata"){
 
                 $(global_control).value += " ";
 
-            } else if(this.innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() == "delete"){
+            } else if(this.innerHTML.match(/<span>(.+)<\/span>/)[1].toLowerCase() == "fufuta"){
 
                 $(global_control).value = $(global_control).value.substring(0,$(global_control).value.length - 1);
 
@@ -4010,7 +4010,7 @@ function showStatus(){
         popupBox.id = "popupBox";
         popupBox.style.display = "none";
        
-        popupBox.innerHTML = "<p>Processing. Please Wait ...</p>"
+        popupBox.innerHTML = "<p>Choonde dikilani ...</p>"
        
         __$("content").appendChild(popupBox);
     }

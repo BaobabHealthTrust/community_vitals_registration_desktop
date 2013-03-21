@@ -197,15 +197,15 @@ function generateHomepage(){
 
     if(__$('date').getAttribute('retrospective') != null){
 
-        login.innerHTML = "<b>Date:</b> <span  style='" + (__$('date').getAttribute('retrospective') == 'true' ? "color: #f00;" : "") +
+        login.innerHTML = "<b>Tsiku:</b> <span  style='" + (__$('date').getAttribute('retrospective') == 'true' ? "color: #f00;" : "") +
         "'>" + (__$("date") ? current_date : datenow) + "</span><br /><div id='user'>" +
-        "<b>User:</b> " + (__$("user") ? user : "&nbsp;") + "</div>";
+        "<b>Inuyo:</b> " + (__$("user") ? user : "&nbsp;") + "</div>";
     
     } else {
 
-        login.innerHTML = "<b>Date:</b> <span  style='" + (current_date.trim() != datenow.trim() ? "color: #f00;" : "") +
+        login.innerHTML = "<b>Tsiku:</b> <span  style='" + (current_date.trim() != datenow.trim() ? "color: #f00;" : "") +
         "'>" + (__$("date") ? current_date : datenow) + "</span><br /><div id='user'>" +
-        "<b>User:</b> " + (__$("user") ? user : "&nbsp;") + "</div>";
+        "<b>Inuyo:</b> " + (__$("user") ? user : "&nbsp;") + "</div>";
     
     }
 
@@ -223,7 +223,7 @@ function generateHomepage(){
 
     var scanlabel = document.createElement("div");
     scanlabel.id = "scanlabel";
-    scanlabel.innerHTML = "Scan Patient Barcode :";
+    scanlabel.innerHTML = "Pangani scan barcode :";
 
     bannerrow.appendChild(scanlabel);
 
@@ -1076,8 +1076,8 @@ function confirmOperation(message, responseAction, okOnly) {
     
     __$("tstMessageBar").innerHTML = (message ? message : "Some important tasks are yet to be done. " +
         "Are you sure you still want to continue?") + "<br/>" +
-    (okOnly ? "" : "<button onmousedown='hideMessage(); cancelOperation(\"" + responseAction + "\");'><span>Yes</span></button>") +
-    "<button onmousedown='hideMessage();'><span>" + (okOnly ? "OK" : "No") + "</span></button>";
+    (okOnly ? "" : "<button onmousedown='hideMessage(); cancelOperation(\"" + responseAction + "\");'><span>Eya</span></button>") +
+    "<button onmousedown='hideMessage();'><span>" + (okOnly ? "Eya" : "Ayi") + "</span></button>";
     __$("tstMessageBar").style.display = "block";
     
 }
@@ -1103,8 +1103,8 @@ function confirmYesNo(message, yes, no) {
     }
     confirmation.innerHTML = ''+
     '<div class="confirmation" >'+ message+ '<div>'+
-    '<button id="yes"><span>Yes</span></button>'+
-    '<button id="no"><span>No</span></button></div>'+
+    '<button id="yes"><span>Eya</span></button>'+
+    '<button id="no"><span>Ayi</span></button></div>'+
     '</div>';
 
     __$("yes").onmousedown = yes;   
