@@ -16,10 +16,28 @@
 <form id='relationship' action="/relationships/create" method='post'> 
   <%= hidden_field_tag :patient_id, @patient.id %>
   <%= hidden_field_tag :relation, params[:relation] %>
-<%= 
-@relationships = RelationshipType.all.inject({}){|result, element| result[element.b_is_to_a] = element.relationship_type_id; result }.sort
+<% 
+  relationships = RelationshipType.all.inject({}){|result, element| result[element.b_is_to_a] = element.relationship_type_id; result }.sort
+  @relationships = []
+  (relationships || []).collect do |type,id|
+    next unless ["Spouse/Partner","Child","Sibling","Parent"].collect{|r|r.upcase}.include?(type.upcase)
+    case type.upcase
+      when 'SPOUSE/PARTNER'
+        relationship_name = 'Akazi ake/Amuna ake'
+      when 'CHILD' 
+        relationship_name = 'Mwana'
+      when 'SIBLING'
+        relationship_name = 'Mchemwali/Mchimwene'
+      when 'PARENT'
+        relationship_name = 'Kholo'
+      else
+        relationship_name = type
+    end
+    @relationships << [relationship_name,id]
+  end
 %>
-  <%= select_tag :relationship, options_for_select(
+
+<%= select_tag :relationship, options_for_select(
     @relationships.map{|relation| relation if !relation.include?("Village Health Worker") && !relation.include?("TB contact Person") && !relation.include?("TB Index Person")}, params[:relationship]), 
     {:helpText => "How is #{Person.find(params[:relation]).name rescue 'this person'} related to the patient"} %> 
 

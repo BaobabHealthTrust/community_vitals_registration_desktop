@@ -24,7 +24,22 @@
   <% for rel in @relationships do %>
       <li class="data <%= cycle('even', 'odd') %>" relationship="<%= rel.id %>">
         <div class="void"><img src="/images/cancel_flat_small.png"/></div>
-        <div class="summary"><%= rel.to_s.gsub(/\n/, '<br/>') -%></div>
+        <%
+          relate = rel.to_s
+          case relate
+            when (/Sibling/i)
+              relationship = rel.to_s.gsub("Sibling", 'Mchemwali/Mchimwene')
+            when (/Spouse/i)
+              relationship = rel.to_s.gsub("Spouse/Partner", 'Akazi ake/Amuna ake')
+            when (/Child/i)
+              relationship = rel.to_s.gsub("Child", 'Mwana')
+            when (/Parent/i)
+              relationship =  rel.to_s.gsub("Parent", 'Kholo')
+            else
+              relationship = relate
+          end
+        %>
+        <div class="summary"><%= relationship -%><br/></div>
       </li>
     <% end %>
     <% if @relationships.blank? %>
