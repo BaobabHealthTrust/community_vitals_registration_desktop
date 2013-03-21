@@ -1,12 +1,12 @@
 <style>
 
-  .tt_controls_year_of_birth #qwerty { display:none; }
+  .tt_controls_chaka_chanu_chobadwa #qwerty { display:none; }
   .tt_controls_age_estimate #qwerty { display:none; }
   .tt_controls_cell_phone_number #qwerty { display:none; }
   .tt_controls_ground_phone_number #qwerty { display:none; }
   .tt_controls_office_phone_number #qwerty { display:none; }
 
-  .tt_controls_year_of_birth #Unknown { display:block; }
+  .tt_controls_chaka_chanu_chobadwa #Unknown { display:block; }
   .tt_controls_age_estimate #Unknown { display:none; }
 
   .tt_controls_middle_name  #na { display: block; }
@@ -15,9 +15,9 @@
   .tt_controls_region_of_origin .keyboard{display:none;}
   .tt_controls_current_region .keyboard{display:none;}
 
-  .tt_controls_month_of_birth .keyboard{display:none;}
-  #tt_page_month_of_birth .options{height:570px;}
-  #tt_page_month_of_birth .options li{font-size:30px;}
+  .tt_controls_mwezi_wanu_wakubadwa .keyboard{display:none;}
+  #tt_page_mwezi_wanu_wakubadwa .options{height:560px;}
+  #tt_page_mwezi_wanu_wakubadwa .options li{font-size:30px;}
 
   .tt_controls_home_village #space , #apostrophe { display:inline; }
   .tt_controls_home_district #num  { display:none; }
@@ -32,10 +32,14 @@
 
   .tt_controls_office_phone_number #num , #plus, #apostrophe, #star, #abc, #date, #slash, #minus, #comma, #percent, #decimal { display:none; }
 
-  .tt_controls_occupation .keyboard{display:none;}
-    #tt_page_occupation .options{height:500px;}
-    #tt_page_occupation .options li{font-size:30px;}
-    #space {display:inline;}
+  .tt_controls_ntchito_imene_mumagwira .keyboard { display:none !important; }
+  #tt_page_ntchito_imene_mumagwira .options { height:560px !important; }
+  #tt_page_ntchito_imene_mumagwira .options li { font-size:30px !important; }
+  #space {display:inline;}
+
+  .tt_controls_ntchito_imene_mumagwira #nextButton {
+    display: inline;
+  }
 
     .nota #na {
         display: block;
@@ -80,15 +84,15 @@
 
   function setDOB() {
     try {
-      dob_year = document.getElementById('tt_page_year_of_birth').getElementsByTagName("input")[0].value
+      dob_year = document.getElementById('tt_page_chaka_chanu_chobadwa').getElementsByTagName("input")[0].value
     }catch(e){ dob_year = dob_year }
     try {
-      dob_month = document.getElementById('tt_page_month_of_birth').getElementsByTagName("input")[0].getAttribute('tstvalue')
+      dob_month = document.getElementById('tt_page_mwezi_wanu_wakubadwa').getElementsByTagName("input")[0].getAttribute('tstvalue')
       if (dob_month.length == 1)
         dob_month = 0 + dob_month
     }catch(e){ dob_month = dob_month }
     try {
-      dob_day = document.getElementById('tt_page_birth_day').getElementsByTagName("input")[0].value
+      dob_day = document.getElementById('tt_page_tsiku_lanu_lakubadwa').getElementsByTagName("input")[0].value
       if (dob_day.length == 1)
         dob_day = 0 + dob_day
     }catch(e){ dob_day = dob_day }
@@ -107,7 +111,7 @@
 
       if (curr_date.getFullYear() == parseInt(dob_year)) {
         if ((curr_date.getMonth() + 1) < parseInt(dob_month)){
-          if (document.getElementById('tt_page_month_of_birth') != null)
+          if (document.getElementById('tt_page_mwezi_wanu_wakubadwa') != null)
             return true
 
           return false
@@ -121,7 +125,7 @@
         }
       }
     }else{
-      if (document.getElementById('tt_page_month_of_birth') != null)
+      if (document.getElementById('tt_page_mwezi_wanu_wakubadwa') != null)
         return true
 
       if (curr_date < dateCreate(set_dob))
@@ -173,30 +177,89 @@
 
   <%= text_field_tag "person[birth_year]", nil, {:helpText => 'Chaka chanu chobadwa', :field_type => 'number', :absoluteMin => "1890", :min => "1940", :absoluteMax => Date.today.year, :tt_pageStyleClass => "Numeric NumbersOnly", :tt_onLoad => 'seen(tstCurrentPage);',:validationJS => "setDOB();" }  %>
 
-  <%= select_tag "person[birth_month]", month_name_options, {:helpText => 'Mwezi wanu wakubadwa', :condition => '$("person_birth_year").value.toLowerCase() != "unknown"',:validationJS => "validateDOB();",:validationMessage => 'Please enter a valid date'}%>
+  <%= select_tag "person[birth_month]", month_name_options, {:helpText => 'Mwezi wanu wakubadwa', :condition => '$("person_birth_year").value.toLowerCase() != "unknown"',:validationJS => "validateDOB();",:validationMessage => 'Please enter a valid date', :tt_onLoad => "$('keyboard').style.display = 'none';"}%>
 
   <%= text_field_tag "person[age_estimate]", nil, {:helpText => 'Zaka zanu', :absoluteMin => 1, :absoluteMax => age_limit, :field_type => 'number', :condition => '$("person_birth_year").value == "Unknown"', :tt_onLoad => "$('nextButton').style.display = 'block';", :tt_pageStyleClass => "Numeric NumbersOnly"} %>
 
   <%= text_field_tag "person[birth_day]",  nil, :field_type => 'number', :helpText => 'Tsiku lanu lakubadwa', :condition => '($("person_birth_year").value != "Unknown") && ($("person_birth_month").value != "Unknown")', :tt_onLoad => "getDayOfMonthPicker($('person_birth_year').value, $('person_birth_month').value);$('nextButton').style.display = 'block';" ,:validationJS => "validateDOB()",:validationMessage => 'Please enter a valid date'%>
 
-  
+
+  <p><label for="region_region_name">Region of Origin</label></br>
+  <%= text_field "region" , 'region_name', :xhelpText => 'Region',:tt_requireNextClick => false, :ajaxURL => '/people/region/Region?field=role&value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%></p>
+
+  <%= text_field_tag "person[addresses][address2]", params[:address2], {:id => 'address2',:tt_requireNextClick => false, :ajaxURL => '', :field_type => 'alpha', :helpText => 'Home District', :allowFreeText => false, :tt_onLoad => "seen(tstCurrentPage); set_ajaxURL_for_suggestions('/people/district/District?filter_value=' ,document.getElementById('region_region_name').value);$('nextButton').style.display = 'none';" }%>
+
+  <%= text_field_tag "p['address2_a']" , nil, {id => 'address2_a', :tt_onUnLoad => '$("address2").value = $("address2_a").value', :condition => '$("address2").value == "Other"', :id => 'address2_a',:tt_requireNextClick => true, :ajaxURL => '/person_addresses/address2?search_string=', :allowFreeText => true, :field_type => 'alpha', :helpText => 'Specify Home District', :tt_onLoad => "$('nextButton').style.display = 'block';" } %>
+
+  <%= text_field "person[addresses]" , 'county_district', :condition => '$("address2").value != "Other"', :helpText => 'Ancestral Traditional Authority (T/A) or area of residence',:tt_requireNextClick => false, :ajaxURL => '', :tt_pageStyleClass => "azButton", :tt_onLoad => "set_ajaxURL_for_suggestions('/people/traditional_authority/TraditionalAuthority?filter_value=' ,document.getElementById('address2').value);$('nextButton').style.display = 'none';" %></p>
+
+  <%= text_field "p[addresses]" , 'county_district_a', :tt_onUnLoad => '$("person_addresses_county_district").value = $("p_addresses_county_district_a").value', :condition => '$("address2").value == "Other"', :ajaxURL => '/person_addresses/traditional_authority?search_string=' , :helpText => 'Specify Ancestral Traditional Authority (T/A) or area of residence' , :tt_pageStyleClass => "azButton", :allowFreeText => true, :tt_onLoad => "$('nextButton').style.display = 'block';"  %></p>
+
+<%= text_field_tag "person[addresses][neighborhood_cell]", params[:city_village],
+    {
+    :field_type => 'alpha',
+    :helpText => "Home Village",
+    :tt_requireNextClick => false,
+    :tt_pageStyleClass => "azButton",
+    :ajaxURL => '/people/village?search_string=',
+    :allowFreeText => false ,
+    :tt_onLoad => "set_ajaxURL_for_suggestions('/people/village/Village?filter_value=' ,document.getElementById('person_addresses_county_district').value);$('nextButton').style.display = 'none';"}%>
+
+<p><label for="filter_region">Current Region</label></br>
+<%= text_field "filter" , 'region', :xhelpText => 'Region', :tt_requireNextClick => false, :ajaxURL => '', :tt_onLoad => "set_ajaxURL_for_suggestions('/people/region/Region?filter_value=' ,document.getElementById('person_addresses_county_district').value);$('nextButton').style.display = 'none';" %></p>
+
+
+<%= text_field_tag "person[addresses][state_province]", params[:state_province], {
+    :id => 'state_province',
+    :field_type => 'alpha',
+    :helpText => 'Current District',
+    :tt_requireNextClick => false, :ajaxURL => '',
+    :allowFreeText => false,
+    :tt_onLoad => "seen(tstCurrentPage); set_ajaxURL_for_suggestions('/people/district/District?filter_value=' ,document.getElementById('filter_region').value);$('nextButton').style.display = 'none';" } %>
+
+<p><label for="filter_t_a">Traditional Authority (T/A) or area of residence</label></br>
+
+<%= text_field "filter" , 't_a', :condition => '$("state_province").value != "Other"', :helpText => 'Traditional Authority (T/A) or area of residence', :tt_requireNextClick => false, :ajaxURL => '', :tt_pageStyleClass => "azButton", :tt_onLoad => "set_ajaxURL_for_suggestions('/people/traditional_authority/TraditionalAuthority?filter_value=' ,document.getElementById('state_province').value);$('nextButton').style.display = 'none';" %></p>
+
+<%= text_field "filter" , 't_a_a', :tt_onUnLoad => 'if ($("t_a_a")) {$("t_a").value = $("t_a_a").value}', :condition => '$("state_province").value == "Other"', :ajaxURL => '/person_addresses/traditional_authority?search_string=', :tt_pageStyleClass => "azButton", :allowFreeText => true,  :helpText => 'Specify Traditional Authority (T/A) or area of residence', :tt_onLoad => "$('nextButton').style.display = 'block';" %></p>
+
+<%= text_field_tag "person[addresses][city_village]", params[:city_village],
+	{:condition => '$("filter_t_a").value != "Other"',
+	 :field_type => 'alpha',
+	 :helpText => 'Location/Village',
+	 :tt_requireNextClick => false,
+	 :tt_pageStyleClass => "azButton",
+	 :ajaxURL => '/people/village?search_string=',
+	 :allowFreeText => false , :tt_onLoad => "set_ajaxURL_for_suggestions('/people/village/Village?filter_value=' ,document.getElementById('filter_t_a').value);$('nextButton').style.display = 'none';"}%>
+
+<%= text_field_tag "p[addresses][city_village_a]", params[:city_village_a],
+	 {:tt_onUnLoad => '$("person_addresses_city_village").value = $("p_addresses_city_village_a").value',
+	  :condition => '$("filter_t_a").value == "Other"' ,
+	  :ajaxURL => '/person_addresses/village?search_string=',
+	  :allowFreeText => true, :field_type => 'alpha',
+	  :helpText => 'Specify Location/Village',
+	  :tt_pageStyleClass => "azButton",
+	  :tt_requireNextClick => true, :tt_onLoad => "$('nextButton').style.display = 'block';"}%>
+
+<%= text_field_tag "pp[addresses][city_village_a]", params[:city_village_a],
+	 {:tt_onUnLoad => '$("person_addresses_city_village").value = $("pp_addresses_city_village_a").value',
+	  :condition => '$("filter_t_a").value != "Other" && $("person_addresses_city_village").value == "Other"' ,
+	  :ajaxURL => '/person_addresses/village?search_string=',
+	  :allowFreeText => true, :field_type => 'alpha',
+	  :helpText => 'Specify Location/Village',
+	  :tt_pageStyleClass => "azButton",
+	  :tt_requireNextClick => true, :tt_onLoad => "$('nextButton').style.display = 'block';"}%>
+
   <%= select_tag("person[occupation]", options_for_select(@occupations ,params[:occupation]),
       :helpText =>"Ntchito imene mumagwira",
       :id => "occupation",
       :allowFreeText => false,
-      :tt_onLoad => 'seen(tstCurrentPage);',
+      :tt_requireNextClick => false,
+      :tt_onLoad => "seen(tstCurrentPage);$('keyboard').style.display = 'none';",
       :ttMatchFromBeginning => "true")%>
 
-<%= hidden_field_tag "relation", params[:relation] %>
-
 <%= hidden_field_tag :identifier, params[:identifier] %>
-
-<%= hidden_field_tag "person[addresses][address2]", session[:home_district]  %>
-<%= hidden_field_tag "person[addresses][county_district]", session[:county_district]  %>
-<%= hidden_field_tag "person[addresses][neighborhood_cell]", session[:home_village]  %>
-
 <%= hidden_field_tag "person[patient]","" %>
-<%= hidden_field_tag :identifier, "" %>
 <%= submit_tag "Create person" %>
 
 <% end %>

@@ -1,18 +1,5 @@
 class GenericClinicController < ApplicationController
   def index
-    home_district= params["person_address"]["address2"] rescue nil
-    county_district = params["person_address"]["county_district"] rescue nil
-    home_village = params["person_address"]["neighborhood_cell"] rescue nil
-    unless home_district.blank?
-      unless county_district.blank?
-        unless home_village.blank?
-          session[:home_district] = home_district
-          session[:county_district] = county_district
-          session[:home_village] = home_village
-        end
-      end
-    end
-    
   	session[:cohort] = nil
     @facility = Location.current_health_center.name rescue ''
 

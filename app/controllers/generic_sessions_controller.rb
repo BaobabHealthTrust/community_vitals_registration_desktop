@@ -50,10 +50,7 @@ class GenericSessionsController < ApplicationController
 		end
 		  
     self.current_location = location  
-		#redirect_to '/clinic'
-    
-    redirect_to '/select_location'
-
+		redirect_to '/clinic'
 	end
 
   def select_location

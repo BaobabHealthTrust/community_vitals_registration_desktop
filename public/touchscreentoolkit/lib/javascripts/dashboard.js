@@ -579,7 +579,7 @@ function generateDashboard(){
     if(tt_cancel_show){
         var finish = document.createElement("button");
         finish.id = "btnNext";
-        finish.innerHTML = "<span>Finish</span>";
+        finish.innerHTML = "<span>Maliza</span>";
         finish.className = "green";
         finish.style.cssFloat = "right";
         finish.style.margin = "10px";
@@ -737,7 +737,7 @@ function generateGeneralDashboard(){
 
     var finish = document.createElement("button");
     finish.id = "btnNext";
-    finish.innerHTML = "<span>Finish</span>";
+    finish.innerHTML = "<span>Maliza</span>";
     finish.className = "green";
     finish.style.cssFloat = "right";
     finish.style.margin = "10px";

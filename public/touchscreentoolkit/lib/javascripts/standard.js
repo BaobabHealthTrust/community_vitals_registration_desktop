@@ -224,11 +224,11 @@ function createButtons() {
     buttonsDiv.innerHTML += "<button id='nextButton' class='button green navButton' onMouseDown='gotoNextPage()'><span>Next</span></button>";
 
     // create back button
-    buttonsDiv.innerHTML += "<button id='backButton' class='button blue navButton'><span>Bwelera</span></button>";
+    buttonsDiv.innerHTML += "<button id='backButton' class='button blue navButton'><span> |< </span></button>";
 
     // create clear button or new patient button if on search page
     if (!tstSearchPage) {
-        buttonsDiv.innerHTML += "<button id='clearButton' class='button blue navButton' onMouseDown='clearInput()'><span>Fafaniza</span></button>";
+        buttonsDiv.innerHTML += "<button id='clearButton' class='button blue navButton' onMouseDown='clearInput()'><span>Fufuta</span></button>";
     } else {
         var buttonLabel = "New Patient";
         if (tstSearchMode && (tstSearchMode == "guardian")) {
@@ -1452,7 +1452,7 @@ function navigateToPage(destPage, validate, navback){
         if (destPage+1 == tstPages.length) {
             nextButton.innerHTML = "<span>Maliza</span>";
         } else {
-            nextButton.innerHTML = "<span>Patsogolo</span>";
+            nextButton.innerHTML = "<span> >| </span>";
         }
         showBestKeyboard(destPage);
 

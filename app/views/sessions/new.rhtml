@@ -14,12 +14,12 @@
 <form id='sessions' action="/sessions/create" method='post'>
 
     <label for="login">Username</label>
-    <%= text_field_tag(:login, nil, :helpText => "Lowetsani dzina lanu",
+    <%= text_field_tag(:login, nil, :helpText => "Lembani dzina lolowera", 
         :textCase => "lower", :field_type => "password", 
         :tt_onLoad => "inform(); barcodeId = 'touchscreenInput0';") %><br>
 
     <label for="password">Password</label>
-    <%= password_field_tag(:password, nil, :helpText => "Lowetsani nambala yanu yachinsisi",
+    <%= password_field_tag(:password, nil, :helpText => "Lembani dzina lachinsinsi", 
         :textCase => "lower", :field_type => "password",
         :tt_onLoad => "inform(); barcodeId = 'touchscreenInput1';") %><br>
 
