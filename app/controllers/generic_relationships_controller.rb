@@ -70,7 +70,10 @@ class GenericRelationshipsController < ApplicationController
 
   def void
     @relationship = Relationship.find(params[:id])
-    @relationship.void
+    @relationship_a = Relationship.find_by_person_a_and_person_b(@relationship.person_a,@relationship.person_b)
+    @relationship_b = Relationship.find_by_person_b_and_person_a(@relationship.person_a,@relationship.person_b)
+    @relationship_a.void
+    @relationship_b.void
     head :ok
   end  
 end
