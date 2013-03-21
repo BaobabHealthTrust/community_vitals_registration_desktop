@@ -16,7 +16,6 @@ class GenericRelationshipsController < ApplicationController
   end
 
   def create
-    
     relationship_id = params[:relationship].to_i rescue nil
     if relationship_id == RelationshipType.find_by_b_is_to_a('TB Index Person').id
       person_id = params[:person].to_i
