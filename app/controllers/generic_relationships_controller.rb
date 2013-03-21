@@ -16,7 +16,6 @@ class GenericRelationshipsController < ApplicationController
   end
 
   def create
-    relationships = {"2" => "2","3" => "11","11" => "3", "12" => "12"}
     relationship_id = params[:relationship].to_i rescue nil
     if relationship_id == RelationshipType.find_by_b_is_to_a('TB Index Person').id
       person_id = params[:person].to_i
@@ -42,25 +41,29 @@ class GenericRelationshipsController < ApplicationController
       end
 
     else
+
+      relationship_type = RelationshipType.find_by_relationship_type_id(params[:relationship]).a_is_to_b
+      relationship_a_id = RelationshipType.find_by_a_is_to_b(relationship_type).id
+      relationship_b_id = RelationshipType.find_by_b_is_to_a(relationship_type).id
+
       @relationship = Relationship.new(
         :person_a => @patient.patient_id,
         :person_b => params[:relation],
-        :relationship => params[:relationship])
+        :relationship => relationship_a_id)
       if @relationship.save
-        @reverse_relationship = Relationship.new(
-        :person_a =>  params[:relation] ,
-        :person_b => @patient.patient_id,
-        :relationship => relationships[params[:relationship]])
+            @reverse_relationship = Relationship.new(
+            :person_a =>  params[:relation] ,
+            :person_b => @patient.patient_id,
+            :relationship => relationship_b_id)
 
-         if  @reverse_relationship.save
-           redirect_to session[:return_to] and return unless session[:return_to].blank?
-           redirect_to :controller => :patients, :action => :guardians_dashboard, :patient_id => @patient.patient_id
-         else
-            render :action => "new"
-         end
-        
+             if  @reverse_relationship.save
+               redirect_to session[:return_to] and return unless session[:return_to].blank?
+               redirect_to :controller => :patients, :action => :guardians_dashboard, :patient_id => @patient.patient_id
+             else
+                render :action => "new"
+             end
       else 
-        render :action => "new" 
+           render :action => "new"
       end
    end
   end
