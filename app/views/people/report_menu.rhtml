@@ -3,9 +3,27 @@
 <%= stylesheet_link_tag 'extra_buttons' %>
 
 <style>
-/*
-  .tt_controls_start_month .keyboard{display:none;}
-  #tt_page_start_month .options{height:515px;}
+
+  .tt_controls_mwenzi_woyambira #keyboard{
+    display:none !important;
+  }
+  #tt_page_mwenzi_woyambira .inputFrameClass{
+    height:563px !important;
+  }
+   #tt_page_mwenzi_woyambira .options{
+    height:515px !important;
+  }
+
+  .tt_controls_mwezi_womalizira #keyboard{
+    display:none !important;
+  }
+  #tt_page_mwezi_womalizira .inputFrameClass{
+    height:563px !important;
+  }
+   #tt_page_mwezi_womalizira .options{
+    height:515px !important;
+  }
+  /*
   #tt_page_start_month .options li{font-size:30px;}
 
   .tt_controls_end_month .keyboard{display:none;}
@@ -29,18 +47,21 @@
           :absoluteMin => "1890",
           :min => "1940",
           :absoluteMax => Date.today.year,
-          :tt_pageStyleClass => "Numeric NumbersOnly"
+          :tt_pageStyleClass => "Numeric NumbersOnly",
+          :tt_onLoad => "changeKeyboardButtonText()"
          }  %>
   
 	<%= select_tag "start_month", month_names,
           {:helpText => 'Mwenzi Woyambira',
-          :validationMessage => 'Please enter a valid date'}%>
+          :validationMessage => 'Please enter a valid date',
+          :tt_onLoad => "changeKeyboardButtonText()"}%>
 
 	<%= text_field_tag "start_day",  nil, {:field_type => 'number',
           :helpText => "Tsiku Loyambira" ,
           :validationJS => "validateDOB()",
           :tt_pageStyleClass => "Numeric NumbersOnly",
-          :validationMessage => 'Please enter a valid date'}%>
+          :validationMessage => 'Please enter a valid date',
+          :tt_onLoad => "changeKeyboardButtonText()"}%>
 
 
         <%= text_field_tag "end_year", nil,
@@ -49,18 +70,38 @@
           :absoluteMin => "1890",
           :min => "1940",
           :absoluteMax => Date.today.year,
-          :tt_pageStyleClass => "Numeric NumbersOnly"
+          :tt_pageStyleClass => "Numeric NumbersOnly",
+          :tt_onLoad => "changeKeyboardButtonText()"
          }  %>
 
 	<%= select_tag "end_month", month_names,
           {:helpText => 'Mwezi Womalizira',
-          :validationMessage => 'Please enter a valid date'}%>
+          :validationMessage => 'Please enter a valid date',
+          :tt_onLoad => "changeKeyboardButtonText()"}%>
 
 	<%= text_field_tag "end_day",  nil, {:field_type => 'number',
           :helpText => "Tsiku Lomalizira" ,
           :validationJS => "validateDOB()",
           :tt_pageStyleClass => "Numeric NumbersOnly",
-          :validationMessage => 'Please enter a valid date'}%>
+          :validationMessage => 'Please enter a valid date',
+          :tt_onLoad => "changeKeyboardButtonText()"}%>
 	
 </form>
+<script type="text/javascript">
+  function changeKeyboardButtonText(){
 
+    backspace = document.getElementById('backspace');
+    if (backspace){
+      backspace.innerHTML = "<span>fufutani</span>"
+    }
+    whitespace = document.getElementById('whitespace');
+    if (whitespace){
+      whitespace.innerHTML = "<span>Mpata</span>"
+    }
+    unknown = document.getElementById('Unknown');
+    if (unknown){
+      unknown.innerHTML = "<span>Simukudziwa</span>"
+    }
+  }
+setTimeout("changeKeyboardButtonText()",250)
+</script>
