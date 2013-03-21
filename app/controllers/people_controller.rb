@@ -82,6 +82,7 @@ class PeopleController < GenericPeopleController
     @current_ta = @patient_bean.traditional_authority rescue ''
     @current_district = @patient_bean.current_district rescue ''
     @home_district = @patient_bean.home_district rescue ''
+    @current_residence = @patient_bean.current_residence rescue ''
     @landmark = @patient_bean.landmark rescue ''
     @primary_phone = @patient_bean.cell_phone_number rescue ''
     @secondary_phone = @patient_bean.home_phone_number rescue ''
