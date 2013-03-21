@@ -221,7 +221,7 @@ function createButtons() {
     buttonsDiv.innerHTML = "<button id='showDataButton' class='button blue navButton' onMouseDown='toggleShowProgress()'><span>Show Data</span></button>";
 
     // create next/finish button
-    buttonsDiv.innerHTML += "<button id='nextButton' class='button green navButton' onMouseDown='gotoNextPage()'><span>Next</span></button>";
+    buttonsDiv.innerHTML += "<button id='nextButton' class='button green navButton' onMouseDown='gotoNextPage()'><span> >| </span></button>";
 
     // create back button
     buttonsDiv.innerHTML += "<button id='backButton' class='button blue navButton'><span> |< </span></button>";
@@ -3216,7 +3216,7 @@ DateSelector.prototype = {
 			</td><td> \
                         <button id="today" ' + (tstCurrentDate ? (tstCurrentDate == tstInternalCurrentDate ? 
             'class="blue" ' : 'class="red" ') : 'class="blue" ') + 
-        ' onmousedown="setToday()" style="width: 150px;"><span>Today</span></button> \
+        ' onmousedown="setToday()" style="width: 150px;"><span>Lero</span></button> \
 			<!--button id="num" onmousedown="updateKeyColor(this);press(this.id);" style="width: 150px;"><span>Num</span></button--> \
 			<button id="Unknown" onmousedown="updateKeyColor(this);press(this.id);" style="width: 150px;"><span>Kaya</span></button> \
 			</tr></table> \
