@@ -15,7 +15,7 @@
   .tt_controls_region_of_origin .keyboard{display:none;}
   .tt_controls_current_region .keyboard{display:none;}
 
-  .tt_controls_mwezi_wanu_wakubadwa .keyboard{display:none;}
+  .tt_controls_mwezi_wanu_wakubadwa .keyboard{display:none !important;}
   #tt_page_mwezi_wanu_wakubadwa .options{height:560px;}
   #tt_page_mwezi_wanu_wakubadwa .options li{font-size:30px;}
 
@@ -177,7 +177,7 @@
 
   <%= text_field_tag "person[birth_year]", nil, {:helpText => 'Chaka chanu chobadwa', :field_type => 'number', :absoluteMin => "1890", :min => "1940", :absoluteMax => Date.today.year, :tt_pageStyleClass => "Numeric NumbersOnly", :tt_onLoad => 'seen(tstCurrentPage);',:validationJS => "setDOB();" }  %>
 
-  <%= select_tag "person[birth_month]", month_name_options, {:helpText => 'Mwezi wanu wakubadwa', :condition => '$("person_birth_year").value.toLowerCase() != "unknown"',:validationJS => "validateDOB();",:validationMessage => 'Please enter a valid date', :tt_onLoad => "$('keyboard').style.display = 'none';"}%>
+  <%= select_tag "person[birth_month]", month_name_options, {:helpText => 'Mwezi wanu wakubadwa', :condition => '$("person_birth_year").value.toLowerCase() != "unknown"',:validationJS => "validateDOB();",:validationMessage => 'Please enter a valid date'}%>
 
   <%= text_field_tag "person[age_estimate]", nil, {:helpText => 'Zaka zanu', :absoluteMin => 1, :absoluteMax => age_limit, :field_type => 'number', :condition => '$("person_birth_year").value == "Unknown"', :tt_onLoad => "$('nextButton').style.display = 'block';", :tt_pageStyleClass => "Numeric NumbersOnly"} %>
 
@@ -189,7 +189,7 @@
 
   <%= text_field_tag "person[addresses][address2]", params[:address2], {:id => 'address2',:tt_requireNextClick => false, :ajaxURL => '', :field_type => 'alpha', :helpText => 'Home District', :allowFreeText => false, :tt_onLoad => "seen(tstCurrentPage); set_ajaxURL_for_suggestions('/people/district/District?filter_value=' ,document.getElementById('region_region_name').value);$('nextButton').style.display = 'none';" }%>
 
-  <%= text_field_tag "p['address2_a']" , nil, {id => 'address2_a', :tt_onUnLoad => '$("address2").value = $("address2_a").value', :condition => '$("address2").value == "Other"', :id => 'address2_a',:tt_requireNextClick => true, :ajaxURL => '/person_addresses/address2?search_string=', :allowFreeText => true, :field_type => 'alpha', :helpText => 'Specify Home District', :tt_onLoad => "$('nextButton').style.display = 'block';" } %>
+  <%= text_field_tag "p['address2_a']" , nil, {:id => 'address2_a', :tt_onUnLoad => '$("address2").value = $("address2_a").value', :condition => '$("address2").value == "Other"', :id => 'address2_a',:tt_requireNextClick => true, :ajaxURL => '/person_addresses/address2?search_string=', :allowFreeText => true, :field_type => 'alpha', :helpText => 'Specify Home District', :tt_onLoad => "$('nextButton').style.display = 'block';" } %>
 
   <%= text_field "person[addresses]" , 'county_district', :condition => '$("address2").value != "Other"', :helpText => 'Ancestral Traditional Authority (T/A) or area of residence',:tt_requireNextClick => false, :ajaxURL => '', :tt_pageStyleClass => "azButton", :tt_onLoad => "set_ajaxURL_for_suggestions('/people/traditional_authority/TraditionalAuthority?filter_value=' ,document.getElementById('address2').value);$('nextButton').style.display = 'none';" %></p>
 
@@ -255,7 +255,7 @@
       :id => "occupation",
       :allowFreeText => false,
       :tt_requireNextClick => true,
-      :tt_onLoad => "seen(tstCurrentPage);$('keyboard').style.display = 'none';",
+      :tt_onLoad => "seen(tstCurrentPage);",
       :ttMatchFromBeginning => "true")%>
 
 <%= hidden_field_tag :identifier, params[:identifier] %>
