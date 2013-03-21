@@ -56,7 +56,7 @@ class GenericApplicationController < ActionController::Base
     render :file => "#{RAILS_ROOT}/app/views/errors/error.rhtml", :layout=> false, :status => 404
   end if RAILS_ENV == 'production'
 
-  def print_and_redirect(print_url, redirect_url, message = "Printing, please wait...", show_next_button = false, patient_id = nil)
+  def print_and_redirect(print_url, redirect_url, message = "Choonde dikilani (Printing)...", show_next_button = false, patient_id = nil)
     @print_url = print_url
     @redirect_url = redirect_url
     @message = message
@@ -65,7 +65,7 @@ class GenericApplicationController < ActionController::Base
     render :template => 'print/print', :layout => nil
   end
   
-  def print_location_and_redirect(print_url, redirect_url, message = "Printing, please wait...", show_next_button = false, patient_id = nil)
+  def print_location_and_redirect(print_url, redirect_url, message = "Choonde dikilani (Printing)...", show_next_button = false, patient_id = nil)
     @print_url = print_url
     @redirect_url = redirect_url
     @message = message
