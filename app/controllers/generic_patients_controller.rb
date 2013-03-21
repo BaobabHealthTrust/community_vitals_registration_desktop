@@ -168,7 +168,7 @@ class GenericPatientsController < ApplicationController
     patient = Patient.find(params[:id])
     
     @links << ["Nambala yachiphaso (Print)","/patients/dashboard_print_national_id/#{patient.id}"]
-    @links << ["Maina (Edit)","/people/demographics?patient_id=#{patient.id}"]
+    @links << ["Konzani maina olakwika","/people/demographics?patient_id=#{patient.id}"]
 
     render :template => 'dashboards/personal_tab', :layout => false
   end
