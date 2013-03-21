@@ -188,22 +188,22 @@
 
   <script>
     function resetNextButtonCaption(){
-      $('nextButton').innerHTML = "<span>Next</span>";
+      $('nextButton').innerHTML = "<span> >| </span>";
     }
 
     function changeNextButtonCaption(){
       if((current_state_input_box.value.toUpperCase() != 'PATIENT TRANSFERRED OUT') && (current_state_input_box.value.toUpperCase() != 'REFERRED TO ANOTHER FACILITY')){
-        $('nextButton').innerHTML = "<span>Finish</span>";
+        $('nextButton').innerHTML = "<span>Maliza</span>";
       }
     }
     
     function resetNextButtonCaption(){
-      $('nextButton').innerHTML = "<span>Next</span>";
+      $('nextButton').innerHTML = "<span> >| </span>";
     }
 
     function changeNextButtonText(){
       if((current_state_input_box.value.toUpperCase() == 'REFERRED TO ANOTHER FACILITY')){
-        $('nextButton').innerHTML = "<span>Finish</span>";
+        $('nextButton').innerHTML = "<span>Maliza</span>";
       }
     }
   </script>
