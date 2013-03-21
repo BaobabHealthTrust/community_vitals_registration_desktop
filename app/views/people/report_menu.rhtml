@@ -87,21 +87,3 @@
           :tt_onLoad => "changeKeyboardButtonText()"}%>
 	
 </form>
-<script type="text/javascript">
-  function changeKeyboardButtonText(){
-
-    backspace = document.getElementById('backspace');
-    if (backspace){
-      backspace.innerHTML = "<span>fufutani</span>"
-    }
-    whitespace = document.getElementById('whitespace');
-    if (whitespace){
-      whitespace.innerHTML = "<span>Mpata</span>"
-    }
-    unknown = document.getElementById('Unknown');
-    if (unknown){
-      unknown.innerHTML = "<span>Simukudziwa</span>"
-    }
-  }
-setTimeout("changeKeyboardButtonText()",250)
-</script>
