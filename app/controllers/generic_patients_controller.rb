@@ -146,16 +146,11 @@ class GenericPatientsController < ApplicationController
     	redirect_to :'clinic'
     	return
     else
-      next_form_to = next_task(@patient)
-      redirect_to next_form_to and return if next_form_to.match(/Reception/i)
-		  @relationships = @patient.relationships rescue []
 		  @restricted = ProgramLocationRestriction.all(:conditions => {:location_id => Location.current_health_center.id })
 		  @restricted.each do |restriction|
 		    @relationships = restriction.filter_relationships(@relationships)
 		  end
-        @patient_arv_number = PatientService.get_patient_identifier(@patient, 'ARV Number')
-        @patient_bean = PatientService.get_patient(@patient.person)
-    	render :template => 'dashboards/relationships', :layout => 'dashboard' 
+    	redirect_to :controller => 'patients' ,:action => 'guardians_dashboard', :patient_id => @patient.id
   	end
   end
 
