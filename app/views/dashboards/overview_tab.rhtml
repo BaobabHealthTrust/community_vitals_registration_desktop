@@ -1,24 +1,54 @@
 <style>
   div{
   -moz-user-select: none;
+  font-weight: normal;
+  font-family: Verdana,sans-serif;
   }
+  .odd{
+    background-color: lightblue;
+   }
+
+  .even{
+    background-color: white;
+  }
+
 </style>
 <div>
   <table style="width: 99%; height: auto;">
 
-     <tr style="background-color: lightblue;">
-      <td style="font-weight: normal">Tsiku Lolembetsedwa</td>
-      <td style="font-weight: normal;"><%= @patient.date_created.strftime("%d-%m-%Y")%></td>
+     <tr class="odd">
+      <td>Tsiku Lolembetsedwa</td>
+      <td><%= @patient.date_created.strftime("%d-%m-%Y")%></td>
      </tr>
 
-     <tr style="background-color: white">
-      <td style="font-weight: normal;">Mudzi</td>
-      <td style="font-weight: normal;"><%= @patient.person.addresses[0].neighborhood_cell %></td>
+     <tr class="even">
+      <td>Boma Lochokera </td>
+      <td><%= @patient.person.addresses.first.address2 %></td>
      </tr>
 
-     <tr style="background-color: lightblue;">
-      <td style="font-weight:normal;">Zotsatira</td>
-      <td style="font-weight:normal;"><%= @patient.patient_programs.last.patient_states.last.program_workflow_state.concept.fullname rescue nil %></td>
+     <tr class="odd">
+      <td>Mfumu Yayikulu(T/A)</td>
+      <td><%= @patient.person.addresses.first.county_district %></td>
+     </tr>
+
+     <tr class="even">
+      <td>Mudzi Wochokera</td>
+      <td><%= @patient.person.addresses.first.neighborhood_cell %></td>
+     </tr>
+
+    <tr class="odd">
+      <td>Boma Lokhala</td>
+      <td><%= @patient.person.addresses.first.state_province %></td>
+     </tr>
+
+     <tr class="even">
+      <td>Mudzi Wokhala</td>
+      <td><%= @patient.person.addresses.first.city_village %></td>
+     </tr>
+
+     <tr class="odd">
+      <td>Zotsatira</td>
+      <td><%= @patient.patient_programs.last.patient_states.last.program_workflow_state.concept.fullname rescue nil %></td>
      </tr>
   </table>
 </div>
