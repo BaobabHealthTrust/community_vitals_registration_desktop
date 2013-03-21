@@ -5,6 +5,7 @@ class PeopleController < GenericPeopleController
 
   def community_report
     @logo = CoreService.get_global_property_value('logo') rescue nil
+    @location_name = Location.current_health_center.name rescue nil
     start_year = params[:start_year]
     start_month = params[:start_month]
     start_day = params[:start_day]
@@ -25,19 +26,18 @@ class PeopleController < GenericPeopleController
         DATE(date_created) <= ? AND gender =?",start_date,end_date,'f' ])
 
     @children = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
-        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 >= 0
- AND DATEDIFF(Now(),birthdate)/365 <= 9",start_date,end_date ])#children 0 to 9
+        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 <= 9",start_date,end_date ])#children 0 to 9
 
     @adolescents = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
-        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 >= 10
+        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 > 9
  AND DATEDIFF(Now(),birthdate)/365 <= 19",start_date,end_date ])#adolescents 10 to 19
 
     @adults = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
-        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 >= 20
+        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 > 19
  AND DATEDIFF(Now(),birthdate)/365 <= 45",start_date,end_date ])#adults 20 to 45
 
     @middle_age = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
-        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 >= 46
+        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 > 45
  AND DATEDIFF(Now(),birthdate)/365 <= 60",start_date,end_date ])#middle_age 46 to 60
 
     @elders = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
@@ -48,17 +48,21 @@ class PeopleController < GenericPeopleController
   end
 
   def decompose_report
+    @location_name = Location.current_health_center.name rescue nil
     person_ids = params[:ids]
+   
     @people = {}
-    person_ids.each do |id|
-      person = Person.find(id)
-      @people[id] = {}
-      @people[id][:first_name] = person.names[0].given_name
-      @people[id][:last_name] = person.names[0].family_name
-      @people[id][:birthdate] = person.birthdate
-      @people[id][:date_created] = person.date_created
+    if params[:ids]
+      person_ids.each do |id|
+        person = Person.find(id)
+        @people[id] = {}
+        @people[id][:first_name] = person.names[0].given_name
+        @people[id][:last_name] = person.names[0].family_name
+        @people[id][:birthdate] = person.birthdate
+        @people[id][:date_created] = person.date_created
+      end
     end
-    render:layout => "menu"
+    render:layout => "menu" and return
   end
 
   def demographics

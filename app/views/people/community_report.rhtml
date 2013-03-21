@@ -254,7 +254,7 @@
   </head>
   <body >
     <%= image_tag('mw.gif', :class => "logo")%>
-    <br /><b style="margin-left:75px"><%= session[:home_village] + ' ' + 'village' %></b><br />
+    <br /><b style="margin-left:75px"><%= @location_name %></b><br />
      <b style="position:relative; top:0px;margin-left:75px">Muonkhetso wa anthu onse</b><br />
      <b style="position:relative; top:0px;margin-left:75px">Kuchokera pa: <%=@start_date.strftime("%d-%m-%Y")%> </b><br />
      <b style="position:relative; top:0px;margin-left:75px">Kuthera pa: <%=@end_date.strftime("%d-%m-%Y")%></b><br />

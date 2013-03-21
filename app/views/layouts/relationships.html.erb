@@ -43,7 +43,7 @@
     <div id="container">      
       <div id="content"  style = "position : relative; width : 96%; margin-left : -48%">
         <div id="header" style="height:160px;margin-top:-5px;padding-left:20px;">
-          <h1>Scan or register relative</h1><br/><br/><br/><br/><br/><br/>
+          <h1>Pezani kapena Lowetsani M'bale</h1><br/><br/><br/><br/><br/><br/>
          <!--
           <div id="version" style="padding-top:44px;"><%= version %></div>
           <div id="user" style="margin-top:-4px;">Logged in as <%= current_user.username %></div>
@@ -51,7 +51,7 @@
             If the related person already has a health passport, scan the barcode now, <br/>
             otherwise click find or register by name.</div> -->
           <form id='barcodeForm' action="/people/search">
-            <div style="float:left">Scan barcode:</div>
+            <div style="float:left">Pangani scan barcode:</div>
             <%= hidden_field_tag :relation, @patient.patient_id %>
             <%= text_field_tag :identifier, '', {:id => 'barcode', :class => 'touchscreenTextInput', :style => 'position:absolute' } %>
             <%= submit_tag "Submit", :style => "display:none" %>
