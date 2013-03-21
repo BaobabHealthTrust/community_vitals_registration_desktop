@@ -38,7 +38,7 @@
   #space {display:inline;}
 
   .tt_controls_ntchito_imene_mumagwira #nextButton {
-    display: inline;
+    display: inline !important;
   }
 
     .nota #na {
@@ -254,7 +254,7 @@
       :helpText =>"Ntchito imene mumagwira",
       :id => "occupation",
       :allowFreeText => false,
-      :tt_requireNextClick => false,
+      :tt_requireNextClick => true,
       :tt_onLoad => "seen(tstCurrentPage);$('keyboard').style.display = 'none';",
       :ttMatchFromBeginning => "true")%>
 
