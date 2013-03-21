@@ -6,8 +6,8 @@
   .tt_controls_ground_phone_number #qwerty { display:none; }
   .tt_controls_office_phone_number #qwerty { display:none; }
 
-  .tt_controls_chaka_chanu_chobadwa #Unknown { display:block; }
-  .tt_controls_age_estimate #Unknown { display:none; }
+  .tt_controls_chaka_chanu_chobadwa #Kaya { display: inline; }
+  .tt_controls_zaka_zanu #Kaya { display: none !important; }
 
   .tt_controls_middle_name  #na { display: block; }
   .tt_controls_ground_phone_number #Unknown { display:block; }
@@ -260,6 +260,7 @@
 
 <%= hidden_field_tag :identifier, params[:identifier] %>
 <%= hidden_field_tag "person[patient]","" %>
+<%= hidden_field_tag "relation", params[:relation] %>
 <%= submit_tag "Create person" %>
 
 <% end %>
