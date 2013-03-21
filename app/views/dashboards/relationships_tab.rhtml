@@ -5,7 +5,7 @@
 <script src="/javascripts/touchscreenYesNo.js" type="text/javascript"></script>
 <script type="text/javascript">
   function voiding(node) {
-    confirmYesNo("Void this item?", function() {
+    confirmYesNo("Mukufuna kufufuta?", function() {
       hideConfirmation();
       node = node.parent();
       $.post('/relationships/void/?id=' + node.attr('relationship'), {}, function(data, status) {
@@ -31,4 +31,5 @@
       <li class="data">Palibe ubale</li>
     <% end %>
   </ul>
+<script type="text/javascript">
 
