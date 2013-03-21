@@ -1,12 +1,12 @@
 <style>
 
-  .tt_controls_year_of_birth #qwerty { display:none; }
+  .tt_controls_chaka_chanu_chobadwa #qwerty { display:none; }
   .tt_controls_age_estimate #qwerty { display:none; }
   .tt_controls_cell_phone_number #qwerty { display:none; }
   .tt_controls_ground_phone_number #qwerty { display:none; }
   .tt_controls_office_phone_number #qwerty { display:none; }
 
-  .tt_controls_year_of_birth #Unknown { display:block; }
+  .tt_controls_chaka_chanu_chobadwa #Unknown { display:block; }
   .tt_controls_age_estimate #Unknown { display:none; }
 
   .tt_controls_middle_name  #na { display: block; }
@@ -80,15 +80,15 @@
 
   function setDOB() {
     try {
-      dob_year = document.getElementById('tt_page_year_of_birth').getElementsByTagName("input")[0].value
+      dob_year = document.getElementById('tt_page_chaka_chanu_chobadwa').getElementsByTagName("input")[0].value
     }catch(e){ dob_year = dob_year }
     try {
-      dob_month = document.getElementById('tt_page_month_of_birth').getElementsByTagName("input")[0].getAttribute('tstvalue')
+      dob_month = document.getElementById('tt_page_mwezi_wanu_wakubadwa').getElementsByTagName("input")[0].getAttribute('tstvalue')
       if (dob_month.length == 1)
         dob_month = 0 + dob_month
     }catch(e){ dob_month = dob_month }
     try {
-      dob_day = document.getElementById('tt_page_birth_day').getElementsByTagName("input")[0].value
+      dob_day = document.getElementById('tt_page_tsiku_lanu_lakubadwa').getElementsByTagName("input")[0].value
       if (dob_day.length == 1)
         dob_day = 0 + dob_day
     }catch(e){ dob_day = dob_day }
@@ -107,7 +107,7 @@
 
       if (curr_date.getFullYear() == parseInt(dob_year)) {
         if ((curr_date.getMonth() + 1) < parseInt(dob_month)){
-          if (document.getElementById('tt_page_month_of_birth') != null)
+          if (document.getElementById('tt_page_mwezi_wanu_wakubadwa') != null)
             return true
 
           return false
@@ -121,7 +121,7 @@
         }
       }
     }else{
-      if (document.getElementById('tt_page_month_of_birth') != null)
+      if (document.getElementById('tt_page_mwezi_wanu_wakubadwa') != null)
         return true
 
       if (curr_date < dateCreate(set_dob))
