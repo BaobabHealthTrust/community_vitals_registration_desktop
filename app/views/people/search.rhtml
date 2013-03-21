@@ -298,12 +298,12 @@ end -%>
       }
       li.setAttribute("tag", ((i + 1)/2 > 0 ? "odd" : "even"));
       li.onmousedown = function(){
-        changeNextButtonText('Select Patient', this.getAttribute("pos"), <%=data.person_id%>, people);
+        changeNextButtonText('Sankhani Munthu', this.getAttribute("pos"), <%=data.person_id%>, people);
         updateTouchscreenInputForSelect(this);
         changeSummary(this.id);
       }
       li.onclick = function(){
-        changeNextButtonText('Select Patient', this.getAttribute("pos"), <%=data.person_id%>,  people);
+        changeNextButtonText('Sankhani Munthu', this.getAttribute("pos"), <%=data.person_id%>,  people);
         updateTouchscreenInputForSelect(this);
         changeSummary(this.id);
       }
@@ -371,9 +371,9 @@ end -%>
           next if patient.blank?
           -%>
 				<% if @relation.blank? %>
-					<option value="<%= patient.person_id %>" onmousedown="changeNextButtonText('Select Patient')">
+					<option value="<%= patient.person_id %>" onmousedown="changeNextButtonText('Sankhani Munthu')">
 				<% else %>
-					<option value="<%= patient.person_id %>" onmousedown="changeNextButtonText('Select Guardian')">
+					<option value="<%= patient.person_id %>" onmousedown="changeNextButtonText('Sankhani Wachibale')">
 				<% end %>
             <%=h patient.name -%> (<%= patient.sex == 'Female' ? 'Mkazi' : 'Mwamuna' %>)
             <% unless patient.birth_date.blank? %> <%=h patient.birth_date -%><% end %>,
