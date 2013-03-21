@@ -16,7 +16,6 @@ class GenericRelationshipsController < ApplicationController
   end
 
   def create
-    raise params.to_yaml
     relationships = {"2" => "2","3" => "11","11" => "3", "12" => "12"}
     relationship_id = params[:relationship].to_i rescue nil
     if relationship_id == RelationshipType.find_by_b_is_to_a('TB Index Person').id
