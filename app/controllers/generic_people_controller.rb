@@ -656,9 +656,29 @@ class GenericPeopleController < ApplicationController
   end
   
   def occupations
-    ['','Driver','Housewife','Messenger','Business','Farmer','Salesperson','Teacher',
-			'Student','Security guard','Domestic worker', 'Police','Office worker',
-			'Preschool child','Mechanic','Prisoner','Craftsman','Healthcare Worker','Soldier'].sort.concat(["Other","Unknown"])
+    #['','Driver','Housewife','Messenger','Business','Farmer','Salesperson','Teacher',
+		#	'Student','Security guard','Domestic worker', 'Police','Office worker',
+		#	'Preschool child','Mechanic','Prisoner','Craftsman','Healthcare Worker','Soldier'].sort.concat(["Other","Unknown"])
+
+    [['',''],["Adalayivala","Driver"],
+    ["Amayi osagwira ntchito","Housewife"],
+    ["Mesenjala","Messenger"],
+    ["Abizinesi","Business"],
+    ["Achikumbe","Farmer"],
+    ["Otsatsa malonda","Salesperson"],
+    ["Aphunzitsi","Teacher"],
+    ["Mwana wasukulu","Student"],
+    ["Mlonda","Security guard"],
+    ["Antchito m'nyumba","Domestic worker"],
+    ["Apolisi","Police"],
+    ["Ogwira muofesi","Office worker"],
+    ["Mwana wakumkaka","Preschool child"],
+    ["Makiniko","Mechanic"],
+    ["Mkayidi","Prisoner"],
+    ["Wazosemasema","Craftsman"],
+    ["Wazaumoyo","Healthcare Worker"],
+    ["Msilikari","Soldier"],
+    ["Ena","Other"]]
   end
 
   def edit
