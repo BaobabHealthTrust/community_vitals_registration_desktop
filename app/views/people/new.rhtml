@@ -293,16 +293,16 @@
 <%= text_field_tag "person[addresses][state_province]", params[:state_province], {
     :id => 'state_province',
     :field_type => 'alpha',
-    :helpText => 'Boma lomwe lokhala',
+    :helpText => 'Boma lomwe  mukukhala',
     :tt_requireNextClick => false, :ajaxURL => '',
     :allowFreeText => false,
     :tt_onLoad => "seen(tstCurrentPage); set_ajaxURL_for_suggestions('/people/district/District?filter_value=' ,document.getElementById('filter_region').value);$('nextButton').style.display = 'none';" } %>
 
-<p><label for="filter_t_a">Mfumu yayikulu(T/A) ya mdera lokhala</label></br>
+<p><label for="filter_t_a">Mfumu yayikulu(T/A) ya mdera lomwe mukukhala</label></br>
 
 <%= text_field "filter" , 't_a', 
     :condition => '$("state_province").value != "Other"',
-    :helpText => 'Mfumu yayikulu(T/A) ya mdera lokhala',
+    :helpText => 'Mfumu yayikulu(T/A) ya mdera lomwe mukukhala',
     :tt_requireNextClick => false,
     :ajaxURL => '',
     :tt_pageStyleClass => "azButton",
