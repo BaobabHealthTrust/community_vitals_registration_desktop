@@ -1921,11 +1921,10 @@ people = Person.find(:all, :include => [{:names => [:person_name_code]}, :patien
 
   def self.update_demographics(params)
     person = Person.find(params['person_id'])
-
     if params.has_key?('person')
       params = params['person']
     end
-
+    
     address_params = params["addresses"]
     names_params = params["names"]
     patient_params = params["patient"]
@@ -1933,20 +1932,18 @@ people = Person.find(:all, :include => [{:names => [:person_name_code]}, :patien
 
     params_to_process = params.reject{|key,value| key.match(/addresses|patient|names|attributes/) }
     birthday_params = params_to_process.reject{|key,value| key.match(/gender/) }
-
+  
     person_params = params_to_process.reject{|key,value| key.match(/birth_|race|action|controller|cat|age_estimate/) }
 
-    if !birthday_params.empty?
-
+    unless birthday_params.blank?
       if birthday_params["birth_year"] == "Unknown"
-        person.set_birthdate_by_age(birthday_params["age_estimate"])
+        self.set_birthdate_by_age(person,birthday_params["age_estimate"])
       else
-        person.set_birthdate(birthday_params["birth_year"], birthday_params["birth_month"], birthday_params["birth_day"])
-      end
-
+        self.set_birthdate(person,birthday_params["birth_year"], birthday_params["birth_month"], birthday_params["birth_day"])
+      end rescue nil
       person.birthdate_estimated = 1 if params["birthdate_estimated"] == 'true'
-      person.save
-    end rescue nil
+      person.save!
+    end
 
     person.update_attributes(person_params) if !person_params.empty?
     person.names.first.update_attributes(names_params) if names_params

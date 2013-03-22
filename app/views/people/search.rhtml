@@ -336,7 +336,7 @@ end -%>
 
       <%= text_field_tag :family_name, params[:family_name], 
         {:field_type => 'alpha',
-        :helpText => 'Dzina la abambo anu',
+        :helpText => 'Dzina la kholo',
         :ajaxURL => '/person_names/family_names?search_string=',
         :tt_onLoad => "changeKeyboardButtonText()",
         :allowFreeText => true }%>
@@ -352,9 +352,9 @@ end -%>
     <% form_tag "select", :method => :post do %>
       <% if @people.blank? %>
         <% if @relation.blank? %>
-          <label for="person">Anthu a mayina aperekedwawo sanapezeke:</label>
+          <label for="person">Anthu a mayina aperekedwawo sanapezeke</label>
         <% else %>
-          <label for="person">:Abale a mayina aperekedwawo sanapezeke:</label>
+          <label for="person">Abale a mayina aperekedwawo sanapezeke</label>
         <% end %>
       <% else -%>
         <% if @relation.blank? %>

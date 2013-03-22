@@ -221,7 +221,7 @@ function createButtons() {
     buttonsDiv.innerHTML = "<button id='showDataButton' class='button blue navButton' onMouseDown='toggleShowProgress()'><span>Show Data</span></button>";
 
     // create next/finish button
-    buttonsDiv.innerHTML += "<button id='nextButton' class='button green navButton' onMouseDown='gotoNextPage()'><span>Next</span></button>";
+    buttonsDiv.innerHTML += "<button id='nextButton' class='button green navButton' onMouseDown='gotoNextPage()'><span> >| </span></button>";
 
     // create back button
     buttonsDiv.innerHTML += "<button id='backButton' class='button blue navButton'><span> |< </span></button>";
@@ -1548,7 +1548,7 @@ function confirmValue() {
     confirmationBar.appendChild(username);
 
     confirmationBar.innerHTML += "<div style='display: block; margin-top: 15px;'><input type='submit'" +
-    " value='OK' class='btn' style='float: left;' onclick='validateConfirmUsername()'" + 
+    " value='Chabwino' class='btn' style='float: left;' onclick='validateConfirmUsername()'" + 
     " onmousedown='validateConfirmUsername()'/><input type='submit' value='Leka' " + 
     " class='btn' style='float: right; right: 3px;' onmousedown='cancelConfirmValue()' />";
 
@@ -1643,8 +1643,8 @@ function showMessage(aMessage, withCancel, timed) {
     "<br />" + (typeof(withCancel) != "undefined" ? (withCancel == true ?
         "<button onmousedown='tstMessageBar.style.display = \"none\"; " +
         "clearTimeout(tstTimerHandle);'><span>Leka</span></button>" : "") : "") +
-    "<button style='width: 200px;' onmousedown='tstMessageBar.style.display = \"none\"; " +
-    "clearTimeout(tstTimerHandle); eval(tstTimerFunctionCall);'><span>OK</span></button>";
+    "<button style='width: 220px;' onmousedown='tstMessageBar.style.display = \"none\"; " +
+    "clearTimeout(tstTimerHandle); eval(tstTimerFunctionCall);'><span>Chabwino</span></button>";
     if (aMessage.length > 0) {
         messageBar.style.display = 'block'
         if((typeof(timed) == "undefined" ? true : timed) == true){
@@ -3216,7 +3216,7 @@ DateSelector.prototype = {
 			</td><td> \
                         <button id="today" ' + (tstCurrentDate ? (tstCurrentDate == tstInternalCurrentDate ? 
             'class="blue" ' : 'class="red" ') : 'class="blue" ') + 
-        ' onmousedown="setToday()" style="width: 150px;"><span>Today</span></button> \
+        ' onmousedown="setToday()" style="width: 150px;"><span>Lero</span></button> \
 			<!--button id="num" onmousedown="updateKeyColor(this);press(this.id);" style="width: 150px;"><span>Num</span></button--> \
 			<button id="Unknown" onmousedown="updateKeyColor(this);press(this.id);" style="width: 150px;"><span>Kaya</span></button> \
 			</tr></table> \

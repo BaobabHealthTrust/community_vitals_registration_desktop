@@ -166,7 +166,7 @@
   <%= select_tag 'current_state', params[:current_state],
       {:id => 'initial_state',
        :field_type => 'alpha',
-       :helpText => "New outcome",
+       :helpText => "Sankhani Zotsatira",
        :tt_onLoad => "resetNextButtonCaption();set_workflow_for_states();", 
        :ajaxURL => "",
        :validationJS =>"validProgram()",
@@ -180,7 +180,7 @@
         {:id => 'current_date',
          :field_type => 'date',
          :tt_onLoad => "changeNextButtonCaption()",
-         :helpText => "New outcome start date",
+         :helpText => "Tsiku la zotsatira",
          :max => "#{(Date.today).strftime('%Y-%m-%d')}",
          :validationJS =>"validStartDate()",
          :validationMessage => "Start date is overlapping with other states start dates",
@@ -188,22 +188,22 @@
 
   <script>
     function resetNextButtonCaption(){
-      $('nextButton').innerHTML = "<span>Next</span>";
+      $('nextButton').innerHTML = "<span> >| </span>";
     }
 
     function changeNextButtonCaption(){
       if((current_state_input_box.value.toUpperCase() != 'PATIENT TRANSFERRED OUT') && (current_state_input_box.value.toUpperCase() != 'REFERRED TO ANOTHER FACILITY')){
-        $('nextButton').innerHTML = "<span>Finish</span>";
+        $('nextButton').innerHTML = "<span>Maliza</span>";
       }
     }
     
     function resetNextButtonCaption(){
-      $('nextButton').innerHTML = "<span>Next</span>";
+      $('nextButton').innerHTML = "<span> >| </span>";
     }
 
     function changeNextButtonText(){
       if((current_state_input_box.value.toUpperCase() == 'REFERRED TO ANOTHER FACILITY')){
-        $('nextButton').innerHTML = "<span>Finish</span>";
+        $('nextButton').innerHTML = "<span>Maliza</span>";
       }
     }
   </script>
@@ -211,7 +211,7 @@
   <%= select_tag 'transfer_out_location_id', nil,
       {:id => 'transfer_out_location_id',
        :field_type => 'alpha',
-       :helpText => "Referral out facility",
+       :helpText => "Mudzi umene munthu akupita",
        :ajaxURL => '/programs/locations?q=',
        :tt_onLoad => "changeNextButtonText();",
        :condition => "current_state_input_box.value.toUpperCase() == 'REFERRED TO ANOTHER FACILITY'",
@@ -220,7 +220,7 @@
   <%= select_tag 'transfer_out_location_id', nil,
       {:id => 'transfer_out_location_id',
        :field_type => 'alpha',
-       :helpText => "Transfer out to location",
+       :helpText => "Mudzi umene munthu akupita",
        :ajaxURL => '/programs/locations?q=',
        :condition => "current_state_input_box.value.toUpperCase() == 'PATIENT TRANSFERRED OUT'",
        :allowFreeText => true } %>
