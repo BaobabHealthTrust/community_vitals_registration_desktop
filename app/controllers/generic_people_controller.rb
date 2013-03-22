@@ -241,7 +241,8 @@ class GenericPeopleController < ApplicationController
     @patient_bean = PatientService.get_patient(Person.find(params[:patient_id] || params[:found_person_id]))
     patient = Patient.find(params[:patient_id] || params[:found_person_id])
     @task = main_next_task(Location.current_location, patient, session_date)
-
+    @latest_outcome = patient.patient_programs.last.patient_states.last.program_workflow_state.concept.fullname rescue nil
+    @logo = CoreService.get_global_property_value('logo') rescue nil
     @encounters = {}
     @encounter_dates = []
 
