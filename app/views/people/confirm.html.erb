@@ -71,6 +71,20 @@ div {
   height: 15px;
   width: 93px;
 }
+.data table{
+  width: 95%;
+  margin-left: 20px;
+  height: 300px;
+  border: 3px solid #FFB90F;
+}
+.logo{
+  position: absolute;
+  top: 10px;
+}
+.demographics{
+margin-left: 200px;
+width: 1060px;
+}
 </style>
 
 <script>
@@ -78,45 +92,79 @@ div {
 
    function changeAttributes(){                                              
      finishButton = document.getElementById("finishButton");
-     finishButton.innerHTML = "<span>Continue</span>"; 
+   
+     finishButton.innerHTML = "<span>Pitiliza</span>";
      finishButton.setAttribute("onclick","javascript:location='<%=@task.url%>'")
 
      btnDIV = document.getElementById('buttons');
-     btnDIV.innerHTML+="<button id='btnCancel' class='red left' value='Cancel' onclick='if (tt_cancel_destination) window.location = tt_cancel_destination;'><span>Cancel</span></button>";
+     btnDIV.innerHTML+="<button id='btnCancel' class='red left' value='Cancel' onclick='if (tt_cancel_destination) window.location = tt_cancel_destination;'><span>Leka</span></button>";
    } 
 
+   function changeButtonPosition(){
+     finishButton = document.getElementById("finishButton");
+     finishButton.style.position = 'absolute';
+     finishButton.style.left = '1150px'
+   }
+   setTimeout("changeButtonPosition();",200);
 </script>
 
-<body onload = "setTimeout('changeAttributes()',500);">
+<body onload = "setTimeout('changeAttributes()',300);">
 
 <div class="main-caption" id = "caption">
   <%=@encounter_dates.first.strftime('%A %d %B %Y') rescue nil%>
 </div>
 
 <div class="main-container">
-
   <div class="right-container">
+    <%= image_tag(@logo, :class=>"logo") %>
     <div class="demographics data">
-      <b>Name:&nbsp;</b><%=@patient_bean.name%>&nbsp;
+      <b>Dzina:&nbsp;</b><%=@patient_bean.name%>&nbsp;
       <%= image_tag("#{@patient_bean.sex.downcase}.gif", :class => 'gender') %><br />
-      <b>Birthdate:</b>&nbsp;<%=@patient_bean.birth_date%>&nbsp;
-      <b>Age:</b>&nbsp;<%=@patient_bean.age%><br />
-      <b>National ID:</b>&nbsp;<%=@patient_bean.national_id_with_dashes%><br />
-      <b>Address</b>&nbsp;<%=  "#{@patient_bean.home_village}, #{@patient_bean.traditional_authority}, #{@patient_bean.home_district}" %><br /><hr />
-      <b>Next task:</b>&nbsp;<%=@task.encounter_type%>
+      <b>Tsiku lobadwa:</b>&nbsp;<%=@patient_bean.birth_date%>&nbsp;<br />
+      <b>Zaka:</b>&nbsp;<%=@patient_bean.age%><br />
+      <b>Nambala ya chiphaso:</b>&nbsp;<%=@patient_bean.national_id_with_dashes%><br />
+      <b>Kochokera :</b>&nbsp;<%=  "#{@patient_bean.home_village}, #{@patient_bean.traditional_authority}, #{@patient_bean.home_district}" %><br /><hr />
+      <% if @latest_outcome %>
+        <b>Zosatira:</b>&nbsp;<%= @latest_outcome %>
+      <% end %>
     </div><p />
 
     <div class="data-main" id="records">
- 
-    <div class="data">
-      <b>Demographics ....</b><br />
-      <b>Guardian:&nbsp;</b><%=@patient_bean.guardian%><br />
-      <b>Home district:&nbsp;</b><%=@patient_bean.home_district%><br />
-      <b>Traditional authority:</b>&nbsp;<%=@patient_bean.traditional_authority%><br />
-      <b>Cell phone number:&nbsp;</b><%=@patient_bean.cell_phone_number%><br />
-      <b>Home phone number:&nbsp;</b><%=@patient_bean.home_phone_number%><br />
-      <b>Office phone number:&nbsp;</b><%=@patient_bean.office_phone_number%><br />
-      <b>Occupation:&nbsp;</b><%=@patient_bean.occupation%><br />
+ <br />
+    <div class="data"><br />
+      <table>
+      <tr>
+        <td colspan="2" style="background-color: #FFB90F; text-align: center; font-weight: bold; font-size: 14pt;">Zina zofunika kuziwa ....</td>
+      </tr>
+      <tr style="background-color: #BEBEBE">
+        <td>Abale</td>
+        <td><%=  @patient_bean.guardian %></td>
+      </tr>
+      <tr style="background-color: #BEBEBE">
+        <td>Boma</td>
+        <td><%=  @patient_bean.home_district %></td>
+      </tr>
+      <tr style="background-color: #BEBEBE">
+        <td>Mfumu yaikulu</td>
+        <td><%=  @patient_bean.traditional_authority %></td>
+      </tr>
+      <tr style="background-color: #BEBEBE">
+        <td>Foni ya m'manja</td>
+        <td><%=  @patient_bean.cell_phone_number %></td>
+      </tr>
+      <tr style="background-color: #BEBEBE">
+        <td>Foni ya ku nyumba</td>
+        <td><%=  @patient_bean.home_phone_number %></td>
+      </tr>
+      <tr style="background-color: #BEBEBE">
+        <td>Foni ya ku ofesi</td>
+        <td><%=  @patient_bean.office_phone_number %></td>
+      </tr>
+      <tr style="background-color: #BEBEBE">
+        <td>Ntchito imene mumagwira</td>
+        <td><%=  @patient_bean.occupation %></td>
+      </tr style="background-color: #BEBEBE">
+      </table><br /><br />
     </div>
 
     </div>
