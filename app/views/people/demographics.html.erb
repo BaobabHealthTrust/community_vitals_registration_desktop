@@ -70,82 +70,67 @@
 </style>
 
 <script type="text/javascript">
-  tt_cancel_destination = "/patients/show?patient_id=<%= @patient.patient_id%>";
+  tt_cancel_destination = "/patients/show?patient_id=<%= @patient_bean.patient_id%>";
 </script>
   </head>
   <body>
 <div class="container">
   <div id="details" style="max-height:650px;overflow:auto;display:block">
-  
-    <%= hidden_field_tag("observations[][patient_id]", @patient.id) %>
-    <%= hidden_field_tag("patient_id", @patient.id) %>
-    
-  
     <div>
 
      <table>
         <tr>
           <td class='title-top'>
-              First Name
+              Dzina loyamba
           </td>
-          <td class='data-top'><%= @first_name %></td>
-		  <td><a href="edit_demographics?patient_id=<%=@patient.id%>&field=first_name&person_id=<%=
-               @patient.id %>&cat=<%= (params["cat"] rescue "") %>&given_name=<%= @first_name %>">Konzani</a></td>
+          <td class='data-top'><%= @patient_bean.first_name %></td>
+		  <td><a href="edit_demographics?patient_id=<%= @patient_bean.patient_id %>&field=first_name">Konzani</a></td>
         </tr>
         <tr>
-          <td class='title'>Last Name</td>
-          <td class='data'><%=@last_name%></td>
-          <td><a href="edit_demographics?patient_id=<%=@patient.id%>&field=last_name&person_id=<%=
-                               @patient.id %>&cat=<%= (params["cat"] rescue "") %>&family_name=<%= @last_name %>">Konzani</a></td>
+          <td class='title'>Dzina la kholo</td>
+          <td class='data'><%= @patient_bean.last_name %></td>
+          <td><a href="edit_demographics?patient_id=<%= @patient_bean.patient_id %>&field=last_name">Konzani</a></td>
         </tr>
 
         <tr>
-          <td class='title'>Birthdate</td>
-          <td class='data'><%=  @birthdate %></td>
-          <td><a href="edit_demographics?patient_id=<%=@patient.id%>&field=birthdate&person_id=<%=
-                               @patient.id %>&cat=<%= (params["cat"] rescue "") %>">Konzani</a></td>
+          <td class='title'>Tsiku lobadwa</td>
+          <td class='data'><%= @patient_bean.birth_date %></td>
+          <td><a href="edit_demographics?patient_id=<%= @patient_bean.patient_id %>&field=birthdate">Konzani</a></td>
         </tr>
         <tr>
-          <td class='title'>Gender</td>
-          <td class='data'><%=@gender%></td>
-          <td><a href="edit_demographics?patient_id=<%=@patient.id%>&field=gender&person_id=<%=
-                               @patient.id %>&cat=<%= (params["cat"] rescue "") %>&gender=<%= (@gender == "Male" ? "M" : "F") %>">Konzani</a></td>
+          <td class='title'>Mwanuma/Mkazi</td>
+          <td class='data'><%= @patient_bean.sex == "Male" ? "Mwamuna":"Mkazi"  %></td>
+          <td><a href="edit_demographics?patient_id=<%= @patient_bean.patient_id %>&field=gender">Konzani</a></td>
         </tr>
 					<tr>
-            <td class='title'>Home District</td>
-            <td class='data'> <%= @home_district %></td>
-			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
-                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=home_district">Konzani</a></td>
+            <td class='title'>Boma lochokera</td>
+            <td class='data'> <%= @patient_bean.home_district %></td>
+			<td><a href="edit_demographics?patient_id=<%= @patient_bean.patient_id %>&field=home_district">Konzani</a></td>
           </tr>
 					<tr>
-            <td class='title'>Home Traditional Authority</td>
-            <td class='data'><%= @current_ta %></td>
-			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
-                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=home_district">Konzani</a></td>
+            <td class='title'>Mfumu yayikulu(T/A)</td>
+            <td class='data'><%= @patient_bean.traditional_authority %></td>
+			<td><a href="edit_demographics?patient_id=<%= @patient_bean.patient_id %>&field=home_district">Konzani</a></td>
           </tr>
 					<tr>
-            <td class='title'>Home Village</td>
-            <td class='data'> <%= @current_village %></td>
- 			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
-                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=home_district">Konzani</a></td>
+            <td class='title'>Mudzi/Dera lochokera</td>
+            <td class='data'> <%= @patient_bean.home_village %></td>
+ 			<td><a href="edit_demographics?patient_id=<%= @patient_bean.patient_id %>&field=home_district">Konzani</a></td>
           </tr>
 					<tr>
-            <td class='title'>Current District</td>
-            <td class='data'> <%= @current_district %></td>
-			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
-                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=current_district"> Konzani</a></td>
+            <td class='title'>Boma lokhala</td>
+            <td class='data'> <%= @patient_bean.current_district   %></td>
+			<td><a href="edit_demographics?patient_id=<%= @patient_bean.patient_id %>&field=current_district"> Konzani</a></td>
          <tr>
-            <td class='title'>Current Residence</td>
-            <td class='data'> <%= @current_residence %></td>
-			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
-                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=current_district"> Konzani</a></td>
+            <td class='title'>Dera lokhala</td>
+            <td class='data'> <%= @patient_bean.current_residence %></td>
+			<td><a href="edit_demographics?patient_id=<%= @patient_bean.patient_id %>&field=current_district"> Konzani</a></td>
           </tr>
 
           <tr>
-            <td class='title'>Plot / Landmark</td>
-            <td class='data'> <%= @landmark %></td>
-			<td><a href="edit_demographics?patient_id=<%=@patient.id%>&person_id=<%=
-                                 @patient.id %>&cat=<%= (params["cat"] rescue "") %>&field=landmark">Konzani</a></td>
+            <td class='title'>Malo odziwika oyandikana nanu</td>
+            <td class='data'> <%= @patient_bean.landmark%></td>
+			<td><a href="edit_demographics?patient_id=<%=@patient_bean.patient_id%>&field=landmark">Konzani</a></td>
           </tr>
 
       </table>
