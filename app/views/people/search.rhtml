@@ -27,9 +27,9 @@ pos = 1
   <% end %>
 
     try {
-      people[<%= pos %>]["Birthdate"] = "<%= person.birth_date rescue "" %>";
+      people[<%= pos %>]["Tsiku lobadwa"] = "<%= person.birth_date rescue "" %>";
     }catch(e){
-      people[<%= pos %>]["Birthdate"] = null;
+      people[<%= pos %>]["Tsiku lobadwa"] = null;
     }
 
     try {
@@ -255,21 +255,21 @@ end -%>
 
       people[pos]["Mwamuna/Mkazi"] = "<%= (data.sex.squish == 'Female' ? 'Mkazi' : 'Mwamuna') rescue nil%>"
 
-      people[pos]["Birthdate"] = "<%=data.birth_date.squish rescue nil%>"
+      people[pos]["Tsiku lobadwa"] = "<%=data.birth_date.squish rescue nil%>"
 
       people[pos]["Year"] = "<%=data.birth_date.to_date.year rescue " " %>";
       if(people[pos]["Year"] == " " ){
-        people[pos]["Year"] =  people[pos]["Birthdate"].split('/')[2].replace("??","");
+        people[pos]["Year"] =  people[pos]["Tsiku lobadwa"].split('/')[2].replace("??","");
       }
 
       people[pos]["Month"] = "<%=data.birth_date.to_date.strftime("%b") rescue "" %>";
       if(people[pos]["Month"] == "" ){
-        people[pos]["Month"] =  people[pos]["Birthdate"].split('/')[1].replace("??","");
+        people[pos]["Month"] =  people[pos]["Tsiku lobadwa"].split('/')[1].replace("??","");
       }
 
       people[pos]["Day"] = "<%=data.birth_date.to_date.day rescue "" %>";
       if(people[pos]["Day"] == " " ){
-        people[pos]["Day"] =  people[pos]["Birthdate"].split('/')[0].replace("??","");
+        people[pos]["Day"] =  people[pos]["Tsiku lobadwa"].split('/')[0].replace("??","");
       }
 
       people[pos]["Zake"] = "<%=data.age.squish rescue nil%>";
@@ -292,9 +292,9 @@ end -%>
       li.setAttribute("tstvalue", <%=data.person_id%>);
       li.setAttribute("pos", i);
       if(people[pos]["Boma"]){
-        li.innerHTML = people[pos]["Dzina"] + " (" + people[pos]["Mwamuna/Mkazi"] + ") " +people[pos]["Birthdate"] + ", " + people[pos]["Boma"];
+        li.innerHTML = people[pos]["Dzina"] + " (" + people[pos]["Mwamuna/Mkazi"] + ") " +people[pos]["Tsiku lobadwa"] + ", " + people[pos]["Boma"];
       }else{
-        li.innerHTML = people[pos]["Dzina"] + " (" + people[pos]["Mwamuna/Mkazi"] + ") " + people[pos]["Birthdate"];
+        li.innerHTML = people[pos]["Dzina"] + " (" + people[pos]["Mwamuna/Mkazi"] + ") " + people[pos]["Tsiku lobadwa"];
       }
       li.setAttribute("tag", ((i + 1)/2 > 0 ? "odd" : "even"));
       li.onmousedown = function(){
