@@ -125,7 +125,7 @@ function createLoadingMessage(){
     msg.style.backgroundColor = "#fff";
     msg.style.fontSize = "2em";
     msg.innerHTML = "<div id='progressAnimation' style='margin-top:35%; " +
-    "font-style: italic; padding-left: 350px; border: 1px solid #fff; text-align: left;'>Loading. Please Wait...</div>";
+    "font-style: italic; padding-left: 350px; border: 1px solid #fff; text-align: left;'>Tikutsegula. Chonde dikilani...</div>";
     msg.style.position = "absolute";
     msg.style.left = "50%";
     msg.style.top = "50%";
@@ -155,14 +155,14 @@ function changeProgressMessage(id){
     }
 
     if(obj){
-        if(obj.innerHTML.trim() == "Loading. Please Wait..."){
-            obj.innerHTML = "Loading. Please Wait";
-        } else if(obj.innerHTML.trim() == "Loading. Please Wait"){
-            obj.innerHTML = "Loading. Please Wait.";
-        } else if(obj.innerHTML.trim() == "Loading. Please Wait."){
-            obj.innerHTML = "Loading. Please Wait..";
-        } else if(obj.innerHTML.trim() == "Loading. Please Wait.."){
-            obj.innerHTML = "Loading. Please Wait...";
+        if(obj.innerHTML.trim() == "Tikutsegula. Chonde dikilani..."){
+            obj.innerHTML = "Tikutsegula. Chonde dikilani";
+        } else if(obj.innerHTML.trim() == "Tikutsegula. Chonde dikilani"){
+            obj.innerHTML = "Tikutsegula. Chonde dikilani.";
+        } else if(obj.innerHTML.trim() == "Tikutsegula. Chonde dikilani."){
+            obj.innerHTML = "Tikutsegula. Chonde dikilani..";
+        } else if(obj.innerHTML.trim() == "Tikutsegula. Chonde dikilani.."){
+            obj.innerHTML = "Tikutsegula. Chonde dikilani...";
         }
 
         setTimeout("changeProgressMessage('" + id + "')", timerout);
