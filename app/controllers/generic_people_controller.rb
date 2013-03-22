@@ -730,7 +730,7 @@ class GenericPeopleController < ApplicationController
   end
 
   def demographics
-    @person = Person.find(params[:id])
+    @person = Person.find(params[:patient_id])
 		@patient_bean = PatientService.get_patient(@person)
 		render :layout => 'menu'
   end
