@@ -2503,7 +2503,7 @@ TTInput.prototype = {
         // check for existence
         this.value = this.element.value
         if (this.value.length<1 && this.element.getAttribute("optional") == null) {
-            return "Choonde sankhanipo chimodzi pa zimene mwapatsidwa kuti mupitilire";
+            return "Chonde sankhanipo chimodzi pa zimene mwapatsidwa kuti mupitilire";
         }
         return "";
     },
@@ -4010,7 +4010,7 @@ function showStatus(){
         popupBox.id = "popupBox";
         popupBox.style.display = "none";
        
-        popupBox.innerHTML = "<p>Choonde dikilani ...</p>"
+        popupBox.innerHTML = "<p>Chonde dikilani ...</p>"
        
         __$("content").appendChild(popupBox);
     }
