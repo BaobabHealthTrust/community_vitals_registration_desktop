@@ -366,5 +366,51 @@ module ApplicationHelper
       end
     end
 	end
+  
+  def state_mapping(name)
+    case name
+        when (/Active/)
+          presenting_state = "Akukhala m'mudzi muno"
+        when (/Mbadwa/)
+          presenting_state = "Akukhala m'mudzi muno"
+        when (/Missing/i)
+          presenting_state = 'Anasowa'
+        when (/Munthu/i)
+          presenting_state = 'Anasowa'
+        when (/died/i)
+          presenting_state = 'Anamwalira'
+        when (/Tx/i)
+          presenting_state = 'Anasamuka'
+        when (/Transfer/i)
+          presenting_state = 'Anasamuka'
+        else
+          presenting_state = name
+      end
+      return presenting_state
+  end
 
+  def occupations_mapping(occupation)
+    
+    occupations = {"Driver" => "Adalayivala",
+    "Housewife" => "Amayi osagwira ntchito",
+    "Messenger" => "Mesenjala" ,
+    "Business" => "Abizinesi" ,
+    "Farmer" => "Achikumbe" ,
+    "Salesperson" => "Otsatsa malonda" ,
+    "Teacher" => "Aphunzitsi"  ,
+    "Student" => "Mwana wasukulu" ,
+    "Security guard" => "Mlonda" ,
+    "Domestic worker" => "Antchito m'nyumba" ,
+    "Police" => "Apolisi" ,
+    "Office worker" => "Ogwira muofesi" ,
+    "Preschool child" => "Mwana wakumkaka" ,
+    "Mechanic" => "Makiniko" ,
+    "Prisoner" => "Mkayidi" ,
+    "Craftsman" =>"Wazosemasema" ,
+    "Healthcare Worker" => "Wazaumoyo"  ,
+    "Soldier" => "Msilikari" ,
+    "Other" => "Ena" }
+
+    return occupations[occupation].blank? ? "" : occupations[occupation]
+  end
 end
