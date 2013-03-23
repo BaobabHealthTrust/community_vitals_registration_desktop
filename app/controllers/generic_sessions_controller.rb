@@ -44,7 +44,7 @@ class GenericSessionsController < ApplicationController
 		valid_location = (generic_locations.include?(location.name)) rescue false
 
 		unless location and valid_location
-			flash[:error] = "Invalid workstation location"
+			flash[:error] = "Mwalowesa dzina lolakwika"
       render :action => 'location'
 			return    
 		end
@@ -60,14 +60,14 @@ class GenericSessionsController < ApplicationController
 	def destroy
 		sign_out(current_user) if !current_user.blank?
 		self.current_location = nil
-		flash[:notice] = "You have been logged out."
+		flash[:notice] = "Mwatuluka."
 		redirect_back_or_default('/')
 	end
 
 	protected
 		# Track failed login attempts
 		def note_failed_signin
-			flash[:error] = "Invalid user name or password"
+			flash[:error] = "Mwalakwisa dzina lolowera kapena dzina la chinsinsi"
 			logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
 		end
 end
