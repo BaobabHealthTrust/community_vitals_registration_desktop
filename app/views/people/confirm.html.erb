@@ -125,7 +125,7 @@ width: 1060px;
       <b>Nambala ya chiphaso:</b>&nbsp;<%=@patient_bean.national_id_with_dashes%><br />
       <b>Kochokera :</b>&nbsp;<%=  "#{@patient_bean.home_village}, #{@patient_bean.traditional_authority}, #{@patient_bean.home_district}" %><br /><hr />
       <% if @latest_outcome %>
-        <b>Zosatira:</b>&nbsp;<%= @latest_outcome %>
+        <b>Zosatira:</b>&nbsp;<%= state_mapping(@latest_outcome) %>
       <% end %>
     </div><p />
 
@@ -162,7 +162,7 @@ width: 1060px;
       </tr>
       <tr style="background-color: #BEBEBE">
         <td>Ntchito imene mumagwira</td>
-        <td><%=  @patient_bean.occupation %></td>
+        <td><%= occupations_mapping(@patient_bean.occupation) %></td>
       </tr style="background-color: #BEBEBE">
       </table><br /><br />
     </div>
