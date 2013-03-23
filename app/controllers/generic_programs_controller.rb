@@ -98,19 +98,25 @@ class GenericProgramsController < ApplicationController
     else
        @states = ProgramWorkflowState.all(:conditions => ['program_workflow_id = ?', params[:workflow]], :include => :concept)
     end
-    
     @names = @states.map{|state|
       name = state.concept.concept_names.typed("SHORT").first.name rescue state.concept.fullname
+      
       next if name.blank? 
-      case name
+       case name
+        when (/Active/)
+          presenting_state = "Akukhala m'mudzi muno"
+        when (/Mbadwa/)
+          presenting_state = "Akukhala m'mudzi muno"
+        when (/Missing/i)
+          presenting_state = 'Anasowa'
         when (/Munthu/i)
-          presenting_state = 'Wasowa'
+          presenting_state = 'Anasowa'
         when (/died/i)
-          presenting_state = 'Wamwalira'
+          presenting_state = 'Anamwalira'
         when (/Tx/i)
-          presenting_state = 'Wapita kumudzi wina'
+          presenting_state = 'Anasamuka'
         when (/Transfer/i)
-          presenting_state = 'Wapita kumudzi wina'
+          presenting_state = 'Anasamuka'
         else
           presenting_state = name
       end
