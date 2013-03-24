@@ -141,12 +141,12 @@ class GenericPeopleController < ApplicationController
 
         #...............................
         # Program handling 
-        if found_person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).blank?
-          found_person.patient.patient_programs.create(:program_id => Program.find_by_name("VHW PROGRAM").id,
+        if found_person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("CIVIL REGISTRATION PROGRAM")).blank?
+          found_person.patient.patient_programs.create(:program_id => Program.find_by_name("CIVIL REGISTRATION PROGRAM").id,
             :date_enrolled => Time.now())
                                                 
-          found_person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("VHW PROGRAM")).transition(
-             :state => "Active phase",:start_date => Time.now()) 
+          found_person.patient.patient_programs.find_last_by_program_id(Program.find_by_name("CIVIL REGISTRATION PROGRAM")).transition(
+             :state => "MBADWA YA M'MUDZI",:start_date => Time.now())
         end
         #...............................
 
