@@ -1,0 +1,3 @@
+config:
+  list_of_tas: "lilongwe:mtema"
+  file_location: /home/catchit/work/test_tas
