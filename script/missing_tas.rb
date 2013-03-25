@@ -41,8 +41,8 @@ def insert_missing_ta
 		current_ta[0] = our_ta.first.capitalize[0]
 		log "Searching for T.A : #{our_ta}"
 		begin
-  				FasterCSV.foreach("#{current_root}", :quote_char => '"', :col_sep =>';', :row_sep =>:auto) do |row|
-			@ta = TraditionalAuthority.first(:conditions  => ['district_id = ? and name = ?', dis, our_ta])
+			FasterCSV.foreach("#{current_root}", :quote_char => '"', :col_sep =>';', :row_sep =>:auto) do |row|
+        @ta = TraditionalAuthority.first(:conditions  => ['district_id = ? and name = ?', dis, our_ta])
 				if @ta.nil?
 					ta = TraditionalAuthority.new
 					ta.name = our_ta
