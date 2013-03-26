@@ -38,7 +38,8 @@ mysql --host=$HOST --user=$USERNAME --password=$PASSWORD $DATABASE < db/bart2_vi
 #echo "defaults"
 mysql --host=$HOST --user=$USERNAME --password=$PASSWORD $DATABASE < db/defaults.sql
 #echo "user schema modifications"
-#mysql --host=$HOST --user=$USERNAME --password=$PASSWORD $DATABASE < db/user_schema_modifications.sql
+mysql --host=$HOST --user=$USERNAME --password=$PASSWORD $DATABASE < db/openmrs_metadata_1_7.sql
+mysql --host=$HOST --user=$USERNAME --password=$PASSWORD $DATABASE < db/user_schema_modifications.sql
 mysql --host=$HOST --user=$USERNAME --password=$PASSWORD $DATABASE < db/malawi_regions.sql
 mysql --host=$HOST --user=$USERNAME --password=$PASSWORD $DATABASE < db/mysql_functions.sql
 mysql --host=$HOST --user=$USERNAME --password=$PASSWORD $DATABASE < db/drug_ingredient.sql
