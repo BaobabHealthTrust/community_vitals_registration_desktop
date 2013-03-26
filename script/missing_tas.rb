@@ -45,7 +45,7 @@ def insert_missing_ta
         @ta = TraditionalAuthority.first(:conditions  => ['district_id = ? and name = ?', dis, our_ta])
 				if @ta.nil?
 					ta = TraditionalAuthority.new
-					ta.name = our_ta
+					ta.name = our_ta.titleize
 					ta.district_id = dis
 					ta.date_created = Time.now
 					ta.creator = 1
