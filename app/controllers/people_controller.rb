@@ -16,33 +16,41 @@ class PeopleController < GenericPeopleController
     end_day = params[:end_day]
     end_date = (end_year + '-' + end_month + '-' + end_day).to_date
     @end_date = end_date
+    user_person_ids = User.all.map(&:person_id)
     @total_registered = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
-        DATE(date_created) <= ?",start_date,end_date ])
+        DATE(date_created) <= ? AND person_id NOT IN(?)",start_date,
+        end_date, user_person_ids])
 
     @total_men_registered = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
-        DATE(date_created) <= ? AND gender =?",start_date,end_date,'m' ])
+        DATE(date_created) <= ? AND gender =? AND person_id NOT IN(?)",start_date,
+        end_date,'m', user_person_ids])
 
     @total_women_registered = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
-        DATE(date_created) <= ? AND gender =?",start_date,end_date,'f' ])
+        DATE(date_created) <= ? AND gender =? AND person_id NOT IN(?)",start_date,
+        end_date,'f', user_person_ids])
 
     @children = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
-        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 <= 9",start_date,end_date ])#children 0 to 9
+        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 <= 9 AND person_id NOT IN(?)",
+        start_date,end_date, user_person_ids])#children 0 to 9
 
     @adolescents = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
         DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 > 9
- AND DATEDIFF(Now(),birthdate)/365 <= 19",start_date,end_date ])#adolescents 10 to 19
+        AND DATEDIFF(Now(),birthdate)/365 <= 19 AND person_id NOT IN(?)",start_date,
+        end_date, user_person_ids])#adolescents 10 to 19
 
     @adults = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
         DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 > 19
- AND DATEDIFF(Now(),birthdate)/365 <= 45",start_date,end_date ])#adults 20 to 45
+        AND DATEDIFF(Now(),birthdate)/365 <= 45 AND person_id NOT IN(?)",start_date,
+        end_date, user_person_ids ])#adults 20 to 45
 
     @middle_age = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
         DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 > 45
- AND DATEDIFF(Now(),birthdate)/365 <= 60",start_date,end_date ])#middle_age 46 to 60
+        AND DATEDIFF(Now(),birthdate)/365 <= 60 AND person_id NOT IN(?)",start_date,
+        end_date, user_person_ids ])#middle_age 46 to 60
 
     @elders = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
-        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 > 60",
-        start_date,end_date ])#elders > 60
+        DATE(date_created) <= ? AND DATEDIFF(Now(),birthdate)/365 > 60 AND person_id NOT IN(?)",
+        start_date,end_date, user_person_ids ])#elders > 60
 
    render:layout=>"menu"
   end
