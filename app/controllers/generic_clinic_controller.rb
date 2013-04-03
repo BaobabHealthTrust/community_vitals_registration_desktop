@@ -78,70 +78,75 @@ class GenericClinicController < ApplicationController
   end
 
   def overview_tab
+    user_person_ids = User.all.map(&:person_id)
     @men_today = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
-    AND gender =? AND Date(date_created) =?", 18,'m',Date.today])
-
+    AND gender =? AND Date(date_created) =? AND person_id NOT IN(?)", 18,'m',
+        Date.today, user_person_ids])
+    
     @men_this_week = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
-        Date.today.beginning_of_week - 1, Date.today.end_of_week - 1])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)",
+        18,'m',Date.today.beginning_of_week - 1, Date.today.end_of_week - 1, user_person_ids])
 
     @men_this_month = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
-        Date.today.beginning_of_month, Date.today.end_of_month])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)",
+        18,'m',Date.today.beginning_of_month, Date.today.end_of_month, user_person_ids])
 
     @men_this_year = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
-        Date.today.beginning_of_year, Date.today.end_of_year])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)",
+        18,'m',Date.today.beginning_of_year, Date.today.end_of_year, user_person_ids])
     
     #==========================================================================
     @women_today = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
-    AND gender =? AND Date(date_created) =?", 18,'f',Date.today])
+    AND gender =? AND Date(date_created) =? AND person_id NOT IN(?)", 
+        18,'f',Date.today, user_person_ids])
 
     @women_this_week = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
-        Date.today.beginning_of_week - 1, Date.today.end_of_week - 1])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)", 
+        18,'f', Date.today.beginning_of_week - 1, Date.today.end_of_week - 1, user_person_ids])
 
     @women_this_month = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
-        Date.today.beginning_of_month, Date.today.end_of_month])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)", 
+        18,'f', Date.today.beginning_of_month, Date.today.end_of_month, user_person_ids])
 
     @women_this_year = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 >= ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
-        Date.today.beginning_of_year, Date.today.end_of_year])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)", 
+        18,'f', Date.today.beginning_of_year, Date.today.end_of_year, user_person_ids])
 
     #============================================================================
 
     @boys_today = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
-    AND gender =? AND Date(date_created) =?", 18,'m',Date.today])
+    AND gender =? AND Date(date_created) =? AND person_id NOT IN(?)", 
+        18,'m',Date.today, user_person_ids])
 
     @boys_this_week = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
-        Date.today.beginning_of_week - 1, Date.today.end_of_week - 1])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)", 
+        18,'m',Date.today.beginning_of_week - 1, Date.today.end_of_week - 1, user_person_ids])
 
     @boys_this_month = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
-        Date.today.beginning_of_month, Date.today.end_of_month])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)", 
+        18,'m', Date.today.beginning_of_month, Date.today.end_of_month, user_person_ids])
 
     @boys_this_year = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'m',
-        Date.today.beginning_of_year, Date.today.end_of_year])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)", 
+        18,'m',Date.today.beginning_of_year, Date.today.end_of_year, user_person_ids])
 
     #============================================================================
 
     @girls_today = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
-    AND gender =? AND Date(date_created) =?", 18,'f',Date.today])
+    AND gender =? AND Date(date_created) =? AND person_id NOT IN(?)", 
+        18,'f',Date.today, user_person_ids])
 
     @girls_this_week = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
-        Date.today.beginning_of_week - 1, Date.today.end_of_week - 1])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)", 
+        18,'f',Date.today.beginning_of_week - 1, Date.today.end_of_week - 1, user_person_ids])
 
     @girls_this_month = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
-        Date.today.beginning_of_month, Date.today.end_of_month])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)", 
+        18,'f', Date.today.beginning_of_month, Date.today.end_of_month, user_person_ids])
 
     @girls_this_year = Person.find(:all, :conditions => ["DATEDIFF(Now(),birthdate)/365 < ?
-    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ?", 18,'f',
-        Date.today.beginning_of_year, Date.today.end_of_year])
+    AND gender =? AND Date(date_created) >= ? AND Date(date_created) <= ? AND person_id NOT IN(?)", 
+        18,'f', Date.today.beginning_of_year, Date.today.end_of_year, user_person_ids])
   #==============================================================================
     render :layout => false
   end
