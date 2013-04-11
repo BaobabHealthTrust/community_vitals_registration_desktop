@@ -539,7 +539,7 @@ module DDEService
 
     else
       national_id = params["person"]["patient"]["identifiers"]["National id"]
-      # national_id = params["person"]["patient"]["identifiers"]["old_identification_number"]
+      national_id = params["person"]["value"] if national_id.blank? rescue nil
     end
 
     if (dont_recreate_local == false)
