@@ -84,6 +84,108 @@ class PeopleController < GenericPeopleController
     redirect_to :action => 'demographics', :patient_id => params['person_id'] and return
   end
 
+  def community_vitals_report
+    @logo = CoreService.get_global_property_value('logo') rescue nil
+    @location_name = Location.current_health_center.name rescue nil
+    start_year = params[:start_year]
+    start_month = params[:start_month]
+    start_day = params[:start_day]
+    start_date = (start_year + '-' + start_month + '-' + start_day).to_date
+    @start_date = start_date
+    end_year = params[:end_year]
+    end_month = params[:end_month]
+    end_day = params[:end_day]
+    end_date = (end_year + '-' + end_month + '-' + end_day).to_date
+    @end_date = end_date
+    user_person_ids = User.all.map(&:person_id)
 
+    total_registered_people = Person.find(:all, :conditions => ["DATE(date_created) >= ? AND
+        DATE(date_created) <= ? AND person_id NOT IN(?)",start_date,
+        end_date, user_person_ids])
+    @data = {}
+    total_registered_people.each do |person|
+      next if person.addresses.blank?
+      county_district = person.addresses.last.county_district rescue 'unknown'
+      city_village = person.addresses.last.city_village
+      if (@data[county_district].blank?)
+        @data[county_district] = {}
+      end
+      if (@data[county_district])
+        if (@data[county_district][city_village].blank?)
+          @data[county_district][city_village] = {}
+        end
+        if (@data[county_district][city_village])
+          if (@data[county_district][city_village][:total_registered].blank?)
+            @data[county_district][city_village][:total_registered] = {}
+          end
+          if (@data[county_district][city_village][:total_registered])
+            if (@data[county_district][city_village][:total_registered][:males].blank?)
+              @data[county_district][city_village][:total_registered][:males] = 0
+            end
+            unless (@data[county_district][city_village][:total_registered][:males].blank?)
+              @data[county_district][city_village][:total_registered][:males] +=1 if person.gender.upcase == 'M'
+            end
+
+            if (@data[county_district][city_village][:total_registered][:females].blank?)
+              @data[county_district][city_village][:total_registered][:females] = 0
+            end
+            unless (@data[county_district][city_village][:total_registered][:females].blank?)
+              @data[county_district][city_village][:total_registered][:females] +=1 if person.gender.upcase == 'F'
+            end
+            
+          end
+          
+          if (@data[county_district][city_village][:total_birth].blank?)
+            @data[county_district][city_village][:total_birth] = {}
+          end
+          if (@data[county_district][city_village][:total_birth])
+            if (@data[county_district][city_village][:total_birth][:males].blank?)
+              @data[county_district][city_village][:total_birth][:males] = 0
+            end
+            unless (@data[county_district][city_village][:total_birth][:males].blank?)
+              if (person.birthdate >=start_date && person.birthdate <= end_date)
+                @data[county_district][city_village][:total_birth][:males] +=1 if person.gender.upcase == 'M'
+              end
+            end
+
+            if (@data[county_district][city_village][:total_birth][:females].blank?)
+              @data[county_district][city_village][:total_birth][:females] = 0
+            end
+            unless (@data[county_district][city_village][:total_birth][:females].blank?)
+              if (person.birthdate >=start_date && person.birthdate <= end_date)
+                @data[county_district][city_village][:total_birth][:females] +=1 if person.gender.upcase == 'F'
+              end
+            end
+
+          end
+
+          #****************
+          if (@data[county_district][city_village][:total_died].blank?)
+            @data[county_district][city_village][:total_died] = {}
+          end
+          if (@data[county_district][city_village][:total_died])
+            if (@data[county_district][city_village][:total_died][:males].blank?)
+              @data[county_district][city_village][:total_died][:males] = 0
+            end
+            unless (@data[county_district][city_village][:total_died][:males].blank?)
+              if (person.dead == 1 && person.gender.upcase == 'M')
+                @data[county_district][city_village][:total_died][:males] +=1
+              end
+            end
+
+            if (@data[county_district][city_village][:total_died][:females].blank?)
+              @data[county_district][city_village][:total_died][:females] = 0
+            end
+            unless (@data[county_district][city_village][:total_died][:females].blank?)
+              if (person.dead == 1 && person.gender.upcase == 'F')
+                @data[county_district][city_village][:total_died][:females] +=1
+              end
+            end
+
+          end
+        end
+      end
+    end
+  end
+  
 end
- 
