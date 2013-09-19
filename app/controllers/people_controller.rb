@@ -3,6 +3,9 @@ class PeopleController < GenericPeopleController
     
   end
 
+  def community_report_menu
+    
+  end
   def community_report
     @logo = CoreService.get_global_property_value('logo') rescue nil
     @location_name = Location.current_health_center.name rescue nil
@@ -186,6 +189,7 @@ class PeopleController < GenericPeopleController
         end
       end
     end
+    render:layout=>"menu"
   end
   
 end
