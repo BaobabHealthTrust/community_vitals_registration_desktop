@@ -154,7 +154,7 @@ class GenericClinicController < ApplicationController
   def reports_tab
     @reports = [
       ["Muonkhetso wa Anthu Onse","/people/report_menu"],
-      ["Report by T/A","/people/community_report_menu"]
+      ["Muonkhetso wa M'madela","/people/community_report_menu"]
     ]
     render :layout => false
   end
